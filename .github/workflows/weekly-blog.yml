@@ -70,4 +70,4 @@ jobs:
 
             7. Commit and push: `git add posts/ state.json README.md && git commit -m "blog: weekly update YYYY-MM-DD" && git push`
 
-          claude_args: "--max-turns 15 --allowedTools Read,Write,Bash(date:*),Bash(git:*),Bash(rm:*)"
+          claude_args: "--max-turns 15 --allowedTools Edit,Read,Write,Bash(date:*),Bash(git:*),Bash(rm:*)"
