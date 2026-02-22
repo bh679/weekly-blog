@@ -18,9 +18,9 @@ echo "Date range: $SEVEN_DAYS_AGO to now"
 # --- 1. GitHub Events for user bh679 ---
 echo "Fetching GitHub events..."
 
-EVENTS=$(gh api users/bh679/events --paginate --jq '.' 2>/dev/null || echo '[]')
-# Filter to last 7 days and extract key event types
-RECENT_EVENTS=$(echo "$EVENTS" | jq --arg since "$SEVEN_DAYS_AGO" '[
+# --paginate returns separate JSON arrays per page; merge them with jq -s 'add'
+RAW_EVENTS=$(gh api users/bh679/events --paginate 2>/dev/null || echo '[]')
+RECENT_EVENTS=$(echo "$RAW_EVENTS" | jq -s 'add // []' | jq --arg since "$SEVEN_DAYS_AGO" '[
   .[] | select(.created_at >= $since) |
   {
     type: .type,
@@ -118,7 +118,8 @@ echo "Found $CHESS_ITEM_COUNT Chess project board items."
 # --- 4. Merged PRs across all repos ---
 echo "Fetching merged PRs across all repos..."
 
-ALL_MERGED_PRS=$(gh search prs --author bh679 --merged ">=$SEVEN_DAYS_AGO" --json repository,title,number,closedAt --limit 30 2>/dev/null || echo '[]')
+# gh search prs uses --merged for date filter
+ALL_MERGED_PRS=$(gh search prs --author bh679 --merged ">=$SEVEN_DAYS_AGO" --json repository,title,number,updatedAt --limit 30 2>/dev/null || echo '[]')
 ALL_PR_COUNT=$(echo "$ALL_MERGED_PRS" | jq 'length')
 echo "Found $ALL_PR_COUNT merged PRs across all repos."
 
@@ -127,7 +128,8 @@ echo "Reading previous state..."
 
 if [ -f "state.json" ]; then
   PREVIOUS_STATE=$(cat state.json)
-  echo "Previous state found (last run: $(echo "$PREVIOUS_STATE" | jq -r '.last_run // "never"'))"
+  LAST_RUN=$(echo "$PREVIOUS_STATE" | jq -r '.last_run // "never"')
+  echo "Previous state found (last run: $LAST_RUN)"
 else
   PREVIOUS_STATE='{"last_run": null, "repos_snapshot": {}, "chess_project_board_snapshot": {"items": []}}'
   echo "No previous state found — first run."
