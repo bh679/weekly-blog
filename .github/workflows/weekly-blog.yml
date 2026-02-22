@@ -68,9 +68,6 @@ jobs:
 
             6. Delete `data-current.json` (temporary file).
 
-            7. Commit all changes with: `git add posts/ state.json README.md && git commit -m "blog: weekly update YYYY-MM-DD"`
+            7. Commit and push: `git add posts/ state.json README.md && git commit -m "blog: weekly update YYYY-MM-DD" && git push`
 
           claude_args: "--max-turns 15 --allowedTools Read,Write,Bash(date:*),Bash(git:*),Bash(rm:*)"
-
-      - name: Push changes
-        run: git push
