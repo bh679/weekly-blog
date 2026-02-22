@@ -152,7 +152,7 @@ jq -n \
     period: {start: $period_start, end: $period_end},
     github_events: {
       total: ($events | length),
-      by_type: ($events | group_by(.type) | map({key: .[0].type, value: length}) | from_entries),
+      by_type: ([$events[] | select(.type != null)] | group_by(.type) | map({key: .[0].type, value: length}) | from_entries),
       events: $events
     },
     repos_with_activity: $repo_summaries,
@@ -160,7 +160,7 @@ jq -n \
       items: $chess_items,
       summary: {
         total: ($chess_items | length),
-        by_status: ($chess_items | group_by(.status) | map({key: .[0].status, value: length}) | from_entries)
+        by_status: ([$chess_items[] | select(.status != null)] | group_by(.status) | map({key: .[0].status, value: length}) | from_entries)
       }
     },
     all_merged_prs: $all_merged_prs,
