@@ -1,0 +1,170 @@
+name: Weekly All-Projects Blog
+
+on:
+  schedule:
+    - cron: '0 10 * * 1' # Every Monday at 10:00 AM UTC (1 hour after chess blog)
+  workflow_dispatch: # Manual trigger for testing
+
+permissions:
+  contents: write
+
+jobs:
+  generate-blog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fetch cross-project data
+        env:
+          GH_TOKEN: ${{ secrets.PROJECT_PAT }}
+        run: bash .github/scripts/fetch-all-data.sh
+
+      - name: Generate blog post
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          TODAY=$(date -u +%Y-%m-%d)
+          DATA=$(cat /tmp/weekly-blog-data.json)
+
+          # Read existing posts for style reference
+          EXISTING_POSTS=""
+          for f in $(ls -t posts/*.md 2>/dev/null | head -2); do
+            EXISTING_POSTS="$EXISTING_POSTS
+          --- Previous post: $f ---
+          $(cat "$f")
+          "
+          done
+
+          # Build the prompt
+          PROMPT=$(cat <<PROMPT_EOF
+          You are Brennan's weekly development blog writer. Generate a blog post
+          covering everything Brennan has been working on across all projects this week.
+
+          ## Data
+
+          \`\`\`json
+          $DATA
+          \`\`\`
+
+          ## Previous Posts (for style reference)
+
+          $EXISTING_POSTS
+
+          ## Instructions
+
+          Generate a markdown blog post for the week of $TODAY. The post should:
+
+          1. Start with YAML frontmatter:
+             ---
+             title: "Week of $TODAY: <descriptive title>"
+             date: $TODAY
+             summary: "<one-sentence summary>"
+             projects:
+               - <list of repos with activity>
+             ---
+
+          2. Use this structure:
+             # Week of $TODAY: <title>
+
+             Brief overview paragraph of the week.
+
+             ## <Project Name 1>
+             - What happened in this project
+             - Key commits, PRs, features
+
+             ## <Project Name 2>
+             - ...
+
+             (One section per active repo/project)
+
+             ## Chess Project Board
+             - Status changes since last week
+             - What's in development, what completed
+
+             ## Coming Up
+             - What's planned for next week across projects
+
+          3. Keep it 400-800 words, conversational, and developer-focused
+          4. Group by project, not by event type
+          5. If a project has a lot of activity, highlight the most important changes
+          6. If there's minimal activity, write a brief "quiet week" post
+          7. Output ONLY the markdown content, nothing else
+
+          PROMPT_EOF
+          )
+
+          # Call Anthropic API
+          RESPONSE=$(curl -s https://api.anthropic.com/v1/messages \
+            -H "x-api-key: $ANTHROPIC_API_KEY" \
+            -H "anthropic-version: 2023-06-01" \
+            -H "content-type: application/json" \
+            -d "$(jq -n \
+              --arg prompt "$PROMPT" \
+              '{
+                model: "claude-sonnet-4-20250514",
+                max_tokens: 3000,
+                messages: [{role: "user", content: $prompt}]
+              }')")
+
+          # Extract the text content
+          BLOG_CONTENT=$(echo "$RESPONSE" | jq -r '.content[0].text')
+
+          if [ -z "$BLOG_CONTENT" ] || [ "$BLOG_CONTENT" = "null" ]; then
+            echo "ERROR: Failed to generate blog post"
+            echo "API response: $RESPONSE"
+            exit 1
+          fi
+
+          # Write the blog post
+          echo "$BLOG_CONTENT" > "posts/${TODAY}.md"
+          echo "Blog post written to posts/${TODAY}.md"
+
+      - name: Update blog index
+        run: |
+          TODAY=$(date -u +%Y-%m-%d)
+          POST_FILE="posts/${TODAY}.md"
+
+          # Extract title from frontmatter
+          TITLE=$(sed -n 's/^title: *"\(.*\)"/\1/p' "$POST_FILE" | head -1)
+          if [ -z "$TITLE" ]; then
+            TITLE="Weekly Update $TODAY"
+          fi
+
+          # Add new row to README.md after the header row
+          sed -i "/<!-- New posts are added above this line/i | [$TODAY](posts/${TODAY}.md) | $TITLE |" README.md
+
+          echo "Index updated with: $TITLE"
+
+      - name: Update state snapshot
+        run: |
+          TODAY=$(date -u +%Y-%m-%d)
+          DATA=$(cat /tmp/weekly-blog-data.json)
+
+          # Build the state snapshot
+          echo "$DATA" | jq "{
+            last_run: \"$TODAY\",
+            repos_snapshot: (
+              .repos_with_activity | map({key: .repo, value: {
+                commit_count: .commit_count,
+                pr_count: .pr_count,
+                latest_commit_sha: (.commits[0].sha // null)
+              }}) | from_entries
+            ),
+            chess_project_board_snapshot: {
+              items: .chess_project_board.items
+            }
+          }" > state.json
+
+          echo "State snapshot updated"
+
+      - name: Commit and push
+        run: |
+          TODAY=$(date -u +%Y-%m-%d)
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add posts/ state.json README.md
+          git diff --staged --quiet && echo "No changes to commit" && exit 0
+          git commit -m "blog: weekly update $TODAY"
+          git push
