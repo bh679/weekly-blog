@@ -51,53 +51,35 @@ jobs:
             You are Brennan's weekly development blog writer. Your task: generate a blog
             post covering everything Brennan worked on this week, then publish it to the wiki.
 
-            ## Blog Writing Guidelines
-
-            Structure:
-            - Breadcrumb line: `[[Home]] · [[Development-Blog]] · Blog: YYYY-MM-DD`
-            - H1 title — sharp and descriptive
-            - Links to relevant project(s) (e.g. `[Chess](https://brennan.games/chess/) | [AutoClaude](https://github.com/bh679/AutoClaude)`)
-
-            Headings (H2):
-            - Tell the full story in the headings, as short as possible
-            - Short, sharp, and to the point
-            - Use subheadings (H3) the same way if needed
-            - One H2 per active project/repo, plus a Coming Up section
-
-            For every heading section:
-            - A short paragraph (1-5 sentences max) OR concise bullet points — no fluff
-            - Include an image every second heading (use `![alt](URL)` with relevant screenshots or diagrams if available)
-            - Bullet points are good to show extent of content — link to relevant repos or docs where appropriate
-            - End each section with a relevant call to action when appropriate
-
-            Paragraphs: 1-5 sentences only. Keep short, engaging, and to the point. No fluff.
-
-            End the whole blog with a call to action:
-            - Link to try the latest (e.g. "Try the latest: [brennan.games/chess](https://brennan.games/chess/)")
-            - Identify a target audience this should be shared with
-
-            NO YAML frontmatter — this is a wiki page.
-
             ## Steps
 
-            1. Read `data-current.json` — this contains:
+            1. Read `blog-post-guidelines.md` — these are the writing guidelines you MUST follow for the blog post.
+
+            2. Read `blog-index-template.md` — this is the template you MUST follow when updating the Development-Blog index page.
+
+            3. Read `data-current.json` — this contains:
                - GitHub Events for user bh679 (commits, PRs, issues across all repos)
                - Per-repo commit summaries and merged PRs
                - Chess project board items with statuses
                - Previous week's state for comparison
 
-            2. Read existing blog posts in `wiki-checkout/` (files matching `Blog:-*.md`) for style reference.
+            4. Read existing blog posts in `wiki-checkout/` (files matching `Blog:-*.md`) for style reference.
 
-            3. Get today's date: `date -u +%Y-%m-%d`
+            5. Get today's date: `date -u +%Y-%m-%d`
 
-            4. Create a new file `wiki-checkout/Blog:-YYYY-MM-DD.md` (replace YYYY-MM-DD with today's date).
-               Follow the Blog Writing Guidelines above. Compare current data to `previous_state` to identify what changed.
+            6. Create a new file `wiki-checkout/Blog:-YYYY-MM-DD.md` (replace YYYY-MM-DD with today's date).
+               Follow the blog post guidelines from step 1. Compare current data to `previous_state` to identify what changed.
 
-            5. Update `wiki-checkout/Development-Blog.md` — add a new table row above the
+            7. Update `wiki-checkout/Development-Blog.md` — add a new entry above the
                `<!-- New posts are added above this line -->` comment.
-               Format: `| YYYY-MM-DD | [[Blog:-YYYY-MM-DD|<title>]] |`
+               Follow the blog index template from step 2. Format:
+               ```
+               ## [[Blog:-YYYY-MM-DD|<title>]]
+               YYYY-MM-DD — All Projects
+               <1-2 sentence abstract>
+               ```
 
-            6. Update `state.json` — overwrite with current snapshot:
+            8. Update `state.json` — overwrite with current snapshot:
                ```json
                {
                  "last_run": "YYYY-MM-DD",
@@ -106,16 +88,16 @@ jobs:
                }
                ```
 
-            7. Delete `data-current.json` (temporary file).
+            9. Delete `data-current.json` (temporary file).
 
-            8. Commit and push the wiki:
-               ```bash
-               cd wiki-checkout && git add -A && git commit -m "Blog: weekly update YYYY-MM-DD" && git push
-               ```
+            10. Commit and push the wiki:
+                ```bash
+                cd wiki-checkout && git add -A && git commit -m "Blog: weekly update YYYY-MM-DD" && git push
+                ```
 
-            9. Commit and push state in the main repo:
-               ```bash
-               cd /home/runner/work/weekly-blog/weekly-blog && git add state.json && git commit -m "blog: update state YYYY-MM-DD" && git push
-               ```
+            11. Commit and push state in the main repo:
+                ```bash
+                cd /home/runner/work/weekly-blog/weekly-blog && git add state.json && git commit -m "blog: update state YYYY-MM-DD" && git push
+                ```
 
           claude_args: "--max-turns 25 --allowedTools Edit,Read,Write,Bash(date:*),Bash(git:*),Bash(rm:*),Bash(cd:*),Bash(ls:*)"
