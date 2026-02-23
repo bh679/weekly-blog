@@ -9,7 +9,7 @@ This template governs how the `Home.md` wiki page is structured. The blog index 
 
 AI-generated weekly summaries of development activity across all of Brennan's projects. Published every Monday at 10:00 AM UTC via GitHub Actions.
 
-## [[Blog:-Title-Slug|Blog Post Title]]
+## [Blog Post Title](/bh679/weekly-blog/wiki/Blog:-Title-Slug)
 YYYY-MM-DD — All Projects
 1-2 sentence abstract describing the key changes this week.
 
@@ -19,10 +19,11 @@ YYYY-MM-DD — All Projects
 ## Rules
 
 - The blog index is the wiki Home page (`Home.md`), NOT a separate Development-Blog page
-- Each post entry uses an **H2 heading** with a wiki-link: `## [[Blog:-Title-Slug|Blog Post Title]]`
-- The wiki-link target is the blog post filename without `.md` (e.g. `Blog:-AutoClaude-Launches-and-Chess-Gets-User-Accounts`)
-- The link display text is the blog post title (no date)
+- Each post entry uses an **H2 heading** with a markdown link: `## [Blog Post Title](/bh679/weekly-blog/wiki/Blog:-Title-Slug)`
+- The URL path is `/bh679/weekly-blog/wiki/Blog:-<Title-Slug>` — an absolute path to the wiki page
+- The link display text is the blog post title (no date, no subtitle)
 - Below the heading: the date and project name on one line (e.g. `2026-02-23 — All Projects`)
 - Below that: a 1-2 sentence abstract
 - New posts are added **above** the `<!-- New posts are added above this line -->` comment
 - Newest posts appear first (reverse chronological order)
+- Do NOT use `[[wiki-link]]` syntax for blog post links — it doesn't work reliably in H2 headings
