@@ -55,7 +55,7 @@ jobs:
 
             1. Read `blog-post-guidelines.md` — these are the writing guidelines you MUST follow for the blog post.
 
-            2. Read `blog-index-template.md` — this is the template you MUST follow when updating the Development-Blog index page.
+            2. Read `blog-index-template.md` — this is the template you MUST follow when updating the wiki Home page (which IS the blog index).
 
             3. Read `data-current.json` — this contains:
                - GitHub Events for user bh679 (commits, PRs, issues across all repos)
@@ -67,14 +67,18 @@ jobs:
 
             5. Get today's date: `date -u +%Y-%m-%d`
 
-            6. Create a new file `wiki-checkout/Blog:-YYYY-MM-DD.md` (replace YYYY-MM-DD with today's date).
-               Follow the blog post guidelines from step 1. Compare current data to `previous_state` to identify what changed.
+            6. Create a new wiki page file in `wiki-checkout/`.
+               - Choose a sharp, descriptive title for the blog post
+               - Convert the title to a hyphenated slug (e.g. "AutoClaude Launches" → "AutoClaude-Launches")
+               - Filename: `wiki-checkout/Blog:-<Title-Slug>.md` (e.g. `Blog:-AutoClaude-Launches.md`)
+               - Do NOT include dates in the filename
+               - Follow the blog post guidelines from step 1. Compare current data to `previous_state` to identify what changed.
 
-            7. Update `wiki-checkout/Development-Blog.md` — add a new entry above the
+            7. Update `wiki-checkout/Home.md` — add a new entry above the
                `<!-- New posts are added above this line -->` comment.
                Follow the blog index template from step 2. Format:
                ```
-               ## [[Blog:-YYYY-MM-DD|<title>]]
+               ## [[Blog:-<Title-Slug>|<title>]]
                YYYY-MM-DD — All Projects
                <1-2 sentence abstract>
                ```
