@@ -27,6 +27,15 @@ jobs:
       - name: Save data for Claude
         run: cp /tmp/weekly-blog-data.json ./data-current.json
 
+      - name: Clone wiki
+        env:
+          GH_TOKEN: ${{ secrets.PROJECT_PAT }}
+        run: |
+          git clone https://x-access-token:${GH_TOKEN}@github.com/bh679/weekly-blog.wiki.git wiki-checkout
+          cd wiki-checkout
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Install Claude Code
         run: |
           npm install -g @anthropic-ai/claude-code@2.1.18
@@ -40,7 +49,7 @@ jobs:
           path_to_claude_code_executable: ${{ env.CLAUDE_PATH }}
           prompt: |
             You are Brennan's weekly development blog writer. Your task: generate a blog
-            post covering everything Brennan worked on this week, then update the index and state.
+            post covering everything Brennan worked on this week, then publish it to the wiki.
 
             ## Steps
 
@@ -50,22 +59,26 @@ jobs:
                - Chess project board items with statuses
                - Previous week's state for comparison
 
-            2. Read existing blog posts in `posts/` for style reference (if any exist).
+            2. Read existing blog posts in `wiki-checkout/` (files matching `Blog:-*.md`) for style reference.
 
-            3. Create a new file `posts/YYYY-MM-DD.md` using today's date (run `date -u +%Y-%m-%d`).
+            3. Get today's date: `date -u +%Y-%m-%d`
+
+            4. Create a new file `wiki-checkout/Blog:-YYYY-MM-DD.md` (replace YYYY-MM-DD with today's date).
                The post should have:
-               - YAML frontmatter: title, date, summary, projects (list of active repos)
+               - First line: `[[Home]] · [[Development-Blog]] · Blog: YYYY-MM-DD`
+               - A blank line, then `# <Post Title>`
                - Overview paragraph
                - Per-project sections (one section per active repo)
                - Chess Project Board section (status changes since last week)
                - Coming Up section
                - 400-800 words, conversational, developer-focused
+               - NO YAML frontmatter — this is a wiki page, not a markdown file
 
-            4. Update `README.md` — add a new table row above the
+            5. Update `wiki-checkout/Development-Blog.md` — add a new table row above the
                `<!-- New posts are added above this line -->` comment.
-               Format: `| [YYYY-MM-DD](posts/YYYY-MM-DD.md) | <title> |`
+               Format: `| YYYY-MM-DD | [[Blog:-YYYY-MM-DD|<title>]] |`
 
-            5. Update `state.json` — overwrite with current snapshot:
+            6. Update `state.json` — overwrite with current snapshot:
                ```json
                {
                  "last_run": "YYYY-MM-DD",
@@ -74,8 +87,16 @@ jobs:
                }
                ```
 
-            6. Delete `data-current.json` (temporary file).
+            7. Delete `data-current.json` (temporary file).
 
-            7. Commit and push: `git add posts/ state.json README.md && git commit -m "blog: weekly update YYYY-MM-DD" && git push`
+            8. Commit and push the wiki:
+               ```bash
+               cd wiki-checkout && git add -A && git commit -m "Blog: weekly update YYYY-MM-DD" && git push
+               ```
 
-          claude_args: "--max-turns 25 --allowedTools Edit,Read,Write,Bash(date:*),Bash(git:*),Bash(rm:*)"
+            9. Commit and push state in the main repo:
+               ```bash
+               cd /home/runner/work/weekly-blog/weekly-blog && git add state.json && git commit -m "blog: update state YYYY-MM-DD" && git push
+               ```
+
+          claude_args: "--max-turns 25 --allowedTools Edit,Read,Write,Bash(date:*),Bash(git:*),Bash(rm:*),Bash(cd:*),Bash(ls:*)"
