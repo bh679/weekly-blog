@@ -351,9 +351,18 @@
         "title": "Password Reset Email",
         "status": "Idea",
         "priority": null,
-        "categories": null,
         "score": null
       }
-    ]
+    ],
+    "summary": {
+      "total": 40,
+      "by_status": {
+        "Approved": 1,
+        "Done": 25,
+        "Idea": 5,
+        "In Development": 2,
+        "Planned": 1
+      }
+    }
   }
 }
