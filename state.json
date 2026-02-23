@@ -1,7 +1,359 @@
 {
-  "last_run": null,
-  "repos_snapshot": {},
+  "last_run": "2026-02-23",
+  "repos_snapshot": {
+    "bh679/AutoClaude": {
+      "repo": "bh679/AutoClaude",
+      "commit_count": 10,
+      "latest_commit": {
+        "author": "Brennan Hatton",
+        "date": "2026-02-22T22:28:35Z",
+        "message": "Enhance Permission Profiles tab with cards and tool tags (Issue #10)\n\nReplace simple tab-based profile selector with rich profile cards:\n- Profile cards showing name, description, mode, usage count, tool summaries\n- Default profile badge (blue) with star button to set default\n- Duplicate profile button for quick cloning\n- Tag-style tool selector replacing comma-separated text inputs\n- Click to toggle tools: green=allowed, red=blocked, gray=unset\n- Known tools list (Read, Edit, Write, Glob, Grep, Bash, etc.)\n- Export profiles to JSON file, import from JSON file\n- Selected card highlight with blue border\n- Task usage count per profile\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>",
+        "sha": "a0efdb4"
+      }
+    },
+    "bh679/LocalSubAgent": {
+      "repo": "bh679/LocalSubAgent",
+      "commit_count": 1,
+      "latest_commit": {
+        "author": "Brennan Hatton",
+        "date": "2026-02-23T00:24:55Z",
+        "message": "Initial commit: other-sub-agents skill for Claude Code\n\nOrchestrates local (Ollama) and cloud (Gemini) LLM sub-agents with:\n- Dynamic model discovery across providers\n- Trust score system with EWMA updates and time decay\n- Assessment logging after each interaction\n- Dual-model comparison mode\n- Auto-research for new models via benchmark interpolation\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>",
+        "sha": "0dfb181"
+      }
+    },
+    "bh679/chess-api": {
+      "repo": "bh679/chess-api",
+      "commit_count": 25,
+      "latest_commit": {
+        "author": "Brennan Hatton",
+        "date": "2026-02-23T06:46:23Z",
+        "message": "v1.04.0000: User Accounts feature merge\n\nBump minor version for User Accounts feature. Update README with auth\nendpoints, user/friends/settings tables, rating engine, and new deps.\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>",
+        "sha": "ef84db0"
+      }
+    },
+    "bh679/chess-client": {
+      "repo": "bh679/chess-client",
+      "commit_count": 30,
+      "latest_commit": {
+        "author": "Brennan Hatton",
+        "date": "2026-02-23T10:42:56Z",
+        "message": "blog: use Claude Code v2.1.18 to avoid SDK AJV crash\n\nInstall a specific Claude Code version and pass it via\npath_to_claude_code_executable to work around the AJV\n\"dependencies\" keyword validation crash in Agent SDK 0.2.49+.\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>",
+        "sha": "4e7b6ea"
+      }
+    },
+    "bh679/chess-project": {
+      "repo": "bh679/chess-project",
+      "commit_count": 30,
+      "latest_commit": {
+        "author": "Brennan Hatton",
+        "date": "2026-02-20T14:20:58Z",
+        "message": "CLAUDE.md: Add branch cleanup, PR delete-branch, and item archival\n\n- Worktree cleanup now includes deleting remote branches\n- gh pr merge uses --delete-branch flag\n- Add project board item archival step after merge\n- Update checklist to match\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>",
+        "sha": "a9fd766"
+      }
+    },
+    "bh679/other-sub-agents": {
+      "repo": "bh679/other-sub-agents",
+      "commit_count": 6,
+      "latest_commit": {
+        "author": "Brennan Hatton",
+        "date": "2026-02-22T22:42:25Z",
+        "message": "Fix skill directory structure and update paths\n\nThe skill was nested two levels deep (ollama-agents/ollama-agents/)\nbut Claude Code expects SKILL.md one level under ~/.claude/skills/.\nMoved to ~/.claude/skills/other-sub-agents/ and updated all absolute\npaths in SKILL.md accordingly.\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>",
+        "sha": "776edd1"
+      }
+    },
+    "bh679/weekly-blog": {
+      "repo": "bh679/weekly-blog",
+      "commit_count": 9,
+      "latest_commit": {
+        "author": "Brennan Hatton",
+        "date": "2026-02-23T10:44:12Z",
+        "message": "blog: use Claude Code v2.1.18 to avoid SDK AJV crash\n\nInstall a specific Claude Code version and pass it via\npath_to_claude_code_executable to work around the AJV\n\"dependencies\" keyword validation crash in Agent SDK 0.2.49+.\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>",
+        "sha": "648d2ac"
+      }
+    }
+  },
   "chess_project_board_snapshot": {
-    "items": []
+    "items": [
+      {
+        "title": "Premoves",
+        "status": "Done",
+        "priority": "Medium",
+        "categories": null,
+        "score": 0.0
+      },
+      {
+        "title": "Chess Meets Omegle",
+        "status": "Idea",
+        "priority": "Low",
+        "categories": null,
+        "score": 4.0
+      },
+      {
+        "title": "Evaluation Bar",
+        "status": "Done",
+        "priority": "Medium",
+        "categories": null,
+        "score": 0.0
+      },
+      {
+        "title": "Stockfish Version Display",
+        "status": "Done",
+        "priority": "Low",
+        "categories": null,
+        "score": 0.0
+      },
+      {
+        "title": "Roadmap Agent",
+        "status": "In Development",
+        "priority": "High",
+        "categories": null,
+        "score": 51.0
+      },
+      {
+        "title": "Local-First Game Persistence",
+        "status": "Done",
+        "priority": "High",
+        "categories": null,
+        "score": 0.0
+      },
+      {
+        "title": "Dev Agent",
+        "status": "In Development",
+        "priority": "High",
+        "categories": null,
+        "score": 36.0
+      },
+      {
+        "title": "Board Analysis",
+        "status": "Done",
+        "priority": "Medium",
+        "categories": null,
+        "score": 0.0
+      },
+      {
+        "title": "Analysis Review",
+        "status": "Done",
+        "priority": "Medium",
+        "categories": null,
+        "score": 0.0
+      },
+      {
+        "title": "Live Spectating",
+        "status": "Idea",
+        "priority": "High",
+        "categories": null,
+        "score": 14.0
+      },
+      {
+        "title": "Review on main board",
+        "status": "Done",
+        "priority": "Medium",
+        "categories": null,
+        "score": 0.0
+      },
+      {
+        "title": "End-to-end lifecycle test",
+        "status": "Done",
+        "priority": null,
+        "categories": null,
+        "score": 0.0
+      },
+      {
+        "title": "Cross-repo coordination",
+        "status": "Done",
+        "priority": null,
+        "categories": null,
+        "score": 0.0
+      },
+      {
+        "title": "Buy Anthropic API credits",
+        "status": "Done",
+        "priority": null,
+        "categories": null,
+        "score": 0.0
+      },
+      {
+        "title": "Install Claude GitHub App",
+        "status": "Done",
+        "priority": null,
+        "categories": null,
+        "score": 0.0
+      },
+      {
+        "title": "Add ANTHROPIC_API_KEY secret",
+        "status": "Done",
+        "priority": null,
+        "categories": null,
+        "score": 0.0
+      },
+      {
+        "title": "Add claude.yml workflow to chess-api",
+        "status": "Done",
+        "priority": null,
+        "categories": null,
+        "score": 0.0
+      },
+      {
+        "title": "Verify Dev Agent triggers correctly",
+        "status": "Done",
+        "priority": null,
+        "categories": null,
+        "score": 0.0
+      },
+      {
+        "title": "Set up PROJECT_PAT secret",
+        "status": "Done",
+        "priority": null,
+        "categories": null,
+        "score": 0.0
+      },
+      {
+        "title": "Approval workflow improvement",
+        "status": "Planned",
+        "priority": "Medium",
+        "categories": null,
+        "score": 15.0
+      },
+      {
+        "title": "Create Dev Agent CLAUDE.md (Chess)",
+        "status": "Done",
+        "priority": null,
+        "categories": null,
+        "score": 0.0
+      },
+      {
+        "title": "Create Dev Agent CLAUDE.md (chess-api)",
+        "status": "Done",
+        "priority": null,
+        "categories": null,
+        "score": 0.0
+      },
+      {
+        "title": "Allowlist Wiki Writes",
+        "status": "Done",
+        "priority": "High",
+        "categories": null,
+        "score": 0.0
+      },
+      {
+        "title": "Single Source CLAUDE.md",
+        "status": "Done",
+        "priority": "High",
+        "categories": null,
+        "score": 0.0
+      },
+      {
+        "title": "Breadcrumb Page Name",
+        "status": "Done",
+        "priority": "Medium",
+        "categories": null,
+        "score": 0.0
+      },
+      {
+        "title": "Update READMEs with Wiki Links",
+        "status": "Approved",
+        "priority": "Medium",
+        "categories": null,
+        "score": 17.0
+      },
+      {
+        "title": "Async Roadmap Agent",
+        "status": "Idea",
+        "priority": "Low",
+        "categories": null,
+        "score": null
+      },
+      {
+        "title": "Roadmap Agent Context Retention",
+        "status": "Done",
+        "priority": "High",
+        "categories": null,
+        "score": 0.0
+      },
+      {
+        "title": "Automated Browser Testing",
+        "status": "Done",
+        "priority": "Low",
+        "categories": null,
+        "score": 0.0
+      },
+      {
+        "title": "Review CLAUDE.md (Chess)",
+        "status": null,
+        "priority": null,
+        "categories": null,
+        "score": null
+      },
+      {
+        "title": "Review CLAUDE.md (chess-api)",
+        "status": null,
+        "priority": null,
+        "categories": null,
+        "score": null
+      },
+      {
+        "title": "Wiki Feature Audit",
+        "status": "Done",
+        "priority": "Medium",
+        "categories": null,
+        "score": 0.0
+      },
+      {
+        "title": "Add wiki links to Chess client README",
+        "status": null,
+        "priority": null,
+        "categories": null,
+        "score": null
+      },
+      {
+        "title": "Add wiki links to chess-api README",
+        "status": null,
+        "priority": null,
+        "categories": null,
+        "score": null
+      },
+      {
+        "title": "Workflow Redesign",
+        "status": "Done",
+        "priority": "High",
+        "categories": null,
+        "score": 0.0
+      },
+      {
+        "title": "Move Strip Drag Scroll",
+        "status": "Done",
+        "priority": "Low",
+        "categories": null,
+        "score": 0.0
+      },
+      {
+        "title": "Frontend Redesign",
+        "status": "Idea",
+        "priority": "Medium",
+        "categories": null,
+        "score": 10.0
+      },
+      {
+        "title": "URL Routing & Parameters",
+        "status": null,
+        "priority": null,
+        "categories": null,
+        "score": null
+      },
+      {
+        "title": "Friendly New Game Button",
+        "status": null,
+        "priority": null,
+        "categories": null,
+        "score": null
+      },
+      {
+        "title": "Password Reset Email",
+        "status": "Idea",
+        "priority": null,
+        "categories": null,
+        "score": null
+      }
+    ]
   }
 }
