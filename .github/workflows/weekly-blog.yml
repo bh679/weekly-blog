@@ -27,9 +27,17 @@ jobs:
       - name: Save data for Claude
         run: cp /tmp/weekly-blog-data.json ./data-current.json
 
+      - name: Install Claude Code
+        run: |
+          npm install -g @anthropic-ai/claude-code@2.1.18
+          CLAUDE_BIN=$(which claude)
+          echo "CLAUDE_PATH=$CLAUDE_BIN" >> $GITHUB_ENV
+          echo "Claude Code version: $(claude --version)"
+
       - uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          path_to_claude_code_executable: ${{ env.CLAUDE_PATH }}
           prompt: |
             You are Brennan's weekly development blog writer. Your task: generate a blog
             post covering everything Brennan worked on this week, then update the index and state.
@@ -70,4 +78,4 @@ jobs:
 
             7. Commit and push: `git add posts/ state.json README.md && git commit -m "blog: weekly update YYYY-MM-DD" && git push`
 
-          claude_args: "--max-turns 15 --allowedTools Edit,Read,Write,Bash(date:*),Bash(git:*),Bash(rm:*)"
+          claude_args: "--max-turns 25 --allowedTools Edit,Read,Write,Bash(date:*),Bash(git:*),Bash(rm:*)"
