@@ -70,8 +70,8 @@ jobs:
 
             6. Create a new wiki page file in `wiki-checkout/`.
                - Choose a sharp, descriptive title for the blog post
-               - Convert the title to a hyphenated slug (e.g. "AutoClaude Launches" → "AutoClaude-Launches")
-               - Filename: `wiki-checkout/Blog:-<Title-Slug>.md` (e.g. `Blog:-AutoClaude-Launches.md`)
+               - Convert the title to a hyphenated slug (e.g. "Claude Management Dashboard Launches" → "Claude-Management-Dashboard-Launches")
+               - Filename: `wiki-checkout/Blog:-<Title-Slug>.md` (e.g. `Blog:-Claude-Management-Dashboard-Launches.md`)
                - Do NOT include dates in the filename
                - Follow the blog post guidelines from step 1. Compare current data to `previous_state` to identify what changed.
                - If `pending_context` contains entries, treat each as a first-class feature section:
