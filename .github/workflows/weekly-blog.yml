@@ -69,6 +69,10 @@ jobs:
             5. Get today's date: `date -u +%Y-%m-%d`
 
             6. Create a new wiki page file in `wiki-checkout/`.
+               - **Skip guard:** If `github_events.total == 0` AND every entry in
+                 `repos_with_activity` has `commit_count == 0` AND `pr_count == 0`
+                 AND `pending_context` is empty — skip writing a post this week
+                 (nothing happened). Jump directly to step 8 to update state.
                - Choose a sharp, descriptive title for the blog post
                - Convert the title to a hyphenated slug (e.g. "AutoClaude Launches" → "AutoClaude-Launches")
                - Filename: `wiki-checkout/Blog:-<Title-Slug>.md` (e.g. `Blog:-AutoClaude-Launches.md`)
@@ -82,6 +86,48 @@ jobs:
                  - Use `commits` as supporting detail (e.g. to enumerate sub-changes within the feature)
                  - If `pending_context` is empty, write the blog post from GitHub data alone as normal
 
+            6a. Self-blog: check for weekly-blog activity
+                Look in `repos_with_activity` for the entry where `repo == "bh679/weekly-blog"`.
+                If `commit_count == 0` AND `pr_count == 0` AND no `pending_context` entries
+                have a `project` value matching "weekly-blog", skip steps 6b and 6c.
+
+            6b. Self-blog: write a self-blog post for this repo
+                - Covers only changes to the weekly-blog repo itself (workflow updates,
+                  prompt changes, template changes, data-collection script changes,
+                  schema changes, bug fixes, new features to the blogging system)
+                - Follow the same writing guidelines from step 1 (blog-post-guidelines.md)
+                - Compare the `bh679/weekly-blog` entry in `repos_with_activity` against
+                  `previous_state.repos_snapshot["bh679/weekly-blog"]` to identify what
+                  is new this week
+                - For `pending_context` entries whose `project` matches "weekly-blog", treat
+                  them as first-class feature sections (same framing/description/wiki_link/
+                  screenshots/commits rules as step 6). NOTE: these entries belong in the
+                  self-blog — in step 6 (all-projects post), mention them briefly by name
+                  only rather than writing a full feature section.
+                - Filename: `wiki-checkout/Self-Blog:-<Title-Slug>.md`
+                - Breadcrumb line: `[[Self-Blog:-Weekly-Blog-Index]] · Post Title`
+                - Project link line: `[weekly-blog](https://github.com/bh679/weekly-blog)`
+                - End with a call to action
+
+            6c. Self-blog: update the self-blog index page
+                - Check if `wiki-checkout/Self-Blog:-Weekly-Blog-Index.md` exists
+                - If it does NOT exist, create it with this exact header:
+                  ```
+                  # Weekly Blog — Development Log
+
+                  Changes to the workflow, templates, and tooling that generate this
+                  automated blog. Updated automatically every Monday.
+
+                  <!-- New posts are added above this line -->
+                  ```
+                - Add a new entry above `<!-- New posts are added above this line -->`.
+                  Follow the self-blog index format from step 2 (blog-index-template.md):
+                  ```
+                  ## [<title>](/bh679/weekly-blog/wiki/Self-Blog:-<Title-Slug>)
+                  YYYY-MM-DD — Weekly Blog
+                  <1-2 sentence abstract>
+                  ```
+
             7. Update `wiki-checkout/Home.md` — add a new entry above the
                `<!-- New posts are added above this line -->` comment.
                Follow the blog index template from step 2. Use a markdown link (NOT wiki-link syntax). Format:
@@ -89,6 +135,15 @@ jobs:
                ## [<title>](/bh679/weekly-blog/wiki/Blog:-<Title-Slug>)
                YYYY-MM-DD — All Projects
                <1-2 sentence abstract>
+               ```
+               After updating the post list, also ensure `Home.md` contains a static
+               "About This Blog" section at the very bottom. Check for its presence first —
+               if already there, do NOT modify it. If absent, append:
+               ```
+               ---
+
+               ## About This Blog
+               [Weekly Blog Development Log](/bh679/weekly-blog/wiki/Self-Blog:-Weekly-Blog-Index) — changes to the workflow, templates, and tooling that generate this blog.
                ```
 
             8. Update `state.json` — overwrite with current snapshot:
@@ -114,4 +169,4 @@ jobs:
                 cd /home/runner/work/weekly-blog/weekly-blog && git add state.json pending-context.json && git commit -m "blog: update state YYYY-MM-DD" && git push
                 ```
 
-          claude_args: "--max-turns 25 --allowedTools Edit,Read,Write,Bash(date:*),Bash(git:*),Bash(rm:*),Bash(cd:*),Bash(ls:*)"
+          claude_args: "--max-turns 35 --allowedTools Edit,Read,Write,Bash(date:*),Bash(git:*),Bash(rm:*),Bash(cd:*),Bash(ls:*)"

@@ -40,6 +40,8 @@ End the whole blog with a call to action:
 - NO YAML frontmatter — this is a wiki page
 - Wiki page filename: `Blog:-<Title-Slug>.md` — use the blog post title as a hyphenated slug (e.g. `Blog:-AutoClaude-Launches-and-Chess-Gets-User-Accounts.md`)
 - Do NOT include dates in the filename
+- Self-blog post filename: `Self-Blog:-<Title-Slug>.md` — same slug conventions, `Self-Blog:-` prefix instead of `Blog:-`
+- Self-blog index filename: `Self-Blog:-Weekly-Blog-Index.md` — fixed name, created once
 
 ## Link Rules
 
@@ -49,6 +51,8 @@ End the whole blog with a call to action:
 | Feature docs | `[Display Text](/bh679/<repo>/wiki/Feature:-Name)` | `[[Feature:-Name\|Display Text]]` |
 | Index H2 links | `## [Title](/bh679/weekly-blog/wiki/Blog:-Slug)` | `## [[Blog:-Slug\|Title]]` |
 | External links | `[text](https://url)` | — |
+| Self-blog index breadcrumb | `[[Self-Blog:-Weekly-Blog-Index]]` | — |
+| Self-blog index H2 links | `## [Title](/bh679/weekly-blog/wiki/Self-Blog:-Slug)` | `## [[Self-Blog:-Slug\|Title]]` |
 
 **Key rule:** Anything with a `Feature:-` prefix in the wiki page name MUST use an absolute markdown link. The `[[wiki-link]]` syntax silently strips `Feature:-` from the URL.
 
