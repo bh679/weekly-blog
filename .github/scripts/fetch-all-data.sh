@@ -135,6 +135,18 @@ else
   echo "No previous state found — first run."
 fi
 
+# --- 6. Pending feature context ---
+echo "Reading pending-context.json..."
+
+if [ -f "pending-context.json" ]; then
+  PENDING_CONTEXT=$(cat pending-context.json)
+  PENDING_COUNT=$(echo "$PENDING_CONTEXT" | jq 'length' 2>/dev/null || echo 0)
+  echo "Found $PENDING_COUNT pending feature context entries."
+else
+  PENDING_CONTEXT='[]'
+  echo "No pending-context.json found — skipping."
+fi
+
 # --- Compose output ---
 echo "Writing output to $OUTPUT..."
 
@@ -148,6 +160,7 @@ jq -n \
   --argjson chess_items "$CHESS_ITEMS" \
   --argjson all_merged_prs "$ALL_MERGED_PRS" \
   --argjson previous_state "$PREVIOUS_STATE" \
+  --argjson pending_context "$PENDING_CONTEXT" \
   '{
     generated_at: $generated_at,
     date: $date,
@@ -166,10 +179,11 @@ jq -n \
       }
     },
     all_merged_prs: $all_merged_prs,
-    previous_state: $previous_state
+    previous_state: $previous_state,
+    pending_context: $pending_context
   }' > "$OUTPUT"
 
 echo ""
 echo "=== Done ==="
 echo "Output: $OUTPUT"
-echo "Events: $EVENT_COUNT | Repos: $REPO_COUNT | Chess items: $CHESS_ITEM_COUNT | PRs: $ALL_PR_COUNT"
+echo "Events: $EVENT_COUNT | Repos: $REPO_COUNT | Chess items: $CHESS_ITEM_COUNT | PRs: $ALL_PR_COUNT | Pending context: $PENDING_COUNT"

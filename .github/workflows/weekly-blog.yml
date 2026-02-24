@@ -62,6 +62,7 @@ jobs:
                - Per-repo commit summaries and merged PRs
                - Chess project board items with statuses
                - Previous week's state for comparison
+               - `pending_context`: array of enriched feature entries queued since the last run (may be empty)
 
             4. Read existing blog posts in `wiki-checkout/` (files matching `Blog:-*.md`) for style reference.
 
@@ -73,6 +74,13 @@ jobs:
                - Filename: `wiki-checkout/Blog:-<Title-Slug>.md` (e.g. `Blog:-AutoClaude-Launches.md`)
                - Do NOT include dates in the filename
                - Follow the blog post guidelines from step 1. Compare current data to `previous_state` to identify what changed.
+               - If `pending_context` contains entries, treat each as a first-class feature section:
+                 - Use the `framing` field as the narrative angle and opening hook for that feature's section
+                 - Use `feature.description` for the body; reference `feature.pr_url` as a link if provided
+                 - If `feature.wiki_link` is provided, link to it from the feature section
+                 - If `screenshots` entries are listed, reference them by description (e.g. "as shown in the screenshot") — do not embed images, just acknowledge them in prose
+                 - Use `commits` as supporting detail (e.g. to enumerate sub-changes within the feature)
+                 - If `pending_context` is empty, write the blog post from GitHub data alone as normal
 
             7. Update `wiki-checkout/Home.md` — add a new entry above the
                `<!-- New posts are added above this line -->` comment.
@@ -99,9 +107,11 @@ jobs:
                 cd wiki-checkout && git add -A && git commit -m "Blog: weekly update YYYY-MM-DD" && git push
                 ```
 
-            11. Commit and push state in the main repo:
+            11. Clear pending context and commit state in the main repo:
+                - Write `[]` to `pending-context.json` (overwrite the file to empty the queue)
+                - Then commit and push:
                 ```bash
-                cd /home/runner/work/weekly-blog/weekly-blog && git add state.json && git commit -m "blog: update state YYYY-MM-DD" && git push
+                cd /home/runner/work/weekly-blog/weekly-blog && git add state.json pending-context.json && git commit -m "blog: update state YYYY-MM-DD" && git push
                 ```
 
           claude_args: "--max-turns 25 --allowedTools Edit,Read,Write,Bash(date:*),Bash(git:*),Bash(rm:*),Bash(cd:*),Bash(ls:*)"
