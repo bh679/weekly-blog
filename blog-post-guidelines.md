@@ -19,7 +19,10 @@ These guidelines govern how the blogging agent writes each weekly blog post.
 
 - A short paragraph (1-5 sentences max) OR concise bullet points — no fluff
 - Include an image every second heading (use `![alt](URL)` with relevant screenshots or diagrams if available)
-- Bullet points are good to show extent of content — link to relevant repos or docs where appropriate
+- Bullet points are good to show extent of content — link to relevant repos or wiki feature docs where appropriate
+- **Feature links MUST use absolute markdown links** — do NOT use `[[wiki-link]]` syntax for feature pages, it breaks on GitHub wikis (wrong URL, wrong display text)
+  - ✅ Correct: `[Chess Board](/bh679/chess-project/wiki/Feature:-Chess-Board)`
+  - ❌ Wrong: `[[Feature:-Chess-Board|Chess Board]]` — the `Feature:-` prefix gets stripped from the URL
 - End each section with a relevant call to action when appropriate
 
 ## Paragraphs
@@ -38,6 +41,17 @@ End the whole blog with a call to action:
 - Wiki page filename: `Blog:-<Title-Slug>.md` — use the blog post title as a hyphenated slug (e.g. `Blog:-AutoClaude-Launches-and-Chess-Gets-User-Accounts.md`)
 - Do NOT include dates in the filename
 
+## Link Rules
+
+| Link type | Correct format | Wrong format |
+|-----------|---------------|-------------|
+| Breadcrumb (Home) | `[[Home]]` | — |
+| Feature docs | `[Display Text](/bh679/<repo>/wiki/Feature:-Name)` | `[[Feature:-Name\|Display Text]]` |
+| Index H2 links | `## [Title](/bh679/weekly-blog/wiki/Blog:-Slug)` | `## [[Blog:-Slug\|Title]]` |
+| External links | `[text](https://url)` | — |
+
+**Key rule:** Anything with a `Feature:-` prefix in the wiki page name MUST use an absolute markdown link. The `[[wiki-link]]` syntax silently strips `Feature:-` from the URL.
+
 ## Template
 
 ```markdown
@@ -53,7 +67,7 @@ Short paragraph. 1-5 sentences max.
 ## Another Project With Image
 ![description](image-url)
 - Concise bullet points
-- Link to relevant repos or docs
+- [Feature Name](/bh679/chess-project/wiki/Feature:-Feature-Name) — description
 
 ## Coming Up
 What's next across all projects.
