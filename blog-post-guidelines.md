@@ -14,15 +14,17 @@ These guidelines govern how the blogging agent writes each weekly blog post.
 - Short, sharp, and to the point
 - Use subheadings (H3) the same way if needed
 - One H2 per active project/repo, plus a Coming Up section
+- **Link the project name in the heading** to the project's GitHub repo or live URL (e.g. `## [Chess](https://github.com/bh679/chess-project): Heading Tells the Full Story`)
 
 ## For Every Heading Section
 
 - A short paragraph (1-5 sentences max) OR concise bullet points — no fluff
 - Include an image every second heading (use `![alt](URL)` with relevant screenshots or diagrams if available)
-- Bullet points are good to show extent of content — link to relevant repos or wiki feature docs where appropriate
+- **Link every feature or notable change** to its wiki feature page where one exists — do not mention a feature by name without linking it if a wiki page is available
 - **Feature links MUST use absolute markdown links** — do NOT use `[[wiki-link]]` syntax for feature pages, it breaks on GitHub wikis (wrong URL, wrong display text)
   - ✅ Correct: `[Chess Board](/bh679/chess-project/wiki/Feature:-Chess-Board)`
   - ❌ Wrong: `[[Feature:-Chess-Board|Chess Board]]` — the `Feature:-` prefix gets stripped from the URL
+- If `pending_context` provides a `wiki_link` for a feature, always use it as the feature link
 - End each section with a relevant call to action when appropriate
 
 ## Paragraphs
@@ -46,11 +48,16 @@ End the whole blog with a call to action:
 | Link type | Correct format | Wrong format |
 |-----------|---------------|-------------|
 | Breadcrumb (Home) | `[[Home]]` | — |
+| Project heading | `## [Project Name](https://github.com/bh679/<repo>): Heading` | Unlinked project name |
+| Project live URL | `[Project Name](https://live.url/)` | — |
 | Feature docs | `[Display Text](/bh679/<repo>/wiki/Feature:-Name)` | `[[Feature:-Name\|Display Text]]` |
 | Index H2 links | `## [Title](/bh679/weekly-blog/wiki/Blog:-Slug)` | `## [[Blog:-Slug\|Title]]` |
 | External links | `[text](https://url)` | — |
 
-**Key rule:** Anything with a `Feature:-` prefix in the wiki page name MUST use an absolute markdown link. The `[[wiki-link]]` syntax silently strips `Feature:-` from the URL.
+**Key rules:**
+- Every project section heading MUST link the project name to its GitHub repo or live URL
+- Every named feature MUST link to its wiki page (`/bh679/<repo>/wiki/Feature:-Name`) when one exists
+- Anything with a `Feature:-` prefix in the wiki page name MUST use an absolute markdown link — the `[[wiki-link]]` syntax silently strips `Feature:-` from the URL
 
 ## Template
 
@@ -61,10 +68,11 @@ End the whole blog with a call to action:
 
 [Chess](https://brennan.games/chess/) | [Claude Management Dashboard](https://github.com/bh679/AutoClaude)
 
-## Project Name: Heading Tells the Full Story
+## [Project Name](https://github.com/bh679/project-repo): Heading Tells the Full Story
 Short paragraph. 1-5 sentences max.
+- [Feature Name](/bh679/project-repo/wiki/Feature:-Feature-Name) — description
 
-## Another Project With Image
+## [Another Project](https://live.url/): Heading With Image
 ![description](image-url)
 - Concise bullet points
 - [Feature Name](/bh679/chess-project/wiki/Feature:-Feature-Name) — description
