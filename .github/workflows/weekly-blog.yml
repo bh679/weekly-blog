@@ -2,7 +2,7 @@ name: Weekly All-Projects Blog
 
 on:
   schedule:
-    - cron: '0 10 * * 1' # Every Monday at 10:00 AM UTC (1 hour after chess blog)
+    - cron: '0 21 * * 4' # Every Friday at 7:00 AM AEST (21:00 UTC Thursday)
   workflow_dispatch: # Manual trigger for testing
 
 permissions:
@@ -116,7 +116,7 @@ jobs:
                   # Weekly Blog — Development Log
 
                   Changes to the workflow, templates, and tooling that generate this
-                  automated blog. Updated automatically every Monday.
+                  automated blog. Updated automatically every Friday.
 
                   <!-- New posts are added above this line -->
                   ```
