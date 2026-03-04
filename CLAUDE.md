@@ -20,6 +20,13 @@
 - **Commit messages:** `<type>: <short description>`
 - Blog post commits use: `blog: weekly update YYYY-MM-DD`
 
+## Git Hooks
+
+- **pre-commit (version check):** Enforces V.MM.PPPP version bumps on every commit
+  - Source: `~/Projects/Claude Templates/standards/hooks/pre-commit-version-check.sh`
+  - Install: `cp ~/Projects/Claude\ Templates/standards/hooks/pre-commit-version-check.sh .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit`
+  - Not tracked by git — must be installed locally per clone
+
 ## Rules
 
 - No manual edits to generated blog posts — they are overwritten each week
