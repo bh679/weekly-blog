@@ -52,10 +52,10 @@ while IFS= read -r repo; do
   echo "  Fetching data for $repo..."
 
   # Recent commits
-  REPO_COMMITS=$(gh api "repos/$repo/commits?since=$SEVEN_DAYS_AGO&per_page=30" --jq '[.[] | {sha: .sha[0:7], message: .commit.message, date: .commit.author.date, author: .commit.author.name}]' 2>/dev/null || echo '[]')
+  REPO_COMMITS=$(gh api "repos/$repo/commits?since=$SEVEN_DAYS_AGO&author=bh679&per_page=30" --jq '[.[] | {sha: .sha[0:7], message: .commit.message, date: .commit.author.date, author: .commit.author.name}]' 2>/dev/null || echo '[]')
 
   # Merged PRs
-  REPO_PRS=$(gh pr list --repo "$repo" --state merged --json number,title,mergedAt,author --limit 10 2>/dev/null || echo '[]')
+  REPO_PRS=$(gh pr list --repo "$repo" --state merged --author bh679 --json number,title,mergedAt,author --limit 10 2>/dev/null || echo '[]')
   REPO_PRS=$(echo "$REPO_PRS" | jq --arg since "$SEVEN_DAYS_AGO" '[.[] | select(.mergedAt >= $since)]')
 
   REPO_SUMMARIES=$(echo "$REPO_SUMMARIES" | jq --arg repo "$repo" --argjson commits "$REPO_COMMITS" --argjson prs "$REPO_PRS" '. + [{
