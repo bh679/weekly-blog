@@ -144,6 +144,7 @@ if [ -f "pending-context.json" ]; then
   echo "Found $PENDING_COUNT pending feature context entries."
 else
   PENDING_CONTEXT='[]'
+  PENDING_COUNT=0
   echo "No pending-context.json found — skipping."
 fi
 
