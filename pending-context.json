@@ -1,1 +1,20 @@
-[]
+[
+  {
+    "queued_at": "2026-03-24T04:57:00Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "Wildcard Eulogy BYE Cards",
+      "slug": "wildcard-eulogy-bye-cards",
+      "description": "Added 2× Wildcard Eulogy entries to the BYE card deck, bringing the total to 68 cards to match the physical print file. The Wildcard Eulogy is a special end-of-game card where players earn bonus points by giving each other eulogies.",
+      "pr_url": "https://github.com/bh679/carkedit-online/pull/3",
+      "pr_number": 3,
+      "merged_at": "2026-03-24T04:56:25Z",
+      "wiki_url": null
+    },
+    "screenshots": [],
+    "commits": [
+      "feat: add Wildcard Eulogy cards to BYE deck (68 total)"
+    ],
+    "framing": "The BYE deck digital data now faithfully matches the physical card print file. The Wildcard Eulogy is one of the most fun cards in the game — players save it until the end and then roast each other with eulogies for bonus points. Having it correctly represented (twice, as in the physical deck) ensures the online version delivers the same end-game energy."
+  }
+]
