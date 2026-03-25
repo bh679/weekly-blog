@@ -34,5 +34,23 @@
       "feat: scale card to fill viewport on card test page"
     ],
     "framing": "The card test page previously showed cards at a tiny 160px fixed width — basically a thumbnail. Now it actually fills the screen, making it useful for reviewing artwork, checking typography legibility, and demoing card designs at the scale players will see them in the game."
+  },
+  {
+    "queued_at": "2026-03-25T08:30:00Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "Dev Dashboard",
+      "slug": "dev-dashboard",
+      "description": "Internal development dashboard with contribution graph (all 5 repos), multi-repo commit history, mini card tester, color palette viewer, wiki updates, todo board, rate limit display, and localStorage caching for resilience when rate-limited.",
+      "pr_url": "https://github.com/bh679/carkedit-online/pull/21",
+      "pr_number": 21,
+      "merged_at": "2026-03-25T08:13:14Z",
+      "wiki_url": "https://github.com/bh679/carkedit-online/wiki/Dev-Dashboard"
+    },
+    "screenshots": [],
+    "commits": [
+      "fix: dashboard iteration 3 - rate limit display, localStorage cache, UX fixes"
+    ],
+    "framing": "The dev dashboard gives the team a single page to monitor all project activity across 5 repos, test card rendering, review the color system, and track wiki/todo progress — without leaving the browser. The rate limit display and localStorage cache solve a real pain point: GitHub's 60 req/hr unauthenticated limit was silently breaking the dashboard during testing, now it gracefully degrades with cached data."
   }
 ]
