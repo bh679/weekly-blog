@@ -70,5 +70,23 @@
       "feat: tap player chip in lobby to reveal remove button"
     ],
     "framing": "Before this change there was no way to undo adding a player — you'd have to reload the whole page. Now it's a quick tap-tap to correct a typo or remove someone who sat down at the wrong table. Small UX detail, big reduction in friction at game setup time."
+  },
+  {
+    "queued_at": "2026-03-25T09:15:00Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "Auto-populate Random Player Name in Lobby",
+      "slug": "lobby-random-player-name",
+      "description": "When the Add button is clicked with an empty name field in the lobby, a random name is auto-selected from a dev placeholder pool (Brennan, Simon, Leonie, Danikah, Lowe, Hatton, Sanderson) — skipping any already in use, and doing nothing gracefully when the pool is exhausted.",
+      "pr_url": "https://github.com/bh679/carkedit-online/pull/23",
+      "pr_number": 23,
+      "merged_at": "2026-03-25T09:14:08Z",
+      "wiki_url": null
+    },
+    "screenshots": [],
+    "commits": [
+      "feat: auto-populate random player name when lobby input is empty"
+    ],
+    "framing": "Setting up a test game used to require typing every player name manually — a small but annoying friction point during playtesting. Now you can spam Add and the game fills in the squad for you. It's a dev convenience feature flagged for replacement before launch, but it makes iterating on lobby flow and game mechanics dramatically faster."
   }
 ]
