@@ -16,5 +16,23 @@
       "feat: add Wildcard Eulogy cards to BYE deck (68 total)"
     ],
     "framing": "The BYE deck digital data now faithfully matches the physical card print file. The Wildcard Eulogy is one of the most fun cards in the game — players save it until the end and then roast each other with eulogies for bonus points. Having it correctly represented (twice, as in the physical deck) ensures the online version delivers the same end-game energy."
+  },
+  {
+    "queued_at": "2026-03-25T02:00:00Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "Full-Screen Card on Card Test Page",
+      "slug": "fullscreen-card-test-page",
+      "description": "The card on card-test.html now scales to fill the entire viewport — height or width, whichever is reached first — while maintaining the 5:7 aspect ratio. The main UI (title, deck switcher, card, nav arrows) is locked to 100vh so nothing scrolls off screen; the JSON inspector remains accessible by scrolling below.",
+      "pr_url": "https://github.com/bh679/carkedit-online/pull/13",
+      "pr_number": 13,
+      "merged_at": "2026-03-25T01:59:09Z",
+      "wiki_url": null
+    },
+    "screenshots": [],
+    "commits": [
+      "feat: scale card to fill viewport on card test page"
+    ],
+    "framing": "The card test page previously showed cards at a tiny 160px fixed width — basically a thumbnail. Now it actually fills the screen, making it useful for reviewing artwork, checking typography legibility, and demoing card designs at the scale players will see them in the game."
   }
 ]
