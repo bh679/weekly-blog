@@ -52,5 +52,23 @@
       "fix: dashboard iteration 3 - rate limit display, localStorage cache, UX fixes"
     ],
     "framing": "The dev dashboard gives the team a single page to monitor all project activity across 5 repos, test card rendering, review the color system, and track wiki/todo progress — without leaving the browser. The rate limit display and localStorage cache solve a real pain point: GitHub's 60 req/hr unauthenticated limit was silently breaking the dashboard during testing, now it gracefully degrades with cached data."
+  },
+  {
+    "queued_at": "2026-03-25T09:14:00Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "Remove Player from Lobby",
+      "slug": "remove-player-lobby",
+      "description": "Tapping a player chip in the Lobby now reveals a red ✕ button. Tapping ✕ removes that player from the game. Tapping the same chip again dismisses the button without removing — a safe two-step interaction that's lobby-only and invisible during gameplay.",
+      "pr_url": "https://github.com/bh679/carkedit-online/pull/24",
+      "pr_number": 24,
+      "merged_at": "2026-03-25T09:13:47Z",
+      "wiki_url": null
+    },
+    "screenshots": [],
+    "commits": [
+      "feat: tap player chip in lobby to reveal remove button"
+    ],
+    "framing": "Before this change there was no way to undo adding a player — you'd have to reload the whole page. Now it's a quick tap-tap to correct a typo or remove someone who sat down at the wrong table. Small UX detail, big reduction in friction at game setup time."
   }
 ]
