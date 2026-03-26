@@ -109,5 +109,23 @@
       "refactor: use card.js component for all card rendering in Phase 2/3"
     ],
     "framing": "This is the biggest feature drop yet — Phase 2/3 is the actual game. Phase 1 was just drawing a death card, but Phase 2 is where players strategise, pitch, persuade, and compete for points. The pass-the-phone UX makes it work on a single device (no server needed), the Living Dead skull icon adds personality, and the card inspection overlay lets players really read and appreciate each card before playing it. The shared manager architecture means Phase 3 (BYE) came essentially free — same code, different deck. All cards now render through the shared card.js component with full illustrations, matching the physical card game's visual richness."
+  },
+  {
+    "queued_at": "2026-03-26T02:37:00Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "Dynamic Card Spacing in Hand Fan",
+      "slug": "dynamic-hand-fan-spacing",
+      "description": "Cards in the Phase 2 hand fan now spread evenly across the full width of the container using CSS calc() percentage-based positioning, replacing fixed 43px pixel offsets. Works at any screen width and handles any number of cards.",
+      "pr_url": "https://github.com/bh679/carkedit-online/pull/29",
+      "pr_number": 29,
+      "merged_at": "2026-03-26T02:36:19Z",
+      "wiki_url": null
+    },
+    "screenshots": [],
+    "commits": [
+      "fix: dynamic percentage-based card positioning in hand fan"
+    ],
+    "framing": "The hand fan was using a hardcoded 43px offset between cards — fine on one screen size but cramped or misaligned on others. Now the formula is calc((100% - 135px) * index / (count - 1)), so the first card sits flush left, the last card sits flush right, and everything in between divides the space perfectly. It's a small detail that makes the game feel polished across all device widths."
   }
 ]
