@@ -173,5 +173,23 @@
       "feat: add card-grid component and use for revealed/judging screens"
     ],
     "framing": "The old revealed screen piled all submitted cards on top of each other in a random scatter — confusing and hard to read under the social pressure of the reveal moment. Now they lay out in a clean 2-column grid so every card is fully visible at the same time. The same grid is reused on the judging screen where the Living Dead taps their favourite, making the interaction clear and consistent. Standardising this into a shared component means any future screen that needs a card selection grid — like a scoreboard or highlight reel — can use it in one line."
+  },
+  {
+    "queued_at": "2026-03-26T06:06:00Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "Card Preview Overlay on Judging Screen",
+      "slug": "judging-card-preview-overlay",
+      "description": "When a judge clicks a submitted card during Phase 2/3 judging, it now opens the same full-screen inspect overlay used when picking from hand — large card, deck-coloured nav arrows (green for LIVE), and a \"Pick This Card\" confirm button. Nav arrows let you browse all submitted cards before committing. Backdrop tap dismisses without selecting.",
+      "pr_url": "https://github.com/bh679/carkedit-online/pull/40",
+      "pr_number": 40,
+      "merged_at": "2026-03-26T06:05:53Z",
+      "wiki_url": null
+    },
+    "screenshots": [],
+    "commits": [
+      "feat: add card preview overlay to judging screen"
+    ],
+    "framing": "Before this change, tapping a card on the judging screen immediately picked a winner — no chance to zoom in, re-read the card, or build suspense. Now the Living Dead can tap through all submitted cards one by one in a full-screen overlay before committing. The same overlay code that powers hand selection was extracted into a shared renderInspectOverlay() component, so the judging preview inherits all the same polish: big card, deck-coloured arrows, and a satisfying confirm button. Zero code duplication, consistent UX across both contexts."
   }
 ]
