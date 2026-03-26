@@ -155,5 +155,23 @@
       "merge: resolve conflict with main responsive hand layout"
     ],
     "framing": "Before this, players had to close the overlay to see a different card — tedious when you're trying to weigh up your options under social pressure. Now you can swipe through your whole hand in one tap each. The protruding card is a small but satisfying detail: you can glance down at the hand and immediately see which card you're currently inspecting, even with the overlay open. Both features together make card selection feel fluid rather than clunky."
+  },
+  {
+    "queued_at": "2026-03-26T02:55:34Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "Card Grid Component",
+      "slug": "card-grid-component",
+      "description": "New reusable card-grid component renders submitted cards in a clean 2-column grid. Used on the revealed screen (cards appear in a grid instead of overlapping scatter, die/prompt card hidden) and the judging screen (Living Dead picks their favourite from tappable cards with hover highlights). Old bespoke CSS removed.",
+      "pr_url": "https://github.com/bh679/carkedit-online/pull/32",
+      "pr_number": 32,
+      "merged_at": "2026-03-26T02:55:34Z",
+      "wiki_url": "https://github.com/bh679/carkedit-online/wiki/Card-Grid"
+    },
+    "screenshots": [],
+    "commits": [
+      "feat: add card-grid component and use for revealed/judging screens"
+    ],
+    "framing": "The old revealed screen piled all submitted cards on top of each other in a random scatter — confusing and hard to read under the social pressure of the reveal moment. Now they lay out in a clean 2-column grid so every card is fully visible at the same time. The same grid is reused on the judging screen where the Living Dead taps their favourite, making the interaction clear and consistent. Standardising this into a shared component means any future screen that needs a card selection grid — like a scoreboard or highlight reel — can use it in one line."
   }
 ]
