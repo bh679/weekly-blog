@@ -127,5 +127,33 @@
       "fix: dynamic percentage-based card positioning in hand fan"
     ],
     "framing": "The hand fan was using a hardcoded 43px offset between cards — fine on one screen size but cramped or misaligned on others. Now the formula is calc((100% - 135px) * index / (count - 1)), so the first card sits flush left, the last card sits flush right, and everything in between divides the space perfectly. It's a small detail that makes the game feel polished across all device widths."
+  },
+  {
+    "queued_at": "2026-03-26T02:57:00Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "Hand Overlay Navigation Arrows + Selected Card Protrusion",
+      "slug": "hand-overlay-nav-arrows",
+      "description": "Added ‹ › navigation arrows to the card inspect overlay so players can browse their entire hand without closing it. The currently-viewed card also protrudes ~35% of its height above the hand fan as a visual indicator of which card is selected.",
+      "pr_url": "https://github.com/bh679/carkedit-online/pull/30",
+      "pr_number": 30,
+      "merged_at": "2026-03-26T02:56:30Z",
+      "wiki_url": null
+    },
+    "screenshots": [
+      {
+        "path": "test-results/gate2-hand-nav-overlay.png",
+        "description": "Inspect overlay with ‹ › navigation arrows flanking the card"
+      },
+      {
+        "path": "test-results/gate2-overflow-fix-2.png",
+        "description": "Selected card protruding above the hand fan into the gameboard, other cards visible below"
+      }
+    ],
+    "commits": [
+      "feat: add hand overlay navigation arrows and selected card protrusion",
+      "merge: resolve conflict with main responsive hand layout"
+    ],
+    "framing": "Before this, players had to close the overlay to see a different card — tedious when you're trying to weigh up your options under social pressure. Now you can swipe through your whole hand in one tap each. The protruding card is a small but satisfying detail: you can glance down at the hand and immediately see which card you're currently inspecting, even with the overlay open. Both features together make card selection feel fluid rather than clunky."
   }
 ]
