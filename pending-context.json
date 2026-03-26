@@ -191,5 +191,23 @@
       "feat: add card preview overlay to judging screen"
     ],
     "framing": "Before this change, tapping a card on the judging screen immediately picked a winner — no chance to zoom in, re-read the card, or build suspense. Now the Living Dead can tap through all submitted cards one by one in a full-screen overlay before committing. The same overlay code that powers hand selection was extracted into a shared renderInspectOverlay() component, so the judging preview inherits all the same polish: big card, deck-coloured arrows, and a satisfying confirm button. Zero code duplication, consistent UX across both contexts."
+  },
+  {
+    "queued_at": "2026-03-26T06:03:38Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "CarkedIt Favicon",
+      "slug": "carkedit-favicon",
+      "description": "The browser tab, Apple home screen icon, Android shortcut, and Windows tile now all show the CarkedIt card front image — the same favicon used on carkedit.com. Four PNG sizes (32×32, 180×180, 192×192, 270×270) are self-hosted in assets/ and declared via standard link tags in index.html.",
+      "pr_url": "https://github.com/bh679/carkedit-online/pull/39",
+      "pr_number": 39,
+      "merged_at": "2026-03-26T06:03:38Z",
+      "wiki_url": null
+    },
+    "screenshots": [],
+    "commits": [
+      "feat: add CarkedIt favicon matching carkedit.com branding"
+    ],
+    "framing": "Before this, CarkedIt Online had no favicon — the browser tab showed a blank page icon. Now it shows the same iconic card-front image as carkedit.com, giving the game a consistent brand identity across the browser tab, home screen shortcuts, and pinned tiles. It's a small detail but a meaningful one: it signals polish and makes the game feel like a real product when players bookmark it or add it to their phone's home screen."
   }
 ]
