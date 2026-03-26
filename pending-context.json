@@ -193,6 +193,24 @@
     "framing": "Before this change, tapping a card on the judging screen immediately picked a winner — no chance to zoom in, re-read the card, or build suspense. Now the Living Dead can tap through all submitted cards one by one in a full-screen overlay before committing. The same overlay code that powers hand selection was extracted into a shared renderInspectOverlay() component, so the judging preview inherits all the same polish: big card, deck-coloured arrows, and a satisfying confirm button. Zero code duplication, consistent UX across both contexts."
   },
   {
+    "queued_at": "2026-03-26T09:50:00Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "Birthday Picker",
+      "slug": "birthday-picker",
+      "description": "Players can now have a birthday (month + day) stored alongside their name, entered via two dropdowns during lobby setup. The birthday appears with a 🎂 icon contextually: always in the Lobby, on your active turn in Phase 1, and next to the Living Dead player in Phase 2/3/4. Score is shown at all other times. The dev player pool is pre-populated with birthdates for instant testing.",
+      "pr_url": "https://github.com/bh679/carkedit-online/pull/55",
+      "pr_number": 55,
+      "merged_at": "2026-03-26T09:43:48Z",
+      "wiki_url": "https://github.com/bh679/carkedit-online/wiki/Birthday-Picker"
+    },
+    "screenshots": [],
+    "commits": [
+      "feat: add birthday picker and display to player list"
+    ],
+    "framing": "Carked It is a social game played around a table — everyone knows each other. Adding birthdates gives the game a personal touch: your birthday shows up when it's your turn in Phase 1, and when you're The Living Dead judging everyone's cards. It's a small detail that makes the digital version feel warmer and more personal than a generic party game app."
+  },
+  {
     "queued_at": "2026-03-26T06:03:38Z",
     "project": "CarkedIt Online",
     "feature": {
