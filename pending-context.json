@@ -273,5 +273,37 @@
       "fix: hide Create Room option when visiting via join link"
     ],
     "framing": "A small but important UX fix for the share-a-link flow. When you text a friend a join link, they should land on a focused screen that says \"enter your name and hit Join\" \u2014 not a screen that also offers to create a whole new room. Removing the distraction makes the join-via-link experience feel intentional and polished."
+  },
+  {
+    "queued_at": "2026-04-07T09:15:00Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "Lobby Pack Filter Tabs",
+      "slug": "lobby-pack-filter-tabs",
+      "description": "The host pack selector in the online lobby now has 4 filter tabs with white SVG icons: Official Decks (skull), My Decks (person), Public Decks (globe), and My Favourites (heart). Each pack also gets a heart toggle for favouriting. Backed by a new is_official admin flag and a full favourites system (DB table, endpoints, viewer-aware listings). Admins get a 'Mark as Official Deck' checkbox in the card designer.",
+      "pr_url": "https://github.com/bh679/carkedit-online/pull/79",
+      "pr_number": 79,
+      "merged_at": "2026-04-07T09:14:25Z",
+      "wiki_url": null,
+      "related_prs": [
+        {
+          "repo": "carkedit-api",
+          "url": "https://github.com/bh679/carkedit-api/pull/50",
+          "number": 50
+        }
+      ]
+    },
+    "screenshots": [
+      {
+        "path": "test-results/gate2-lobby-pack-filter-tabs-2026-04.png",
+        "description": "All four filter tabs (skull/person/globe/heart) rendered across the four states with active-tab purple underline, totals row, and per-pack heart toggles"
+      }
+    ],
+    "commits": [
+      "feat: pack official flag, favourites system, viewer-aware listings",
+      "feat: lobby pack filter tabs (Official / My / Public / Favourites)",
+      "fix: show base game on Public tab too (it's both official and public)"
+    ],
+    "framing": "The expansion pack list was about to get unwieldy as more user-created and public decks ship. Filter tabs scope it down so the host can find what they want fast \u2014 official curated decks for a quick standard game, their own drafts to test, the community's published packs to discover, or their saved favourites for quick replays. The favourites system is brand new (no DB table existed) and is the lever that makes 'I liked that deck last week' a one-tap action instead of a search. The admin 'Mark as Official' flag means the team can curate which community packs get the green-tick treatment without code changes. Small UI feature, big infrastructure under the hood."
   }
 ]
