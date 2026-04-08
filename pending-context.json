@@ -305,5 +305,31 @@
       "fix: show base game on Public tab too (it's both official and public)"
     ],
     "framing": "The expansion pack list was about to get unwieldy as more user-created and public decks ship. Filter tabs scope it down so the host can find what they want fast \u2014 official curated decks for a quick standard game, their own drafts to test, the community's published packs to discover, or their saved favourites for quick replays. The favourites system is brand new (no DB table existed) and is the lever that makes 'I liked that deck last week' a one-tap action instead of a search. The admin 'Mark as Official' flag means the team can curate which community packs get the green-tick treatment without code changes. Small UI feature, big infrastructure under the hood."
+  },
+  {
+    "queued_at": "2026-04-08T08:55:00Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "Mark Games / NPS / Decks as Dev from Dashboard",
+      "slug": "dashboard-dev-toggles",
+      "description": "Added clickable DEV toggle buttons on game rows, NPS survey responses, and expansion pack rows in the admin dashboard. Each toggle shows a themed in-page HTML/CSS confirmation modal (no browser popup), then calls an admin PATCH endpoint. The packs PATCH endpoint already existed; new endpoints PATCH /api/carkedit/games/:id/dev and PATCH /api/carkedit/surveys/:id/dev were added in carkedit-api.",
+      "pr_url": "https://github.com/bh679/carkedit-online/pull/110",
+      "pr_number": 110,
+      "merged_at": "2026-04-08T08:51:51Z",
+      "wiki_url": null,
+      "related_prs": [
+        {
+          "repo": "carkedit-api",
+          "url": "https://github.com/bh679/carkedit-api/pull/62",
+          "number": 62
+        }
+      ]
+    },
+    "screenshots": [],
+    "commits": [
+      "feat(dashboard): toggle is_dev on games, NPS responses, and packs",
+      "feat(dashboard): add PATCH endpoints to toggle is_dev on games and surveys"
+    ],
+    "framing": "Until now, marking a record as a dev/test entry could only happen at creation time, and only packs could be flipped after the fact. Real playtest sessions inevitably mix in throwaway games and dummy NPS responses that pollute the live stats. With one-click dashboard toggles and the existing With Dev / No Dev / Only Dev filters, the team can now triage that noise after the fact instead of having to remember to flag things up front. The in-page confirmation modal (replacing the default browser popup) is a small detail that keeps the dashboard feeling cohesive and on-brand, and the same PATCH endpoint shape is used for all three entity types so the client code is symmetric."
   }
 ]
