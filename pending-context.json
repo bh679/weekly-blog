@@ -5,7 +5,7 @@
     "feature": {
       "name": "Wildcard Eulogy BYE Cards",
       "slug": "wildcard-eulogy-bye-cards",
-      "description": "Added 2\u00d7 Wildcard Eulogy entries to the BYE card deck, bringing the total to 68 cards to match the physical print file. The Wildcard Eulogy is a special end-of-game card where players earn bonus points by giving each other eulogies.",
+      "description": "Added 2× Wildcard Eulogy entries to the BYE card deck, bringing the total to 68 cards to match the physical print file. The Wildcard Eulogy is a special end-of-game card where players earn bonus points by giving each other eulogies.",
       "pr_url": "https://github.com/bh679/carkedit-online/pull/3",
       "pr_number": 3,
       "merged_at": "2026-03-24T04:56:25Z",
@@ -15,7 +15,7 @@
     "commits": [
       "feat: add Wildcard Eulogy cards to BYE deck (68 total)"
     ],
-    "framing": "The BYE deck digital data now faithfully matches the physical card print file. The Wildcard Eulogy is one of the most fun cards in the game \u2014 players save it until the end and then roast each other with eulogies for bonus points. Having it correctly represented (twice, as in the physical deck) ensures the online version delivers the same end-game energy."
+    "framing": "The BYE deck digital data now faithfully matches the physical card print file. The Wildcard Eulogy is one of the most fun cards in the game — players save it until the end and then roast each other with eulogies for bonus points. Having it correctly represented (twice, as in the physical deck) ensures the online version delivers the same end-game energy."
   },
   {
     "queued_at": "2026-03-25T02:00:00Z",
@@ -23,7 +23,7 @@
     "feature": {
       "name": "Full-Screen Card on Card Test Page",
       "slug": "fullscreen-card-test-page",
-      "description": "The card on card-test.html now scales to fill the entire viewport \u2014 height or width, whichever is reached first \u2014 while maintaining the 5:7 aspect ratio. The main UI (title, deck switcher, card, nav arrows) is locked to 100vh so nothing scrolls off screen; the JSON inspector remains accessible by scrolling below.",
+      "description": "The card on card-test.html now scales to fill the entire viewport — height or width, whichever is reached first — while maintaining the 5:7 aspect ratio. The main UI (title, deck switcher, card, nav arrows) is locked to 100vh so nothing scrolls off screen; the JSON inspector remains accessible by scrolling below.",
       "pr_url": "https://github.com/bh679/carkedit-online/pull/13",
       "pr_number": 13,
       "merged_at": "2026-03-25T01:59:09Z",
@@ -33,7 +33,7 @@
     "commits": [
       "feat: scale card to fill viewport on card test page"
     ],
-    "framing": "The card test page previously showed cards at a tiny 160px fixed width \u2014 basically a thumbnail. Now it actually fills the screen, making it useful for reviewing artwork, checking typography legibility, and demoing card designs at the scale players will see them in the game."
+    "framing": "The card test page previously showed cards at a tiny 160px fixed width — basically a thumbnail. Now it actually fills the screen, making it useful for reviewing artwork, checking typography legibility, and demoing card designs at the scale players will see them in the game."
   },
   {
     "queued_at": "2026-03-25T08:30:00Z",
@@ -51,7 +51,7 @@
     "commits": [
       "fix: dashboard iteration 3 - rate limit display, localStorage cache, UX fixes"
     ],
-    "framing": "The dev dashboard gives the team a single page to monitor all project activity across 5 repos, test card rendering, review the color system, and track wiki/todo progress \u2014 without leaving the browser. The rate limit display and localStorage cache solve a real pain point: GitHub's 60 req/hr unauthenticated limit was silently breaking the dashboard during testing, now it gracefully degrades with cached data."
+    "framing": "The dev dashboard gives the team a single page to monitor all project activity across 5 repos, test card rendering, review the color system, and track wiki/todo progress — without leaving the browser. The rate limit display and localStorage cache solve a real pain point: GitHub's 60 req/hr unauthenticated limit was silently breaking the dashboard during testing, now it gracefully degrades with cached data."
   },
   {
     "queued_at": "2026-03-25T09:14:00Z",
@@ -59,7 +59,7 @@
     "feature": {
       "name": "Remove Player from Lobby",
       "slug": "remove-player-lobby",
-      "description": "Tapping a player chip in the Lobby now reveals a red \u2715 button. Tapping \u2715 removes that player from the game. Tapping the same chip again dismisses the button without removing \u2014 a safe two-step interaction that's lobby-only and invisible during gameplay.",
+      "description": "Tapping a player chip in the Lobby now reveals a red ✕ button. Tapping ✕ removes that player from the game. Tapping the same chip again dismisses the button without removing — a safe two-step interaction that's lobby-only and invisible during gameplay.",
       "pr_url": "https://github.com/bh679/carkedit-online/pull/24",
       "pr_number": 24,
       "merged_at": "2026-03-25T09:13:47Z",
@@ -69,7 +69,7 @@
     "commits": [
       "feat: tap player chip in lobby to reveal remove button"
     ],
-    "framing": "Before this change there was no way to undo adding a player \u2014 you'd have to reload the whole page. Now it's a quick tap-tap to correct a typo or remove someone who sat down at the wrong table. Small UX detail, big reduction in friction at game setup time."
+    "framing": "Before this change there was no way to undo adding a player — you'd have to reload the whole page. Now it's a quick tap-tap to correct a typo or remove someone who sat down at the wrong table. Small UX detail, big reduction in friction at game setup time."
   },
   {
     "queued_at": "2026-03-25T09:15:00Z",
@@ -77,7 +77,7 @@
     "feature": {
       "name": "Auto-populate Random Player Name in Lobby",
       "slug": "lobby-random-player-name",
-      "description": "When the Add button is clicked with an empty name field in the lobby, a random name is auto-selected from a dev placeholder pool (Brennan, Simon, Leonie, Danikah, Lowe, Hatton, Sanderson) \u2014 skipping any already in use, and doing nothing gracefully when the pool is exhausted.",
+      "description": "When the Add button is clicked with an empty name field in the lobby, a random name is auto-selected from a dev placeholder pool (Brennan, Simon, Leonie, Danikah, Lowe, Hatton, Sanderson) — skipping any already in use, and doing nothing gracefully when the pool is exhausted.",
       "pr_url": "https://github.com/bh679/carkedit-online/pull/23",
       "pr_number": 23,
       "merged_at": "2026-03-25T09:14:08Z",
@@ -87,7 +87,7 @@
     "commits": [
       "feat: auto-populate random player name when lobby input is empty"
     ],
-    "framing": "Setting up a test game used to require typing every player name manually \u2014 a small but annoying friction point during playtesting. Now you can spam Add and the game fills in the squad for you. It's a dev convenience feature flagged for replacement before launch, but it makes iterating on lobby flow and game mechanics dramatically faster."
+    "framing": "Setting up a test game used to require typing every player name manually — a small but annoying friction point during playtesting. Now you can spam Add and the game fills in the squad for you. It's a dev convenience feature flagged for replacement before launch, but it makes iterating on lobby flow and game mechanics dramatically faster."
   },
   {
     "queued_at": "2026-03-25T09:47:00Z",
@@ -108,7 +108,7 @@
       "merge: incorporate main branch changes (player removal, random names, backgrounds)",
       "refactor: use card.js component for all card rendering in Phase 2/3"
     ],
-    "framing": "This is the biggest feature drop yet \u2014 Phase 2/3 is the actual game. Phase 1 was just drawing a death card, but Phase 2 is where players strategise, pitch, persuade, and compete for points. The pass-the-phone UX makes it work on a single device (no server needed), the Living Dead skull icon adds personality, and the card inspection overlay lets players really read and appreciate each card before playing it. The shared manager architecture means Phase 3 (BYE) came essentially free \u2014 same code, different deck. All cards now render through the shared card.js component with full illustrations, matching the physical card game's visual richness."
+    "framing": "This is the biggest feature drop yet — Phase 2/3 is the actual game. Phase 1 was just drawing a death card, but Phase 2 is where players strategise, pitch, persuade, and compete for points. The pass-the-phone UX makes it work on a single device (no server needed), the Living Dead skull icon adds personality, and the card inspection overlay lets players really read and appreciate each card before playing it. The shared manager architecture means Phase 3 (BYE) came essentially free — same code, different deck. All cards now render through the shared card.js component with full illustrations, matching the physical card game's visual richness."
   },
   {
     "queued_at": "2026-03-26T02:37:00Z",
@@ -126,7 +126,7 @@
     "commits": [
       "fix: dynamic percentage-based card positioning in hand fan"
     ],
-    "framing": "The hand fan was using a hardcoded 43px offset between cards \u2014 fine on one screen size but cramped or misaligned on others. Now the formula is calc((100% - 135px) * index / (count - 1)), so the first card sits flush left, the last card sits flush right, and everything in between divides the space perfectly. It's a small detail that makes the game feel polished across all device widths."
+    "framing": "The hand fan was using a hardcoded 43px offset between cards — fine on one screen size but cramped or misaligned on others. Now the formula is calc((100% - 135px) * index / (count - 1)), so the first card sits flush left, the last card sits flush right, and everything in between divides the space perfectly. It's a small detail that makes the game feel polished across all device widths."
   },
   {
     "queued_at": "2026-03-26T02:57:00Z",
@@ -134,7 +134,7 @@
     "feature": {
       "name": "Hand Overlay Navigation Arrows + Selected Card Protrusion",
       "slug": "hand-overlay-nav-arrows",
-      "description": "Added \u2039 \u203a navigation arrows to the card inspect overlay so players can browse their entire hand without closing it. The currently-viewed card also protrudes ~35% of its height above the hand fan as a visual indicator of which card is selected.",
+      "description": "Added ‹ › navigation arrows to the card inspect overlay so players can browse their entire hand without closing it. The currently-viewed card also protrudes ~35% of its height above the hand fan as a visual indicator of which card is selected.",
       "pr_url": "https://github.com/bh679/carkedit-online/pull/30",
       "pr_number": 30,
       "merged_at": "2026-03-26T02:56:30Z",
@@ -143,7 +143,7 @@
     "screenshots": [
       {
         "path": "test-results/gate2-hand-nav-overlay.png",
-        "description": "Inspect overlay with \u2039 \u203a navigation arrows flanking the card"
+        "description": "Inspect overlay with ‹ › navigation arrows flanking the card"
       },
       {
         "path": "test-results/gate2-overflow-fix-2.png",
@@ -154,7 +154,7 @@
       "feat: add hand overlay navigation arrows and selected card protrusion",
       "merge: resolve conflict with main responsive hand layout"
     ],
-    "framing": "Before this, players had to close the overlay to see a different card \u2014 tedious when you're trying to weigh up your options under social pressure. Now you can swipe through your whole hand in one tap each. The protruding card is a small but satisfying detail: you can glance down at the hand and immediately see which card you're currently inspecting, even with the overlay open. Both features together make card selection feel fluid rather than clunky."
+    "framing": "Before this, players had to close the overlay to see a different card — tedious when you're trying to weigh up your options under social pressure. Now you can swipe through your whole hand in one tap each. The protruding card is a small but satisfying detail: you can glance down at the hand and immediately see which card you're currently inspecting, even with the overlay open. Both features together make card selection feel fluid rather than clunky."
   },
   {
     "queued_at": "2026-03-26T02:55:34Z",
@@ -172,7 +172,7 @@
     "commits": [
       "feat: add card-grid component and use for revealed/judging screens"
     ],
-    "framing": "The old revealed screen piled all submitted cards on top of each other in a random scatter \u2014 confusing and hard to read under the social pressure of the reveal moment. Now they lay out in a clean 2-column grid so every card is fully visible at the same time. The same grid is reused on the judging screen where the Living Dead taps their favourite, making the interaction clear and consistent. Standardising this into a shared component means any future screen that needs a card selection grid \u2014 like a scoreboard or highlight reel \u2014 can use it in one line."
+    "framing": "The old revealed screen piled all submitted cards on top of each other in a random scatter — confusing and hard to read under the social pressure of the reveal moment. Now they lay out in a clean 2-column grid so every card is fully visible at the same time. The same grid is reused on the judging screen where the Living Dead taps their favourite, making the interaction clear and consistent. Standardising this into a shared component means any future screen that needs a card selection grid — like a scoreboard or highlight reel — can use it in one line."
   },
   {
     "queued_at": "2026-03-26T06:06:00Z",
@@ -180,7 +180,7 @@
     "feature": {
       "name": "Card Preview Overlay on Judging Screen",
       "slug": "judging-card-preview-overlay",
-      "description": "When a judge clicks a submitted card during Phase 2/3 judging, it now opens the same full-screen inspect overlay used when picking from hand \u2014 large card, deck-coloured nav arrows (green for LIVE), and a \"Pick This Card\" confirm button. Nav arrows let you browse all submitted cards before committing. Backdrop tap dismisses without selecting.",
+      "description": "When a judge clicks a submitted card during Phase 2/3 judging, it now opens the same full-screen inspect overlay used when picking from hand — large card, deck-coloured nav arrows (green for LIVE), and a \"Pick This Card\" confirm button. Nav arrows let you browse all submitted cards before committing. Backdrop tap dismisses without selecting.",
       "pr_url": "https://github.com/bh679/carkedit-online/pull/40",
       "pr_number": 40,
       "merged_at": "2026-03-26T06:05:53Z",
@@ -190,7 +190,7 @@
     "commits": [
       "feat: add card preview overlay to judging screen"
     ],
-    "framing": "Before this change, tapping a card on the judging screen immediately picked a winner \u2014 no chance to zoom in, re-read the card, or build suspense. Now the Living Dead can tap through all submitted cards one by one in a full-screen overlay before committing. The same overlay code that powers hand selection was extracted into a shared renderInspectOverlay() component, so the judging preview inherits all the same polish: big card, deck-coloured arrows, and a satisfying confirm button. Zero code duplication, consistent UX across both contexts."
+    "framing": "Before this change, tapping a card on the judging screen immediately picked a winner — no chance to zoom in, re-read the card, or build suspense. Now the Living Dead can tap through all submitted cards one by one in a full-screen overlay before committing. The same overlay code that powers hand selection was extracted into a shared renderInspectOverlay() component, so the judging preview inherits all the same polish: big card, deck-coloured arrows, and a satisfying confirm button. Zero code duplication, consistent UX across both contexts."
   },
   {
     "queued_at": "2026-03-26T09:50:00Z",
@@ -198,7 +198,7 @@
     "feature": {
       "name": "Birthday Picker",
       "slug": "birthday-picker",
-      "description": "Players can now have a birthday (month + day) stored alongside their name, entered via two dropdowns during lobby setup. The birthday appears with a \ud83c\udf82 icon contextually: always in the Lobby, on your active turn in Phase 1, and next to the Living Dead player in Phase 2/3/4. Score is shown at all other times. The dev player pool is pre-populated with birthdates for instant testing.",
+      "description": "Players can now have a birthday (month + day) stored alongside their name, entered via two dropdowns during lobby setup. The birthday appears with a 🎂 icon contextually: always in the Lobby, on your active turn in Phase 1, and next to the Living Dead player in Phase 2/3/4. Score is shown at all other times. The dev player pool is pre-populated with birthdates for instant testing.",
       "pr_url": "https://github.com/bh679/carkedit-online/pull/55",
       "pr_number": 55,
       "merged_at": "2026-03-26T09:43:48Z",
@@ -208,7 +208,7 @@
     "commits": [
       "feat: add birthday picker and display to player list"
     ],
-    "framing": "Carked It is a social game played around a table \u2014 everyone knows each other. Adding birthdates gives the game a personal touch: your birthday shows up when it's your turn in Phase 1, and when you're The Living Dead judging everyone's cards. It's a small detail that makes the digital version feel warmer and more personal than a generic party game app."
+    "framing": "Carked It is a social game played around a table — everyone knows each other. Adding birthdates gives the game a personal touch: your birthday shows up when it's your turn in Phase 1, and when you're The Living Dead judging everyone's cards. It's a small detail that makes the digital version feel warmer and more personal than a generic party game app."
   },
   {
     "queued_at": "2026-03-27T02:07:03Z",
@@ -216,7 +216,7 @@
     "feature": {
       "name": "Hand Footer Buttons",
       "slug": "hand-footer-buttons",
-      "description": "All action buttons in the hand area (Flip Card, Done Dying, Start Round, Reveal Cards, Start Pitching, Done Pitching, Redraw Hand) now render inside a unified .hand__footer subsection with a consistent white background \u2014 visually part of the hand UI panel rather than floating separately on the dark game screen.",
+      "description": "All action buttons in the hand area (Flip Card, Done Dying, Start Round, Reveal Cards, Start Pitching, Done Pitching, Redraw Hand) now render inside a unified .hand__footer subsection with a consistent white background — visually part of the hand UI panel rather than floating separately on the dark game screen.",
       "pr_url": "https://github.com/bh679/carkedit-online/pull/59",
       "pr_number": 59,
       "merged_at": "2026-03-27T02:07:03Z",
@@ -227,7 +227,7 @@
       "refactor: unify hand action buttons into consistent .hand__footer section",
       "style: remove border-top from .hand__footer"
     ],
-    "framing": "Seven different action buttons across Phase 1, 2, and 3 were being rendered through three completely different patterns \u2014 a manual hand div in Phase 1, a bare footer prop in Phase 2/3 selecting, and a separate .phase-actions div floating outside the hand component entirely. The inconsistency was invisible to players but a maintenance headache in code. Now every hand-area button goes through the same .hand__footer slot, appears on the same white background, and is positioned identically regardless of which phase you're in. It's the kind of refactor that makes the codebase feel coherent \u2014 the UI now expresses a clear intent rather than accumulating workarounds."
+    "framing": "Seven different action buttons across Phase 1, 2, and 3 were being rendered through three completely different patterns — a manual hand div in Phase 1, a bare footer prop in Phase 2/3 selecting, and a separate .phase-actions div floating outside the hand component entirely. The inconsistency was invisible to players but a maintenance headache in code. Now every hand-area button goes through the same .hand__footer slot, appears on the same white background, and is positioned identically regardless of which phase you're in. It's the kind of refactor that makes the codebase feel coherent — the UI now expresses a clear intent rather than accumulating workarounds."
   },
   {
     "queued_at": "2026-03-26T06:03:38Z",
@@ -235,7 +235,7 @@
     "feature": {
       "name": "CarkedIt Favicon",
       "slug": "carkedit-favicon",
-      "description": "The browser tab, Apple home screen icon, Android shortcut, and Windows tile now all show the CarkedIt card front image \u2014 the same favicon used on carkedit.com. Four PNG sizes (32\u00d732, 180\u00d7180, 192\u00d7192, 270\u00d7270) are self-hosted in assets/ and declared via standard link tags in index.html.",
+      "description": "The browser tab, Apple home screen icon, Android shortcut, and Windows tile now all show the CarkedIt card front image — the same favicon used on carkedit.com. Four PNG sizes (32×32, 180×180, 192×192, 270×270) are self-hosted in assets/ and declared via standard link tags in index.html.",
       "pr_url": "https://github.com/bh679/carkedit-online/pull/39",
       "pr_number": 39,
       "merged_at": "2026-03-26T06:03:38Z",
@@ -245,7 +245,7 @@
     "commits": [
       "feat: add CarkedIt favicon matching carkedit.com branding"
     ],
-    "framing": "Before this, CarkedIt Online had no favicon \u2014 the browser tab showed a blank page icon. Now it shows the same iconic card-front image as carkedit.com, giving the game a consistent brand identity across the browser tab, home screen shortcuts, and pinned tiles. It's a small detail but a meaningful one: it signals polish and makes the game feel like a real product when players bookmark it or add it to their phone's home screen."
+    "framing": "Before this, CarkedIt Online had no favicon — the browser tab showed a blank page icon. Now it shows the same iconic card-front image as carkedit.com, giving the game a consistent brand identity across the browser tab, home screen shortcuts, and pinned tiles. It's a small detail but a meaningful one: it signals polish and makes the game feel like a real product when players bookmark it or add it to their phone's home screen."
   },
   {
     "queued_at": "2026-04-02T03:26:16Z",
@@ -272,7 +272,7 @@
     "commits": [
       "fix: hide Create Room option when visiting via join link"
     ],
-    "framing": "A small but important UX fix for the share-a-link flow. When you text a friend a join link, they should land on a focused screen that says \"enter your name and hit Join\" \u2014 not a screen that also offers to create a whole new room. Removing the distraction makes the join-via-link experience feel intentional and polished."
+    "framing": "A small but important UX fix for the share-a-link flow. When you text a friend a join link, they should land on a focused screen that says \"enter your name and hit Join\" — not a screen that also offers to create a whole new room. Removing the distraction makes the join-via-link experience feel intentional and polished."
   },
   {
     "queued_at": "2026-04-07T09:15:00Z",
@@ -304,7 +304,7 @@
       "feat: lobby pack filter tabs (Official / My / Public / Favourites)",
       "fix: show base game on Public tab too (it's both official and public)"
     ],
-    "framing": "The expansion pack list was about to get unwieldy as more user-created and public decks ship. Filter tabs scope it down so the host can find what they want fast \u2014 official curated decks for a quick standard game, their own drafts to test, the community's published packs to discover, or their saved favourites for quick replays. The favourites system is brand new (no DB table existed) and is the lever that makes 'I liked that deck last week' a one-tap action instead of a search. The admin 'Mark as Official' flag means the team can curate which community packs get the green-tick treatment without code changes. Small UI feature, big infrastructure under the hood."
+    "framing": "The expansion pack list was about to get unwieldy as more user-created and public decks ship. Filter tabs scope it down so the host can find what they want fast — official curated decks for a quick standard game, their own drafts to test, the community's published packs to discover, or their saved favourites for quick replays. The favourites system is brand new (no DB table existed) and is the lever that makes 'I liked that deck last week' a one-tap action instead of a search. The admin 'Mark as Official' flag means the team can curate which community packs get the green-tick treatment without code changes. Small UI feature, big infrastructure under the hood."
   },
   {
     "queued_at": "2026-04-08T08:55:00Z",
@@ -331,5 +331,25 @@
       "feat(dashboard): add PATCH endpoints to toggle is_dev on games and surveys"
     ],
     "framing": "Until now, marking a record as a dev/test entry could only happen at creation time, and only packs could be flipped after the fact. Real playtest sessions inevitably mix in throwaway games and dummy NPS responses that pollute the live stats. With one-click dashboard toggles and the existing With Dev / No Dev / Only Dev filters, the team can now triage that noise after the fact instead of having to remember to flag things up front. The in-page confirmation modal (replacing the default browser popup) is a small detail that keeps the dashboard feeling cohesive and on-brand, and the same PATCH endpoint shape is used for all three entity types so the client code is symmetric."
+  },
+  {
+    "queued_at": "2026-04-09T06:25:00Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "Swipe and Drag Navigation for Card Lists and Previews",
+      "slug": "touch-swipe-navigation",
+      "description": "Added natural swipe and drag gestures across every horizontal card list, pack list, player list, and full-screen card preview in the client — with zero changes to any existing overlay or card-list call site.",
+      "pr_url": "https://github.com/bh679/carkedit-online/pull/116",
+      "pr_number": 116,
+      "merged_at": "2026-04-09T06:22:22Z",
+      "wiki_url": null
+    },
+    "screenshots": [],
+    "commits": [
+      "feat(touch): swipe navigation for card lists and inspect overlays",
+      "feat(touch): drag-to-scroll for horizontal card and list strips",
+      "feat(touch): disable native drag + context menu on card images"
+    ],
+    "framing": "Before this PR, card strips on mobile were only navigable with tiny arrow buttons, and on desktop you couldn't pan them at all — you were stuck clicking the arrows. Worse, clicking a card image would start the native browser image-drag instead of scrolling the list. This feature turns every horizontal list into a natural swipe-flick surface on touch and a click-and-drag pan on desktop, with scroll-snap landing the strip on a card boundary after release. The inspect overlay (hand, judging, pack detail, dashboard preview) also gets swipe-to-navigate between prev/next cards. The design principle is worth noting: every surface — hand inspect, judging overlay, dashboard preview, lobby pack preview, marketplace pack detail, edit pack, player list chips, dashboard analytics — inherits the new behaviour through two document-level pointer delegates and a structural overflow-x test, with zero changes to the eight-plus call sites that render these lists. One DRY shared primitive, automatic coverage of future surfaces. We also hardened card images against right-click-save and native drag, which felt right as part of the same pass since both are about making cards feel like cards, not web images."
   }
 ]
