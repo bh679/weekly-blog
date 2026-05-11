@@ -351,5 +351,26 @@
       "feat(touch): disable native drag + context menu on card images"
     ],
     "framing": "Before this PR, card strips on mobile were only navigable with tiny arrow buttons, and on desktop you couldn't pan them at all — you were stuck clicking the arrows. Worse, clicking a card image would start the native browser image-drag instead of scrolling the list. This feature turns every horizontal list into a natural swipe-flick surface on touch and a click-and-drag pan on desktop, with scroll-snap landing the strip on a card boundary after release. The inspect overlay (hand, judging, pack detail, dashboard preview) also gets swipe-to-navigate between prev/next cards. The design principle is worth noting: every surface — hand inspect, judging overlay, dashboard preview, lobby pack preview, marketplace pack detail, edit pack, player list chips, dashboard analytics — inherits the new behaviour through two document-level pointer delegates and a structural overflow-x test, with zero changes to the eight-plus call sites that render these lists. One DRY shared primitive, automatic coverage of future surfaces. We also hardened card images against right-click-save and native drag, which felt right as part of the same pass since both are about making cards feel like cards, not web images."
+  },
+  {
+    "queued_at": "2026-05-11T08:15:00Z",
+    "project": "CarkedIt Infrastructure",
+    "feature": {
+      "name": "GitHub Actions Deploy Workflow Migration",
+      "slug": "gh-actions-rewrite",
+      "description": "Rewrote all six GitHub Actions deploy workflows across carkedit-api and carkedit-online to call the new unified carkedit-deploy service via Bearer-authenticated POST endpoints, replacing the legacy PHP webhooks. Renamed deploy-dev.yml to deploy.yml in both repos, kept distinct tag prefixes (vs* for staging, v[0-9]* for prod) to prevent dual-fire, and split secrets per env-target combination.",
+      "pr_url": "https://github.com/bh679/carkedit-api/pull/110",
+      "pr_number": 110,
+      "merged_at": "2026-05-11T08:10:37Z",
+      "wiki_url": null,
+      "sibling_pr_url": "https://github.com/bh679/carkedit-online/pull/230",
+      "sibling_pr_number": 230,
+      "sibling_merged_at": "2026-05-11T08:10:48Z"
+    },
+    "screenshots": [],
+    "commits": [
+      "chore: migrate deploy workflows to carkedit-deploy (Session E)"
+    ],
+    "framing": "This is Session E of an eight-session infrastructure migration replacing brittle per-script PHP deploy webhooks with one unified Node service (carkedit-deploy). The workflow rewrite is what makes the new service actually usable from CI — every push to carkedit-api or carkedit-online now flows through the same Bearer-authenticated endpoint, with per-env tokens. Six identical YAML shapes replace six divergent ones. The story arc behind this work is treating deploys like a real piece of software with auth, observability, and audit instead of a pile of one-off shell scripts. The dual-repo squash-merge (not staggered) was the interesting coordination puzzle — both PRs flipped together so the next push can't land in a half-migrated state."
   }
 ]
