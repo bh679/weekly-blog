@@ -372,5 +372,23 @@
       "chore: migrate deploy workflows to carkedit-deploy (Session E)"
     ],
     "framing": "This is Session E of an eight-session infrastructure migration replacing brittle per-script PHP deploy webhooks with one unified Node service (carkedit-deploy). The workflow rewrite is what makes the new service actually usable from CI — every push to carkedit-api or carkedit-online now flows through the same Bearer-authenticated endpoint, with per-env tokens. Six identical YAML shapes replace six divergent ones. The story arc behind this work is treating deploys like a real piece of software with auth, observability, and audit instead of a pile of one-off shell scripts. The dual-repo squash-merge (not staggered) was the interesting coordination puzzle — both PRs flipped together so the next push can't land in a half-migrated state."
+  },
+  {
+    "queued_at": "2026-05-12T05:35:00Z",
+    "project": "CarkedIt Infrastructure",
+    "feature": {
+      "name": "Retire Legacy PHP Deploy Webhook",
+      "slug": "retire-php-deploy",
+      "description": "Deleted the 246-line carkedit-api/deploy.php — the legacy PHP deploy webhook that used to be hit by CI to git-pull, npm-build, and pm2-reload the API server. The new Node-based carkedit-deploy service has been running cleanly on dev, staging, and prod, and the GitHub Actions workflows (rewritten in Session E) already POST to its Bearer-auth endpoint instead. Two-file diff: deploy.php deleted + package.json version 0.01.0081 → 0.01.0082.",
+      "pr_url": "https://github.com/bh679/carkedit-api/pull/111",
+      "pr_number": 111,
+      "merged_at": "2026-05-12T05:34:19Z",
+      "wiki_url": null
+    },
+    "screenshots": [],
+    "commits": [
+      "chore: retire legacy deploy.php webhook"
+    ],
+    "framing": "This is Session F of the eight-session carkedit-deploy migration — the cleanup pass that finally deletes the legacy PHP from the carkedit-api repo. There is nothing functionally exciting to demo here, and that's exactly the point: a successful infrastructure migration ends with quiet deletions, not fireworks. The new Node service has been running long enough on all three environments that the fallback is no longer earning its keep, and 246 lines of PHP that hand-stitched `sudo -u bitnami bash -c \"…\"` strings — exactly the shell-escaping minefield the new service was designed to replace — are now gone for good. The carkedit-online side of the same cleanup (Session G) and the server-side script/sudoers tidy-up are scheduled separately. Sometimes the most valuable shipping work in a week is taking dead code out, not putting new code in."
   }
 ]
