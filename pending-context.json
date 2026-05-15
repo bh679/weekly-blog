@@ -761,5 +761,24 @@
       "fix: pull boundary-paired commits into /commits slice"
     ],
     "framing": "Coordinated PR pairs that land within the same minute across carkedit-online and carkedit-api are now reliably visualised as a single row in the /deploy timeline, regardless of where the pair lands in the topN window. Small UX bug, but it removes a confusing class of inconsistency: the row only had to be wrong by one position to look like the change had only landed in one repo, which made the timeline subtly untrustworthy."
-  }
+  },
+  {
+    "queued_at": "2026-05-15T10:35:00Z",
+    "project": "CarkedIt Deploy",
+    "feature": {
+      "name": "See Less button on Recent commits panel",
+      "slug": "see-less-btn",
+      "description": "Added a See less button next to the existing See more in the Recent commits panel of the deploy admin UI. The two share the pager row at a 70:30 width split when both are visible; when See less is hidden (at the default limit of 10) See more expands to 100% width. See less appears once the limit has been bumped above 10, decrements by one page (10), and re-hides itself at the floor.",
+      "pr_url": "https://github.com/bh679/carkedit-deploy/pull/33",
+      "pr_number": 33,
+      "merged_at": "2026-05-15T10:30:00Z",
+      "wiki_url": null
+    },
+    "screenshots": [],
+    "commits": [
+      "feat: add \"See less\" button next to \"See more\" (70:30 split)",
+      "fix: See more takes full width when See less is hidden"
+    ],
+    "framing": "Direct follow-up to the See more pagination shipped earlier the same day. See more on its own was a one-way ratchet — once you'd loaded 50 commits there was no way to collapse the panel back without a full page reload. See less closes that loop. The interesting bits are the CSS, not the JS: rather than fixed flex-basis percentages (which would have left an empty 30% gap whenever See less was hidden), the row uses grow-based ratios (flex: 7 1 0 / flex: 3 1 0). The container distributes free space by grow factor, so the 70:30 split is preserved when both children are visible and the lone visible child fills the row when the other has display:none. No JS reflow needed when buttons toggle — the layout falls out of the cascade. Also worth noting: this PR went through three rounds of merge-from-main during a 90-minute session as other branches (#34 Branches panel toggle, #35 deploy-branch highlight, #36 merge Branches panel into commits timeline, #37 Open filter, #38 scoped grey-subject fix) all landed touching the same ui.js / ui.css / ui.html. Each round resolved conflicts so the new feature coexisted with the incoming changes; 219/219 tests passed after every merge. The wider lesson: a small UX iteration shipped through a real four-gate workflow against a fast-moving main is mostly merge-management, not implementation."
+    }
 ]
