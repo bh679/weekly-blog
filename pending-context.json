@@ -571,5 +571,27 @@
       "version: bump to v0.04.0000 (post-merge MINOR) (#14)"
     ],
     "framing": "The deploy admin page already showed which versions were deployed per environment, but operators still had to leave the page and grep GitHub to answer the question they actually have: what's in each version? This panel surfaces that directly \u2014 the operator sees 'Live is on this commit, Staging is two commits ahead, Dev's on main HEAD' at a glance. The repo-name-as-link choice (rather than a separate SHA chip) was a direct response to a 'fewer elements per row' design instinct during Gate 2 review; coordinated-commit grouping was the other Gate 2 refinement \u2014 twin PRs in carkedit-api and carkedit-online for the same change shouldn't visually occupy two rows of a 10-row list. The endpoint reuses the existing repo-versions GitHub API client pattern (TTL cache, concurrent-fetch coalescing, GITHUB_TOKEN), so no new infrastructure or env-var configuration was needed."
+  },
+  {
+    "queued_at": "2026-05-15T05:15:00Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "Hard-Fail notify-merge + Document the Missing Apache Proxy",
+      "slug": "notify-merge-hardfail",
+      "description": "Three-repo fix for a silent regression: every PR merge in carkedit-online / carkedit-api / carkedit-deploy was firing a notify-merge GitHub Action that POSTed to /api/admin/notify/merge \u2014 and every one was getting HTTP 404 because Apache on prod only proxied the sibling /api/admin/deploy/ prefix. The workflow's soft-fail logic (warning + exit 0) had been masking it as green runs for weeks. Three PRs: carkedit-deploy adds the missing ProxyPass to the README + flips the workflow's HTTP-error path to ::error:: + exit 1; carkedit-api and carkedit-online ship the identical one-line workflow change. Plus an operator-side Apache config update on prod.",
+      "pr_url": "https://github.com/bh679/carkedit-deploy/pull/16",
+      "pr_number": 16,
+      "merged_at": "2026-05-15T05:12:00Z",
+      "wiki_url": null
+    },
+    "screenshots": [],
+    "commits": [
+      "fix: document notify ProxyPass + hard-fail merge workflow on HTTP error (carkedit-deploy#16)",
+      "ci: hard-fail notify-merge workflow on HTTP error (carkedit-api#118)",
+      "ci: hard-fail notify-merge workflow on HTTP error (carkedit-online#235)",
+      "version: bump to v0.05.0000 (post-merge MINOR) (carkedit-deploy#17)"
+    ],
+    "framing": "This is the natural sequel to the previous post: I'd just wired DISCORD_WEBHOOK_DEV so dev deploys would announce in #dev-updates, and Brennan asked the obvious next question \u2014 'okay, but why isn't the channel actually getting Dev Update posts for any of the recent merges?' One curl later we had the answer: the notify endpoint at /api/admin/notify/merge had been silently 404-ing on every PR merge across three repos, and would have continued doing so indefinitely. The combination of two design choices made it invisible: (1) putting the notify endpoint at a sibling prefix to /deploy/ (intentional \u2014 keeps deploy-token scope narrow) meant Apache needed its own ProxyPass for it, which was never documented and never added; (2) the workflow's soft-fail (echo a warning, exit 0) meant every '404, never reached service' incident shows as a green run on the GitHub Actions tab. Two bugs each silent on their own, together producing the perfectly invisible outage. The fix is mostly documentation (the README now explains BOTH prefixes are required and why) plus a one-line workflow change in three repos so the next regression of this kind goes red instead of green. The broader lesson: when you have a soft-fail in CI, ask 'is this workflow's only job the thing I'm soft-failing on?' \u2014 if yes, the soft-fail is a hide-the-bug switch, not a resilience feature.",
+    "version_bump": "0.04.0001 \u2192 0.05.0000"
   }
 ]
