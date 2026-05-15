@@ -611,5 +611,23 @@
       "feat: per-env PM2 health dot on deploy versions table"
     ],
     "framing": "Until now the versions table told you whether the right code was deployed, but nothing about whether it was actually RUNNING. If carkedit-api crashed under load, the green ✓ next to its version was technically truthful and totally misleading. The new dot answers the question the table was supposed to answer all along: is this env healthy right now? It pulls straight from pm2 jlist on the box, caches for 3s, and degrades gracefully when something on the path is broken — unreachable servers and older deploy services both fall back to a grey \"unknown\" dot so the table keeps working during rolling deploys."
+  },
+  {
+    "queued_at": "2026-05-15T06:25:26Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "Self-Deploy Auth Token Fix",
+      "slug": "add-deploy-token-to-auth",
+      "description": "Added .deploy-token-carkedit-deploy to the carkedit-deploy auth middleware so the self-deploy GitHub Actions workflow can authenticate. The third deploy target was introduced in PR #12 along with server-side token files and GH secrets, but the in-code allowlist (TOKEN_FILES_DEFAULT in src/auth.ts) was never widened — so every self-deploy run was hitting HTTP 401 invalid_token.",
+      "pr_url": "https://github.com/bh679/carkedit-deploy/pull/19",
+      "pr_number": 19,
+      "merged_at": "2026-05-15T06:21:30Z",
+      "wiki_url": null
+    },
+    "screenshots": [],
+    "commits": [
+      "fix: add .deploy-token-carkedit-deploy to TOKEN_FILES_DEFAULT"
+    ],
+    "framing": "Small patch (5 lines of real code), but a useful pattern reminder: a feature is not shipped until the auth layer knows about it. The self-deploy pipeline was end-to-end complete on paper — PR #12 added the deploy target and its routes, the servers had the token files, the GitHub secrets were set — but the in-code TOKEN_FILES_DEFAULT array still only listed the original two tokens. The final hop was silent until you saw 401s in every workflow run. Mostly worth blogging as a case study in cross-system rollout: when wiring up a new capability across infra + auth + code, the auth allowlist is the one that bites latest and quietest."
   }
 ]
