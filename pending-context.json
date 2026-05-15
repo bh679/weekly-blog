@@ -702,5 +702,23 @@
       "feat: add env/repo filter buttons to Recent commits (#22)"
     ],
     "framing": "The merged commit timeline already pulled commits from three repos \u00d7 three envs into one chronological list. Useful, but noisy when you're triaging on production and just want to see what's actually shipped to Release. The filter row is a small UX nudge: the buttons exist on every env, but the page itself starts you in the right place \u2014 wide on dev, narrow on prod \u2014 without locking you out of the wider view. Pressing-state colours match the per-commit env badges, so the bar reads as a legend you can also tap."
+  },
+  {
+    "queued_at": "2026-05-15T08:50:00Z",
+    "project": "CarkedIt Deploy",
+    "feature": {
+      "name": "Clickable # Link Before Each Version",
+      "slug": "version-link-hash",
+      "description": "Added a clickable # prefix before each version number in the Deployed Versions table on the deploy admin UI. Tag-kind cells (Live/Staging) link to https://github.com/bh679/<repo>/tree/v<version>; main-kind cells (Dev) link to /commits/main.",
+      "pr_url": "https://github.com/bh679/carkedit-deploy/pull/23",
+      "pr_number": 23,
+      "merged_at": "2026-05-15T08:44:32Z",
+      "wiki_url": "https://github.com/bh679/carkedit-online/wiki/Deploy-Versions-Table"
+    },
+    "screenshots": [],
+    "commits": [
+      "feat: clickable # link before each version in Deployed Versions table"
+    ],
+    "framing": "Small QoL polish on the deploy dashboard. Previously the version numbers were plain text \u2014 you had to manually browse to the right repo and tag to see what code each environment was running. Now its one click from a version cell to the corresponding commit/tag on GitHub. The change is frontend-only and uses kind+version data the API already returns, so theres no backend cost. This kind of micro-friction removal is what makes a self-built dev tool feel like a product."
   }
 ]
