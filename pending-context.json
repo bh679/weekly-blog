@@ -522,5 +522,25 @@
     ],
     "framing": "A nice debugging-then-fixing story \u2014 what looked like a network failure (\"Unreachable: Failed to fetch\") turned out to be the page's own CSP blocking the calls. Server CORS was already correct; the browser was refusing to dial out because the helmet allowlist didn't include our own subdomains. One-line whitelist add gets the full deployed-versions panel \u2014 across prod, staging, and dev \u2014 visible from any env's deploy page. The wider point: it's easy to read \"Failed to fetch\" as a server problem; CSP is silent unless you're looking at the right console message.",
     "version_bump": "0.02.0004 \u2192 0.02.0005"
+  },
+  {
+    "queued_at": "2026-05-15T04:51:00Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "Dev Deploys Post to #dev-updates Discord",
+      "slug": "webhook-dev-notify",
+      "description": "Wired the missing DISCORD_WEBHOOK_DEV env var in carkedit-deploy so dev-tier deploy successes post a 'Dev deploy: <target> @ <ref>' embed to the #dev-updates Discord channel. The Notifier interface and buildDevEmbed branch already existed \u2014 only the createNotifier call in src/index.ts wasn't passing webhookDev through, so every dev deploy was silently dropping its embed.",
+      "pr_url": "https://github.com/bh679/carkedit-deploy/pull/10",
+      "pr_number": 10,
+      "merged_at": "2026-05-15T04:48:47Z",
+      "wiki_url": null
+    },
+    "screenshots": [],
+    "commits": [
+      "feat: wire DISCORD_WEBHOOK_DEV so dev deploys post to #dev-updates",
+      "version: bump to v0.03.0000 (post-merge MINOR)"
+    ],
+    "framing": "Three repos already feed merge-event notifications into #dev-updates via a debounced batcher \u2014 you can see them in the channel as the daily 'X merges to main, across 3 repos' embed. But the actual dev deploys themselves were invisible: every time a branch pushed and dev redeployed, nothing showed up. Turned out the wiring was 95% in place \u2014 Notifier supported a webhookDev slot, discord.ts had a buildDevEmbed for the dev tier, the deploy router was calling notifier.notifyDeploySuccess({ tier: 'dev', ... }) after every successful run \u2014 the env var just wasn't being read at boot. Three lines of glue in src/index.ts and the channel now shows both 'merge to main' AND 'deployed to dev' events in one place, which is what the channel description ('Any updates to the dev server get automatically shared here') always promised. Also documented all five DISCORD_WEBHOOK_* env vars in the README \u2014 they'd been undocumented since the original webhook PR. The wider lesson: when a feature looks half-shipped, check whether 95% of the plumbing is already there before designing a new system.",
+    "version_bump": "0.02.0000 \u2192 0.03.0000"
   }
 ]
