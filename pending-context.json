@@ -542,5 +542,34 @@
     ],
     "framing": "Three repos already feed merge-event notifications into #dev-updates via a debounced batcher \u2014 you can see them in the channel as the daily 'X merges to main, across 3 repos' embed. But the actual dev deploys themselves were invisible: every time a branch pushed and dev redeployed, nothing showed up. Turned out the wiring was 95% in place \u2014 Notifier supported a webhookDev slot, discord.ts had a buildDevEmbed for the dev tier, the deploy router was calling notifier.notifyDeploySuccess({ tier: 'dev', ... }) after every successful run \u2014 the env var just wasn't being read at boot. Three lines of glue in src/index.ts and the channel now shows both 'merge to main' AND 'deployed to dev' events in one place, which is what the channel description ('Any updates to the dev server get automatically shared here') always promised. Also documented all five DISCORD_WEBHOOK_* env vars in the README \u2014 they'd been undocumented since the original webhook PR. The wider lesson: when a feature looks half-shipped, check whether 95% of the plumbing is already there before designing a new system.",
     "version_bump": "0.02.0000 \u2192 0.03.0000"
+  },
+  {
+    "queued_at": "2026-05-15T05:17:22Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "Deploy Recent Commits Timeline",
+      "slug": "deploy-recent-commits-timeline",
+      "description": "Added a 'Recent commits' panel to the deploy admin page (play.carkedit.com/deploy.html) showing the last 10 commits merged chronologically across carkedit-api, carkedit-online, and carkedit-deploy. Each row shows tag chips and Live/Staging/Dev badges marking which environments currently have that commit deployed. Coordinated commits across repos (paired PRs landing the same change) collapse onto a single row.",
+      "pr_url": "https://github.com/bh679/carkedit-deploy/pull/13",
+      "pr_number": 13,
+      "merged_at": "2026-05-15T05:12:13Z",
+      "wiki_url": "https://github.com/bh679/carkedit-online/wiki/Deploy-Recent-Commits"
+    },
+    "screenshots": [
+      {
+        "path": "carkedit-deploy/test-results/gate2-commits-timeline-v2-2026-05.png",
+        "description": "Recent commits panel below the versions table \u2014 10 commits chronologically, with two grouped rows (api+online chips on one row) and yellow tag chips on the rows that own a tag"
+      },
+      {
+        "path": "carkedit-deploy/test-results/gate2-commits-timeline-v2-with-badges-2026-05.png",
+        "description": "Same panel with synthetic deployed SHAs \u2014 green LIVE / yellow STAGING / blue DEV badges visible on the top two rows where the env's deployed SHA matches"
+      }
+    ],
+    "commits": [
+      "feat: recent-commits timeline panel with Live/Staging/Dev badges (#13)",
+      "feat: group coordinated commits + make repo name the commit link",
+      "version: bump to v0.04.0000 (post-merge MINOR) (#14)"
+    ],
+    "framing": "The deploy admin page already showed which versions were deployed per environment, but operators still had to leave the page and grep GitHub to answer the question they actually have: what's in each version? This panel surfaces that directly \u2014 the operator sees 'Live is on this commit, Staging is two commits ahead, Dev's on main HEAD' at a glance. The repo-name-as-link choice (rather than a separate SHA chip) was a direct response to a 'fewer elements per row' design instinct during Gate 2 review; coordinated-commit grouping was the other Gate 2 refinement \u2014 twin PRs in carkedit-api and carkedit-online for the same change shouldn't visually occupy two rows of a 10-row list. The endpoint reuses the existing repo-versions GitHub API client pattern (TTL cache, concurrent-fetch coalescing, GITHUB_TOKEN), so no new infrastructure or env-var configuration was needed."
   }
 ]
