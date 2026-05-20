@@ -928,5 +928,25 @@
       "version: bump to v0.10.0000 (post-merge MINOR)"
     ],
     "framing": "Before: a merged PR whose branch wasnt yet deleted appeared as two unrelated rows in Recent activity. After: one row per PR with a clear state tag. The deploy console finally tells you at a glance which branches are still in progress vs. already on main — turning the timeline from a noisy commit log into a PR-state dashboard."
+  },
+  {
+    "queued_at": "2026-05-20T06:30:00Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "Drop /stats/* — derive merge-embed enrichment from /commits",
+      "slug": "commits-stats-rewrite",
+      "description": "Rewrote carkedit-deploy's github-stats provider to compute the Discord merge-embed's chart + 3-month commits + PRs-merged fields from /repos/.../commits and /pulls instead of GitHub's /stats/commit_activity and /stats/code_frequency endpoints. The /stats/* endpoints had been stuck at HTTP 202 for 5+ days even after upgrading to GitHub Pro — a server-side bug where the async-compute pipeline for those specific endpoints stalls on certain private repos. Drops the Lines of code field (no cheap substitute) but lights up the chart + Commits (3mo) + PRs merged that had been blank since the webhook went live.",
+      "pr_url": "https://github.com/bh679/carkedit-deploy/pull/43",
+      "pr_number": 43,
+      "merged_at": "2026-05-20T06:00:00Z",
+      "wiki_url": null
+    },
+    "screenshots": [],
+    "commits": [
+      "refactor: derive merge-embed stats from /commits instead of /stats/* (carkedit-deploy#43)",
+      "version: bump to v0.11.0000 (post-merge MINOR) (carkedit-deploy#50)"
+    ],
+    "framing": "A story about leaning on the wrong API. The Discord webhook feature had been firing for weeks, but the chart + Commits (3mo) + PRs merged + Lines of code fields had been quietly blank that entire time because they depended on GitHub's /stats/commit_activity and /stats/code_frequency endpoints. The first day of this session we burned hours assuming it was authentication: generated a fine-grained PAT, then a classic PAT, then upgraded to GitHub Pro. None of it moved the needle. The endpoints kept returning HTTP 202 indefinitely — for five days, even after the web UI's Insights pages rendered the equivalent charts fine. Turns out GitHub has a server-side bug where the async-compute pipeline for these specific endpoints permanently stalls on certain private repos. The fix wasn't more auth — it was a different data source. /commits?since=<53w> is synchronous, always returns 200, and gives us exactly what we needed once we bucket the commit dates into 52 weekly slots ourselves. ~30 minutes of code, plus 24 new tests covering pagination, week-edge behaviour, and malformed dates. The live smoke test against production returned commits3mo=889 and branchesMerged=387 — the data we'd been chasing all along. The wider lesson: GitHub's documented 'retry after a brief wait' is sometimes 'this will never resolve.' When you've waited days for a documented-async response, stop waiting and find a synchronous alternative.",
+    "version_bump": "0.10.0001 → 0.11.0000"
   }
 ]
