@@ -1,5 +1,33 @@
 [
   {
+    "queued_at": "2026-05-20T05:35:24Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "\"Current\" button on Recent activity in /deploy",
+      "slug": "deploy-current-button",
+      "description": "On the deploy page (`/api/admin/deploy/ui.html`), per-branch Deploy buttons in the Recent activity panel now switch to a greyed-out \"Current\" pill when the branch HEAD sha matches the sha actually running on this server's env. Eliminates accidental re-deploys of an already-live commit and answers \"what's running here?\" at a glance.",
+      "pr_url": "https://github.com/bh679/carkedit-deploy/pull/48",
+      "pr_number": 48,
+      "merged_at": "2026-05-20T05:31:45Z",
+      "wiki_url": null
+    },
+    "screenshots": [
+      {
+        "path": "test-results/gate2-deploy-current-button-closeup-2026-05.png",
+        "description": "Single Recent activity row with carkedit-deploy main HEAD showing the muted blue 'Current' pill on the right (replaces what was a Deploy button)."
+      },
+      {
+        "path": "test-results/gate2-deploy-current-button-recent-activity-2026-05.png",
+        "description": "Full Recent activity panel: three main HEADs (api, online, deploy) render 'Current'; every other open branch keeps its 'Deploy' button."
+      }
+    ],
+    "commits": [
+      "feat: show \"Current\" on Recent activity deploy buttons that match this server (#48)",
+      "version: bump to v0.09.0000 (post-merge MINOR)"
+    ],
+    "framing": "Self-aware admin UI: the deploy page now reads its own server's deployed sha from /versions and uses it to highlight 'this is you' on the Recent activity timeline. Pure client-side cross-reference of data we were already fetching \u2014 no new endpoints, no schema changes. Small UX touch that closes a usability gap we kept hitting: easy to fat-finger a redeploy of the very sha that's already live."
+  },
+  {
     "queued_at": "2026-03-24T04:57:00Z",
     "project": "CarkedIt Online",
     "feature": {
