@@ -1,5 +1,32 @@
 [
   {
+    "queued_at": "2026-05-21T15:18:00Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "In-flight deploy badge on /deploy dashboard",
+      "slug": "inflight-deploy-feedback",
+      "description": "When a tier reports an in-flight deploy via /versions (phase ∈ {starting, running}), the affected version cell now renders a 'deploying…' or 'starting…' text chip next to the pulsing ⚠ icon. The Deployed versions table also auto-refetches every 5s while any tier is in-flight, then stops cleanly when all tiers reach a terminal phase.",
+      "pr_url": "https://github.com/bh679/carkedit-deploy/pull/70",
+      "pr_number": 70,
+      "merged_at": "2026-05-21T15:16:02Z",
+      "wiki_url": null
+    },
+    "screenshots": [
+      {
+        "path": "test-results/gate2-inflight-deploy-feedback-2026-05-running.png",
+        "description": "All three tiers (Live / Staging / Dev) show the api cell with a pulsing ⚠ icon and a muted-yellow 'deploying…' chip. Other columns (client, deploy) stay ✓ — the badge is per-cell, not per-row."
+      },
+      {
+        "path": "test-results/gate2-inflight-deploy-feedback-2026-05-starting.png",
+        "description": "Starting-phase variant: the client column shows ⚠ + a 'starting…' chip while the api and deploy columns stay clean. Same visual, distinct text — the phase comes straight from the /versions response."
+      }
+    ],
+    "commits": [
+      "feat: in-flight deploy badge + tighter /versions polling (#70)"
+    ],
+    "framing": "The icon already pulsed yellow when a deploy was in flight, but the change was easy to miss from across the room — and worse, /versions wasn't being re-fetched, so the dashboard stayed stale for 30-60s after a push-to-main even though the cache TTL alone wasn't the bottleneck. Two small fixes, one concept: make the in-flight state legible. A text chip ('deploying…' / 'starting…') sits next to the pulsing icon so the state reads from peripheral vision, and a self-rearming setTimeout chain re-fetches /versions every 5s while any tier is in-flight, then stops cleanly. The chip is gated on envBody.current.target === col, so the existing requiredApiVersion-mismatch warn case (which is also ⚠) stays badge-less — pickIcon now returns inFlightPhase to disambiguate the two paths. JS/CSS only, no server contract change, no deployment impact. Verified end-to-end with Playwright MCP by stubbing the /versions response: badge appears within 1s of an in-flight phase entering the payload, polling runs at the expected 5s cadence (15 calls / 26.5s / 3 envs), and polling stops completely within one cycle of returning to current=null."
+  },
+  {
     "queued_at": "2026-05-21T12:49:35Z",
     "project": "CarkedIt Online",
     "feature": {
