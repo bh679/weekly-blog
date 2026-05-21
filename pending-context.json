@@ -1,5 +1,33 @@
 [
   {
+    "queued_at": "2026-05-21T07:12:00Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "Tags card on /deploy",
+      "slug": "tags-card",
+      "description": "Added a dedicated Tags panel to the /deploy admin page, sitting directly under Recent activity. It lists every tag across carkedit-api, carkedit-online, and carkedit-deploy in one unified date-descending list, with names colour-coded by environment family (green for release v*, yellow for staging vs*, muted grey for anything else like legacy t*).",
+      "pr_url": "https://github.com/bh679/carkedit-deploy/pull/55",
+      "pr_number": 55,
+      "merged_at": "2026-05-21T07:09:27Z",
+      "wiki_url": null
+    },
+    "screenshots": [
+      {
+        "path": "test-results/gate2-tags-card-2026-05.png",
+        "description": "Tags panel close-up: a synthetic vs1.6.0 row at top demonstrates the yellow staging style; below it the real GitHub data shows green release tags from api + online and muted grey t* legacy tags."
+      },
+      {
+        "path": "test-results/gate2-tags-card-with-context-2026-05.png",
+        "description": "Full /deploy page: Deployed versions table, Recent activity panel, then the new Tags card directly below, then the deploy form. Shows the card living naturally inside the existing page chrome."
+      }
+    ],
+    "commits": [
+      "feat: add Tags card to /deploy listing every tag across all repos (#55)",
+      "version: bump to v0.13.0000 (post-merge MINOR)"
+    ],
+    "framing": "Tags used to be small inline chips on individual commit rows in Recent activity \u2014 easy to miss when scanning the timeline for 'what got released when'. The new card hoists every tag to the top level with environment colouring, so release-quality vs staging vs experimental versions read at a glance. Backend reuses the existing 24h per-SHA commit cache from commits.ts (newly-exported fetchSingleCommit), so warm-state cost is essentially zero \u2014 a clean piggyback on infrastructure we already built for the orphan-branch enrichment a few weeks ago. Follow-up queued separately: cross-repo dependency chips reading requiredApiVersion from each tag's package.json (e.g. 'online v1.06.0176 \u2190 api \u2265 v0.01.0064')."
+  },
+  {
     "queued_at": "2026-05-20T05:35:24Z",
     "project": "CarkedIt Online",
     "feature": {
@@ -25,7 +53,7 @@
       "feat: show \"Current\" on Recent activity deploy buttons that match this server (#48)",
       "version: bump to v0.09.0000 (post-merge MINOR)"
     ],
-    "framing": "Self-aware admin UI: the deploy page now reads its own server's deployed sha from /versions and uses it to highlight 'this is you' on the Recent activity timeline. Pure client-side cross-reference of data we were already fetching — no new endpoints, no schema changes. Small UX touch that closes a usability gap we kept hitting: easy to fat-finger a redeploy of the very sha that's already live."
+    "framing": "Self-aware admin UI: the deploy page now reads its own server's deployed sha from /versions and uses it to highlight 'this is you' on the Recent activity timeline. Pure client-side cross-reference of data we were already fetching \u2014 no new endpoints, no schema changes. Small UX touch that closes a usability gap we kept hitting: easy to fat-finger a redeploy of the very sha that's already live."
   },
   {
     "queued_at": "2026-03-24T04:57:00Z",
@@ -33,7 +61,7 @@
     "feature": {
       "name": "Wildcard Eulogy BYE Cards",
       "slug": "wildcard-eulogy-bye-cards",
-      "description": "Added 2× Wildcard Eulogy entries to the BYE card deck, bringing the total to 68 cards to match the physical print file. The Wildcard Eulogy is a special end-of-game card where players earn bonus points by giving each other eulogies.",
+      "description": "Added 2\u00d7 Wildcard Eulogy entries to the BYE card deck, bringing the total to 68 cards to match the physical print file. The Wildcard Eulogy is a special end-of-game card where players earn bonus points by giving each other eulogies.",
       "pr_url": "https://github.com/bh679/carkedit-online/pull/3",
       "pr_number": 3,
       "merged_at": "2026-03-24T04:56:25Z",
@@ -43,7 +71,7 @@
     "commits": [
       "feat: add Wildcard Eulogy cards to BYE deck (68 total)"
     ],
-    "framing": "The BYE deck digital data now faithfully matches the physical card print file. The Wildcard Eulogy is one of the most fun cards in the game — players save it until the end and then roast each other with eulogies for bonus points. Having it correctly represented (twice, as in the physical deck) ensures the online version delivers the same end-game energy."
+    "framing": "The BYE deck digital data now faithfully matches the physical card print file. The Wildcard Eulogy is one of the most fun cards in the game \u2014 players save it until the end and then roast each other with eulogies for bonus points. Having it correctly represented (twice, as in the physical deck) ensures the online version delivers the same end-game energy."
   },
   {
     "queued_at": "2026-03-25T02:00:00Z",
@@ -51,7 +79,7 @@
     "feature": {
       "name": "Full-Screen Card on Card Test Page",
       "slug": "fullscreen-card-test-page",
-      "description": "The card on card-test.html now scales to fill the entire viewport — height or width, whichever is reached first — while maintaining the 5:7 aspect ratio. The main UI (title, deck switcher, card, nav arrows) is locked to 100vh so nothing scrolls off screen; the JSON inspector remains accessible by scrolling below.",
+      "description": "The card on card-test.html now scales to fill the entire viewport \u2014 height or width, whichever is reached first \u2014 while maintaining the 5:7 aspect ratio. The main UI (title, deck switcher, card, nav arrows) is locked to 100vh so nothing scrolls off screen; the JSON inspector remains accessible by scrolling below.",
       "pr_url": "https://github.com/bh679/carkedit-online/pull/13",
       "pr_number": 13,
       "merged_at": "2026-03-25T01:59:09Z",
@@ -61,7 +89,7 @@
     "commits": [
       "feat: scale card to fill viewport on card test page"
     ],
-    "framing": "The card test page previously showed cards at a tiny 160px fixed width — basically a thumbnail. Now it actually fills the screen, making it useful for reviewing artwork, checking typography legibility, and demoing card designs at the scale players will see them in the game."
+    "framing": "The card test page previously showed cards at a tiny 160px fixed width \u2014 basically a thumbnail. Now it actually fills the screen, making it useful for reviewing artwork, checking typography legibility, and demoing card designs at the scale players will see them in the game."
   },
   {
     "queued_at": "2026-03-25T08:30:00Z",
@@ -79,7 +107,7 @@
     "commits": [
       "fix: dashboard iteration 3 - rate limit display, localStorage cache, UX fixes"
     ],
-    "framing": "The dev dashboard gives the team a single page to monitor all project activity across 5 repos, test card rendering, review the color system, and track wiki/todo progress — without leaving the browser. The rate limit display and localStorage cache solve a real pain point: GitHub's 60 req/hr unauthenticated limit was silently breaking the dashboard during testing, now it gracefully degrades with cached data."
+    "framing": "The dev dashboard gives the team a single page to monitor all project activity across 5 repos, test card rendering, review the color system, and track wiki/todo progress \u2014 without leaving the browser. The rate limit display and localStorage cache solve a real pain point: GitHub's 60 req/hr unauthenticated limit was silently breaking the dashboard during testing, now it gracefully degrades with cached data."
   },
   {
     "queued_at": "2026-03-25T09:14:00Z",
@@ -87,7 +115,7 @@
     "feature": {
       "name": "Remove Player from Lobby",
       "slug": "remove-player-lobby",
-      "description": "Tapping a player chip in the Lobby now reveals a red ✕ button. Tapping ✕ removes that player from the game. Tapping the same chip again dismisses the button without removing — a safe two-step interaction that's lobby-only and invisible during gameplay.",
+      "description": "Tapping a player chip in the Lobby now reveals a red \u2715 button. Tapping \u2715 removes that player from the game. Tapping the same chip again dismisses the button without removing \u2014 a safe two-step interaction that's lobby-only and invisible during gameplay.",
       "pr_url": "https://github.com/bh679/carkedit-online/pull/24",
       "pr_number": 24,
       "merged_at": "2026-03-25T09:13:47Z",
@@ -97,7 +125,7 @@
     "commits": [
       "feat: tap player chip in lobby to reveal remove button"
     ],
-    "framing": "Before this change there was no way to undo adding a player — you'd have to reload the whole page. Now it's a quick tap-tap to correct a typo or remove someone who sat down at the wrong table. Small UX detail, big reduction in friction at game setup time."
+    "framing": "Before this change there was no way to undo adding a player \u2014 you'd have to reload the whole page. Now it's a quick tap-tap to correct a typo or remove someone who sat down at the wrong table. Small UX detail, big reduction in friction at game setup time."
   },
   {
     "queued_at": "2026-03-25T09:15:00Z",
@@ -105,7 +133,7 @@
     "feature": {
       "name": "Auto-populate Random Player Name in Lobby",
       "slug": "lobby-random-player-name",
-      "description": "When the Add button is clicked with an empty name field in the lobby, a random name is auto-selected from a dev placeholder pool (Brennan, Simon, Leonie, Danikah, Lowe, Hatton, Sanderson) — skipping any already in use, and doing nothing gracefully when the pool is exhausted.",
+      "description": "When the Add button is clicked with an empty name field in the lobby, a random name is auto-selected from a dev placeholder pool (Brennan, Simon, Leonie, Danikah, Lowe, Hatton, Sanderson) \u2014 skipping any already in use, and doing nothing gracefully when the pool is exhausted.",
       "pr_url": "https://github.com/bh679/carkedit-online/pull/23",
       "pr_number": 23,
       "merged_at": "2026-03-25T09:14:08Z",
@@ -115,7 +143,7 @@
     "commits": [
       "feat: auto-populate random player name when lobby input is empty"
     ],
-    "framing": "Setting up a test game used to require typing every player name manually — a small but annoying friction point during playtesting. Now you can spam Add and the game fills in the squad for you. It's a dev convenience feature flagged for replacement before launch, but it makes iterating on lobby flow and game mechanics dramatically faster."
+    "framing": "Setting up a test game used to require typing every player name manually \u2014 a small but annoying friction point during playtesting. Now you can spam Add and the game fills in the squad for you. It's a dev convenience feature flagged for replacement before launch, but it makes iterating on lobby flow and game mechanics dramatically faster."
   },
   {
     "queued_at": "2026-03-25T09:47:00Z",
@@ -136,7 +164,7 @@
       "merge: incorporate main branch changes (player removal, random names, backgrounds)",
       "refactor: use card.js component for all card rendering in Phase 2/3"
     ],
-    "framing": "This is the biggest feature drop yet — Phase 2/3 is the actual game. Phase 1 was just drawing a death card, but Phase 2 is where players strategise, pitch, persuade, and compete for points. The pass-the-phone UX makes it work on a single device (no server needed), the Living Dead skull icon adds personality, and the card inspection overlay lets players really read and appreciate each card before playing it. The shared manager architecture means Phase 3 (BYE) came essentially free — same code, different deck. All cards now render through the shared card.js component with full illustrations, matching the physical card game's visual richness."
+    "framing": "This is the biggest feature drop yet \u2014 Phase 2/3 is the actual game. Phase 1 was just drawing a death card, but Phase 2 is where players strategise, pitch, persuade, and compete for points. The pass-the-phone UX makes it work on a single device (no server needed), the Living Dead skull icon adds personality, and the card inspection overlay lets players really read and appreciate each card before playing it. The shared manager architecture means Phase 3 (BYE) came essentially free \u2014 same code, different deck. All cards now render through the shared card.js component with full illustrations, matching the physical card game's visual richness."
   },
   {
     "queued_at": "2026-03-26T02:37:00Z",
@@ -154,7 +182,7 @@
     "commits": [
       "fix: dynamic percentage-based card positioning in hand fan"
     ],
-    "framing": "The hand fan was using a hardcoded 43px offset between cards — fine on one screen size but cramped or misaligned on others. Now the formula is calc((100% - 135px) * index / (count - 1)), so the first card sits flush left, the last card sits flush right, and everything in between divides the space perfectly. It's a small detail that makes the game feel polished across all device widths."
+    "framing": "The hand fan was using a hardcoded 43px offset between cards \u2014 fine on one screen size but cramped or misaligned on others. Now the formula is calc((100% - 135px) * index / (count - 1)), so the first card sits flush left, the last card sits flush right, and everything in between divides the space perfectly. It's a small detail that makes the game feel polished across all device widths."
   },
   {
     "queued_at": "2026-03-26T02:57:00Z",
@@ -162,7 +190,7 @@
     "feature": {
       "name": "Hand Overlay Navigation Arrows + Selected Card Protrusion",
       "slug": "hand-overlay-nav-arrows",
-      "description": "Added ‹ › navigation arrows to the card inspect overlay so players can browse their entire hand without closing it. The currently-viewed card also protrudes ~35% of its height above the hand fan as a visual indicator of which card is selected.",
+      "description": "Added \u2039 \u203a navigation arrows to the card inspect overlay so players can browse their entire hand without closing it. The currently-viewed card also protrudes ~35% of its height above the hand fan as a visual indicator of which card is selected.",
       "pr_url": "https://github.com/bh679/carkedit-online/pull/30",
       "pr_number": 30,
       "merged_at": "2026-03-26T02:56:30Z",
@@ -171,7 +199,7 @@
     "screenshots": [
       {
         "path": "test-results/gate2-hand-nav-overlay.png",
-        "description": "Inspect overlay with ‹ › navigation arrows flanking the card"
+        "description": "Inspect overlay with \u2039 \u203a navigation arrows flanking the card"
       },
       {
         "path": "test-results/gate2-overflow-fix-2.png",
@@ -182,7 +210,7 @@
       "feat: add hand overlay navigation arrows and selected card protrusion",
       "merge: resolve conflict with main responsive hand layout"
     ],
-    "framing": "Before this, players had to close the overlay to see a different card — tedious when you're trying to weigh up your options under social pressure. Now you can swipe through your whole hand in one tap each. The protruding card is a small but satisfying detail: you can glance down at the hand and immediately see which card you're currently inspecting, even with the overlay open. Both features together make card selection feel fluid rather than clunky."
+    "framing": "Before this, players had to close the overlay to see a different card \u2014 tedious when you're trying to weigh up your options under social pressure. Now you can swipe through your whole hand in one tap each. The protruding card is a small but satisfying detail: you can glance down at the hand and immediately see which card you're currently inspecting, even with the overlay open. Both features together make card selection feel fluid rather than clunky."
   },
   {
     "queued_at": "2026-03-26T02:55:34Z",
@@ -200,7 +228,7 @@
     "commits": [
       "feat: add card-grid component and use for revealed/judging screens"
     ],
-    "framing": "The old revealed screen piled all submitted cards on top of each other in a random scatter — confusing and hard to read under the social pressure of the reveal moment. Now they lay out in a clean 2-column grid so every card is fully visible at the same time. The same grid is reused on the judging screen where the Living Dead taps their favourite, making the interaction clear and consistent. Standardising this into a shared component means any future screen that needs a card selection grid — like a scoreboard or highlight reel — can use it in one line."
+    "framing": "The old revealed screen piled all submitted cards on top of each other in a random scatter \u2014 confusing and hard to read under the social pressure of the reveal moment. Now they lay out in a clean 2-column grid so every card is fully visible at the same time. The same grid is reused on the judging screen where the Living Dead taps their favourite, making the interaction clear and consistent. Standardising this into a shared component means any future screen that needs a card selection grid \u2014 like a scoreboard or highlight reel \u2014 can use it in one line."
   },
   {
     "queued_at": "2026-03-26T06:06:00Z",
@@ -208,7 +236,7 @@
     "feature": {
       "name": "Card Preview Overlay on Judging Screen",
       "slug": "judging-card-preview-overlay",
-      "description": "When a judge clicks a submitted card during Phase 2/3 judging, it now opens the same full-screen inspect overlay used when picking from hand — large card, deck-coloured nav arrows (green for LIVE), and a \"Pick This Card\" confirm button. Nav arrows let you browse all submitted cards before committing. Backdrop tap dismisses without selecting.",
+      "description": "When a judge clicks a submitted card during Phase 2/3 judging, it now opens the same full-screen inspect overlay used when picking from hand \u2014 large card, deck-coloured nav arrows (green for LIVE), and a \"Pick This Card\" confirm button. Nav arrows let you browse all submitted cards before committing. Backdrop tap dismisses without selecting.",
       "pr_url": "https://github.com/bh679/carkedit-online/pull/40",
       "pr_number": 40,
       "merged_at": "2026-03-26T06:05:53Z",
@@ -218,7 +246,7 @@
     "commits": [
       "feat: add card preview overlay to judging screen"
     ],
-    "framing": "Before this change, tapping a card on the judging screen immediately picked a winner — no chance to zoom in, re-read the card, or build suspense. Now the Living Dead can tap through all submitted cards one by one in a full-screen overlay before committing. The same overlay code that powers hand selection was extracted into a shared renderInspectOverlay() component, so the judging preview inherits all the same polish: big card, deck-coloured arrows, and a satisfying confirm button. Zero code duplication, consistent UX across both contexts."
+    "framing": "Before this change, tapping a card on the judging screen immediately picked a winner \u2014 no chance to zoom in, re-read the card, or build suspense. Now the Living Dead can tap through all submitted cards one by one in a full-screen overlay before committing. The same overlay code that powers hand selection was extracted into a shared renderInspectOverlay() component, so the judging preview inherits all the same polish: big card, deck-coloured arrows, and a satisfying confirm button. Zero code duplication, consistent UX across both contexts."
   },
   {
     "queued_at": "2026-03-26T09:50:00Z",
@@ -226,7 +254,7 @@
     "feature": {
       "name": "Birthday Picker",
       "slug": "birthday-picker",
-      "description": "Players can now have a birthday (month + day) stored alongside their name, entered via two dropdowns during lobby setup. The birthday appears with a 🎂 icon contextually: always in the Lobby, on your active turn in Phase 1, and next to the Living Dead player in Phase 2/3/4. Score is shown at all other times. The dev player pool is pre-populated with birthdates for instant testing.",
+      "description": "Players can now have a birthday (month + day) stored alongside their name, entered via two dropdowns during lobby setup. The birthday appears with a \ud83c\udf82 icon contextually: always in the Lobby, on your active turn in Phase 1, and next to the Living Dead player in Phase 2/3/4. Score is shown at all other times. The dev player pool is pre-populated with birthdates for instant testing.",
       "pr_url": "https://github.com/bh679/carkedit-online/pull/55",
       "pr_number": 55,
       "merged_at": "2026-03-26T09:43:48Z",
@@ -236,7 +264,7 @@
     "commits": [
       "feat: add birthday picker and display to player list"
     ],
-    "framing": "Carked It is a social game played around a table — everyone knows each other. Adding birthdates gives the game a personal touch: your birthday shows up when it's your turn in Phase 1, and when you're The Living Dead judging everyone's cards. It's a small detail that makes the digital version feel warmer and more personal than a generic party game app."
+    "framing": "Carked It is a social game played around a table \u2014 everyone knows each other. Adding birthdates gives the game a personal touch: your birthday shows up when it's your turn in Phase 1, and when you're The Living Dead judging everyone's cards. It's a small detail that makes the digital version feel warmer and more personal than a generic party game app."
   },
   {
     "queued_at": "2026-03-27T02:07:03Z",
@@ -244,7 +272,7 @@
     "feature": {
       "name": "Hand Footer Buttons",
       "slug": "hand-footer-buttons",
-      "description": "All action buttons in the hand area (Flip Card, Done Dying, Start Round, Reveal Cards, Start Pitching, Done Pitching, Redraw Hand) now render inside a unified .hand__footer subsection with a consistent white background — visually part of the hand UI panel rather than floating separately on the dark game screen.",
+      "description": "All action buttons in the hand area (Flip Card, Done Dying, Start Round, Reveal Cards, Start Pitching, Done Pitching, Redraw Hand) now render inside a unified .hand__footer subsection with a consistent white background \u2014 visually part of the hand UI panel rather than floating separately on the dark game screen.",
       "pr_url": "https://github.com/bh679/carkedit-online/pull/59",
       "pr_number": 59,
       "merged_at": "2026-03-27T02:07:03Z",
@@ -255,7 +283,7 @@
       "refactor: unify hand action buttons into consistent .hand__footer section",
       "style: remove border-top from .hand__footer"
     ],
-    "framing": "Seven different action buttons across Phase 1, 2, and 3 were being rendered through three completely different patterns — a manual hand div in Phase 1, a bare footer prop in Phase 2/3 selecting, and a separate .phase-actions div floating outside the hand component entirely. The inconsistency was invisible to players but a maintenance headache in code. Now every hand-area button goes through the same .hand__footer slot, appears on the same white background, and is positioned identically regardless of which phase you're in. It's the kind of refactor that makes the codebase feel coherent — the UI now expresses a clear intent rather than accumulating workarounds."
+    "framing": "Seven different action buttons across Phase 1, 2, and 3 were being rendered through three completely different patterns \u2014 a manual hand div in Phase 1, a bare footer prop in Phase 2/3 selecting, and a separate .phase-actions div floating outside the hand component entirely. The inconsistency was invisible to players but a maintenance headache in code. Now every hand-area button goes through the same .hand__footer slot, appears on the same white background, and is positioned identically regardless of which phase you're in. It's the kind of refactor that makes the codebase feel coherent \u2014 the UI now expresses a clear intent rather than accumulating workarounds."
   },
   {
     "queued_at": "2026-03-26T06:03:38Z",
@@ -263,7 +291,7 @@
     "feature": {
       "name": "CarkedIt Favicon",
       "slug": "carkedit-favicon",
-      "description": "The browser tab, Apple home screen icon, Android shortcut, and Windows tile now all show the CarkedIt card front image — the same favicon used on carkedit.com. Four PNG sizes (32×32, 180×180, 192×192, 270×270) are self-hosted in assets/ and declared via standard link tags in index.html.",
+      "description": "The browser tab, Apple home screen icon, Android shortcut, and Windows tile now all show the CarkedIt card front image \u2014 the same favicon used on carkedit.com. Four PNG sizes (32\u00d732, 180\u00d7180, 192\u00d7192, 270\u00d7270) are self-hosted in assets/ and declared via standard link tags in index.html.",
       "pr_url": "https://github.com/bh679/carkedit-online/pull/39",
       "pr_number": 39,
       "merged_at": "2026-03-26T06:03:38Z",
@@ -273,7 +301,7 @@
     "commits": [
       "feat: add CarkedIt favicon matching carkedit.com branding"
     ],
-    "framing": "Before this, CarkedIt Online had no favicon — the browser tab showed a blank page icon. Now it shows the same iconic card-front image as carkedit.com, giving the game a consistent brand identity across the browser tab, home screen shortcuts, and pinned tiles. It's a small detail but a meaningful one: it signals polish and makes the game feel like a real product when players bookmark it or add it to their phone's home screen."
+    "framing": "Before this, CarkedIt Online had no favicon \u2014 the browser tab showed a blank page icon. Now it shows the same iconic card-front image as carkedit.com, giving the game a consistent brand identity across the browser tab, home screen shortcuts, and pinned tiles. It's a small detail but a meaningful one: it signals polish and makes the game feel like a real product when players bookmark it or add it to their phone's home screen."
   },
   {
     "queued_at": "2026-04-02T03:26:16Z",
@@ -300,7 +328,7 @@
     "commits": [
       "fix: hide Create Room option when visiting via join link"
     ],
-    "framing": "A small but important UX fix for the share-a-link flow. When you text a friend a join link, they should land on a focused screen that says \"enter your name and hit Join\" — not a screen that also offers to create a whole new room. Removing the distraction makes the join-via-link experience feel intentional and polished."
+    "framing": "A small but important UX fix for the share-a-link flow. When you text a friend a join link, they should land on a focused screen that says \"enter your name and hit Join\" \u2014 not a screen that also offers to create a whole new room. Removing the distraction makes the join-via-link experience feel intentional and polished."
   },
   {
     "queued_at": "2026-04-07T09:15:00Z",
@@ -332,7 +360,7 @@
       "feat: lobby pack filter tabs (Official / My / Public / Favourites)",
       "fix: show base game on Public tab too (it's both official and public)"
     ],
-    "framing": "The expansion pack list was about to get unwieldy as more user-created and public decks ship. Filter tabs scope it down so the host can find what they want fast — official curated decks for a quick standard game, their own drafts to test, the community's published packs to discover, or their saved favourites for quick replays. The favourites system is brand new (no DB table existed) and is the lever that makes 'I liked that deck last week' a one-tap action instead of a search. The admin 'Mark as Official' flag means the team can curate which community packs get the green-tick treatment without code changes. Small UI feature, big infrastructure under the hood."
+    "framing": "The expansion pack list was about to get unwieldy as more user-created and public decks ship. Filter tabs scope it down so the host can find what they want fast \u2014 official curated decks for a quick standard game, their own drafts to test, the community's published packs to discover, or their saved favourites for quick replays. The favourites system is brand new (no DB table existed) and is the lever that makes 'I liked that deck last week' a one-tap action instead of a search. The admin 'Mark as Official' flag means the team can curate which community packs get the green-tick treatment without code changes. Small UI feature, big infrastructure under the hood."
   },
   {
     "queued_at": "2026-04-08T08:55:00Z",
@@ -366,7 +394,7 @@
     "feature": {
       "name": "Swipe and Drag Navigation for Card Lists and Previews",
       "slug": "touch-swipe-navigation",
-      "description": "Added natural swipe and drag gestures across every horizontal card list, pack list, player list, and full-screen card preview in the client — with zero changes to any existing overlay or card-list call site.",
+      "description": "Added natural swipe and drag gestures across every horizontal card list, pack list, player list, and full-screen card preview in the client \u2014 with zero changes to any existing overlay or card-list call site.",
       "pr_url": "https://github.com/bh679/carkedit-online/pull/116",
       "pr_number": 116,
       "merged_at": "2026-04-09T06:22:22Z",
@@ -378,7 +406,7 @@
       "feat(touch): drag-to-scroll for horizontal card and list strips",
       "feat(touch): disable native drag + context menu on card images"
     ],
-    "framing": "Before this PR, card strips on mobile were only navigable with tiny arrow buttons, and on desktop you couldn't pan them at all — you were stuck clicking the arrows. Worse, clicking a card image would start the native browser image-drag instead of scrolling the list. This feature turns every horizontal list into a natural swipe-flick surface on touch and a click-and-drag pan on desktop, with scroll-snap landing the strip on a card boundary after release. The inspect overlay (hand, judging, pack detail, dashboard preview) also gets swipe-to-navigate between prev/next cards. The design principle is worth noting: every surface — hand inspect, judging overlay, dashboard preview, lobby pack preview, marketplace pack detail, edit pack, player list chips, dashboard analytics — inherits the new behaviour through two document-level pointer delegates and a structural overflow-x test, with zero changes to the eight-plus call sites that render these lists. One DRY shared primitive, automatic coverage of future surfaces. We also hardened card images against right-click-save and native drag, which felt right as part of the same pass since both are about making cards feel like cards, not web images."
+    "framing": "Before this PR, card strips on mobile were only navigable with tiny arrow buttons, and on desktop you couldn't pan them at all \u2014 you were stuck clicking the arrows. Worse, clicking a card image would start the native browser image-drag instead of scrolling the list. This feature turns every horizontal list into a natural swipe-flick surface on touch and a click-and-drag pan on desktop, with scroll-snap landing the strip on a card boundary after release. The inspect overlay (hand, judging, pack detail, dashboard preview) also gets swipe-to-navigate between prev/next cards. The design principle is worth noting: every surface \u2014 hand inspect, judging overlay, dashboard preview, lobby pack preview, marketplace pack detail, edit pack, player list chips, dashboard analytics \u2014 inherits the new behaviour through two document-level pointer delegates and a structural overflow-x test, with zero changes to the eight-plus call sites that render these lists. One DRY shared primitive, automatic coverage of future surfaces. We also hardened card images against right-click-save and native drag, which felt right as part of the same pass since both are about making cards feel like cards, not web images."
   },
   {
     "queued_at": "2026-05-11T08:15:00Z",
@@ -399,7 +427,7 @@
     "commits": [
       "chore: migrate deploy workflows to carkedit-deploy (Session E)"
     ],
-    "framing": "This is Session E of an eight-session infrastructure migration replacing brittle per-script PHP deploy webhooks with one unified Node service (carkedit-deploy). The workflow rewrite is what makes the new service actually usable from CI — every push to carkedit-api or carkedit-online now flows through the same Bearer-authenticated endpoint, with per-env tokens. Six identical YAML shapes replace six divergent ones. The story arc behind this work is treating deploys like a real piece of software with auth, observability, and audit instead of a pile of one-off shell scripts. The dual-repo squash-merge (not staggered) was the interesting coordination puzzle — both PRs flipped together so the next push can't land in a half-migrated state."
+    "framing": "This is Session E of an eight-session infrastructure migration replacing brittle per-script PHP deploy webhooks with one unified Node service (carkedit-deploy). The workflow rewrite is what makes the new service actually usable from CI \u2014 every push to carkedit-api or carkedit-online now flows through the same Bearer-authenticated endpoint, with per-env tokens. Six identical YAML shapes replace six divergent ones. The story arc behind this work is treating deploys like a real piece of software with auth, observability, and audit instead of a pile of one-off shell scripts. The dual-repo squash-merge (not staggered) was the interesting coordination puzzle \u2014 both PRs flipped together so the next push can't land in a half-migrated state."
   },
   {
     "queued_at": "2026-05-12T05:35:00Z",
@@ -407,7 +435,7 @@
     "feature": {
       "name": "Retire Legacy PHP Deploy Webhook",
       "slug": "retire-php-deploy",
-      "description": "Deleted the 246-line carkedit-api/deploy.php — the legacy PHP deploy webhook that used to be hit by CI to git-pull, npm-build, and pm2-reload the API server. The new Node-based carkedit-deploy service has been running cleanly on dev, staging, and prod, and the GitHub Actions workflows (rewritten in Session E) already POST to its Bearer-auth endpoint instead. Two-file diff: deploy.php deleted + package.json version 0.01.0081 → 0.01.0082.",
+      "description": "Deleted the 246-line carkedit-api/deploy.php \u2014 the legacy PHP deploy webhook that used to be hit by CI to git-pull, npm-build, and pm2-reload the API server. The new Node-based carkedit-deploy service has been running cleanly on dev, staging, and prod, and the GitHub Actions workflows (rewritten in Session E) already POST to its Bearer-auth endpoint instead. Two-file diff: deploy.php deleted + package.json version 0.01.0081 \u2192 0.01.0082.",
       "pr_url": "https://github.com/bh679/carkedit-api/pull/111",
       "pr_number": 111,
       "merged_at": "2026-05-12T05:34:19Z",
@@ -417,7 +445,7 @@
     "commits": [
       "chore: retire legacy deploy.php webhook"
     ],
-    "framing": "This is Session F of the eight-session carkedit-deploy migration — the cleanup pass that finally deletes the legacy PHP from the carkedit-api repo. There is nothing functionally exciting to demo here, and that's exactly the point: a successful infrastructure migration ends with quiet deletions, not fireworks. The new Node service has been running long enough on all three environments that the fallback is no longer earning its keep, and 246 lines of PHP that hand-stitched `sudo -u bitnami bash -c \"…\"` strings — exactly the shell-escaping minefield the new service was designed to replace — are now gone for good. The carkedit-online side of the same cleanup (Session G) and the server-side script/sudoers tidy-up are scheduled separately. Sometimes the most valuable shipping work in a week is taking dead code out, not putting new code in."
+    "framing": "This is Session F of the eight-session carkedit-deploy migration \u2014 the cleanup pass that finally deletes the legacy PHP from the carkedit-api repo. There is nothing functionally exciting to demo here, and that's exactly the point: a successful infrastructure migration ends with quiet deletions, not fireworks. The new Node service has been running long enough on all three environments that the fallback is no longer earning its keep, and 246 lines of PHP that hand-stitched `sudo -u bitnami bash -c \"\u2026\"` strings \u2014 exactly the shell-escaping minefield the new service was designed to replace \u2014 are now gone for good. The carkedit-online side of the same cleanup (Session G) and the server-side script/sudoers tidy-up are scheduled separately. Sometimes the most valuable shipping work in a week is taking dead code out, not putting new code in."
   },
   {
     "queued_at": "2026-05-13T03:45:00Z",
@@ -425,7 +453,7 @@
     "feature": {
       "name": "Request-level Observability via pino-http",
       "slug": "request-logging",
-      "description": "Every HTTP request to carkedit-api now emits one structured JSON line to stdout via pino-http — req.id, method, url, statusCode, bytes, responseTime, Firebase uid, and a roomCode field on /api/carkedit/rooms/lookup. Level escalates to warn at >=500ms and error at >=2000ms (LOG_SLOW_WARN_MS / LOG_SLOW_ERROR_MS). X-Request-Id is set on every response and honours inbound values so an upstream load balancer can correlate. Authorization, Cookie, and Set-Cookie headers are redacted; bodies never logged.",
+      "description": "Every HTTP request to carkedit-api now emits one structured JSON line to stdout via pino-http \u2014 req.id, method, url, statusCode, bytes, responseTime, Firebase uid, and a roomCode field on /api/carkedit/rooms/lookup. Level escalates to warn at >=500ms and error at >=2000ms (LOG_SLOW_WARN_MS / LOG_SLOW_ERROR_MS). X-Request-Id is set on every response and honours inbound values so an upstream load balancer can correlate. Authorization, Cookie, and Set-Cookie headers are redacted; bodies never logged.",
       "pr_url": "https://github.com/bh679/carkedit-api/pull/113",
       "pr_number": 113,
       "merged_at": "2026-05-13T03:38:34Z",
@@ -436,7 +464,7 @@
       "feat: add structured per-request logging via pino-http",
       "fix: read content-length from pre-serialized res.headers"
     ],
-    "framing": "A direct follow-up from the 2026-05-08 prod audit. Apache had surfaced three AH01102 errors over four days — one a real ProxyTimeout against /api/carkedit/rooms/lookup, the others Apache losing the connection on /. The API process itself showed no crashes, sane memory, sane load. The working theory was sporadically slow handlers blocking the event loop just long enough to exceed Apache ProxyTimeout. The problem: the API had zero per-request logs. console.error fired when a handler threw, but a slow request that completed normally was invisible to us — and Apache had no idea which handler was responsible. This change adds the missing signal so the next AH01102 event will correlate to a specific log line with method, path, response time, and even a roomCode for the rooms/lookup endpoint. After about 24h of prod data we expect to know which handler is the culprit, and that becomes the input to a follow-up fix-the-slow-handler ticket. The interesting design constraint was log safety: no bodies, no auth headers, no cookies — even though the team uses 10mb image-gen bodies. pino-http handled it with redact paths and a custom res serializer; the unit tests assert no token can leak even if future code accidentally tries to log req.headers. Out of scope on purpose: log shipping (Datadog/CloudWatch), tracing, DB query logging. Each of those is a separate ticket. The principle is: add the cheapest possible visibility first, see what the data reveals, then escalate. Structured stdout JSON is the cheapest possible visibility — pm2 already captures it, jq already parses it, and no infrastructure changed."
+    "framing": "A direct follow-up from the 2026-05-08 prod audit. Apache had surfaced three AH01102 errors over four days \u2014 one a real ProxyTimeout against /api/carkedit/rooms/lookup, the others Apache losing the connection on /. The API process itself showed no crashes, sane memory, sane load. The working theory was sporadically slow handlers blocking the event loop just long enough to exceed Apache ProxyTimeout. The problem: the API had zero per-request logs. console.error fired when a handler threw, but a slow request that completed normally was invisible to us \u2014 and Apache had no idea which handler was responsible. This change adds the missing signal so the next AH01102 event will correlate to a specific log line with method, path, response time, and even a roomCode for the rooms/lookup endpoint. After about 24h of prod data we expect to know which handler is the culprit, and that becomes the input to a follow-up fix-the-slow-handler ticket. The interesting design constraint was log safety: no bodies, no auth headers, no cookies \u2014 even though the team uses 10mb image-gen bodies. pino-http handled it with redact paths and a custom res serializer; the unit tests assert no token can leak even if future code accidentally tries to log req.headers. Out of scope on purpose: log shipping (Datadog/CloudWatch), tracing, DB query logging. Each of those is a separate ticket. The principle is: add the cheapest possible visibility first, see what the data reveals, then escalate. Structured stdout JSON is the cheapest possible visibility \u2014 pm2 already captures it, jq already parses it, and no infrastructure changed."
   },
   {
     "queued_at": "2026-05-13T04:30:00Z",
@@ -444,7 +472,7 @@
     "feature": {
       "name": "Per-Environment Firebase Project Separation",
       "slug": "firebase-per-env",
-      "description": "All three CarkedIt environments (dev / staging / prod) previously shared the single Firebase project carkedit-5cc8e. This change introduces a per-host getFirebaseConfig() selector in carkedit-online so each hostname authenticates against its own Firebase project, and makes carkedit-api's same-origin OAuth proxy derive its target from the service-account JSON's project_id field — so swapping the JSON per environment automatically swaps the proxy too.",
+      "description": "All three CarkedIt environments (dev / staging / prod) previously shared the single Firebase project carkedit-5cc8e. This change introduces a per-host getFirebaseConfig() selector in carkedit-online so each hostname authenticates against its own Firebase project, and makes carkedit-api's same-origin OAuth proxy derive its target from the service-account JSON's project_id field \u2014 so swapping the JSON per environment automatically swaps the proxy too.",
       "pr_url": "https://github.com/bh679/carkedit-online/pull/232",
       "pr_number": 232,
       "merged_at": "2026-05-13T04:22:44Z",
@@ -456,7 +484,7 @@
       "feat: wire real dev + staging Firebase configs",
       "feat: derive Firebase auth proxy target from service-account project_id (carkedit-api #112)"
     ],
-    "framing": "Pre-launch security tightening. Before this, a dev test user was a real prod user, and a misconfigured dev token could authenticate against the prod API. Three separate Firebase projects, treated as fresh — no user migration needed because there are no real prod users yet. The cost of separation scales with active user count, so it's cheap now and gets expensive later. Two interesting things from the build: (1) the brief asserted carkedit-api needed zero code change, but a hardcoded `carkedit-5cc8e.firebaseapp.com` in the Safari ITP same-origin OAuth proxy would have defeated the whole separation — caught during planning. (2) The runbook initially included a 'clone Firestore security rules' step that turned out to be busywork — grep showed the app uses Firebase Auth only, with game data in local SQLite. Lesson: verify assumptions about what a system actually uses before writing the runbook around them."
+    "framing": "Pre-launch security tightening. Before this, a dev test user was a real prod user, and a misconfigured dev token could authenticate against the prod API. Three separate Firebase projects, treated as fresh \u2014 no user migration needed because there are no real prod users yet. The cost of separation scales with active user count, so it's cheap now and gets expensive later. Two interesting things from the build: (1) the brief asserted carkedit-api needed zero code change, but a hardcoded `carkedit-5cc8e.firebaseapp.com` in the Safari ITP same-origin OAuth proxy would have defeated the whole separation \u2014 caught during planning. (2) The runbook initially included a 'clone Firestore security rules' step that turned out to be busywork \u2014 grep showed the app uses Firebase Auth only, with game data in local SQLite. Lesson: verify assumptions about what a system actually uses before writing the runbook around them."
   },
   {
     "queued_at": "2026-05-15T04:00:00Z",
@@ -525,7 +553,7 @@
       "feat: link env names to /deploy.html + stronger current-env highlight",
       "version: bump to 0.02.0000 for feature merge"
     ],
-    "framing": "Before this, the deploy admin page was three identical-looking environments on a single screen — easy to lose track of which one you were about to deploy into, with no way to jump to another env except by retyping the host. Now you land on dev.play.carkedit.com/deploy.html and the Dev row is unmissable, and one click on 'Live' or 'Staging' opens that env's deploy controls in a new tab. The kind of small UX upgrade that you don't notice when it's there, but you really miss when it isn't — especially under pressure during a release."
+    "framing": "Before this, the deploy admin page was three identical-looking environments on a single screen \u2014 easy to lose track of which one you were about to deploy into, with no way to jump to another env except by retyping the host. Now you land on dev.play.carkedit.com/deploy.html and the Dev row is unmissable, and one click on 'Live' or 'Staging' opens that env's deploy controls in a new tab. The kind of small UX upgrade that you don't notice when it's there, but you really miss when it isn't \u2014 especially under pressure during a release."
   },
   {
     "queued_at": "2026-05-15T04:42:00Z",
@@ -548,8 +576,8 @@
     "commits": [
       "fix: allow cross-env fetches in CSP for deploy dashboard"
     ],
-    "framing": "A nice debugging-then-fixing story — what looked like a network failure (\"Unreachable: Failed to fetch\") turned out to be the page's own CSP blocking the calls. Server CORS was already correct; the browser was refusing to dial out because the helmet allowlist didn't include our own subdomains. One-line whitelist add gets the full deployed-versions panel — across prod, staging, and dev — visible from any env's deploy page. The wider point: it's easy to read \"Failed to fetch\" as a server problem; CSP is silent unless you're looking at the right console message.",
-    "version_bump": "0.02.0004 → 0.02.0005"
+    "framing": "A nice debugging-then-fixing story \u2014 what looked like a network failure (\"Unreachable: Failed to fetch\") turned out to be the page's own CSP blocking the calls. Server CORS was already correct; the browser was refusing to dial out because the helmet allowlist didn't include our own subdomains. One-line whitelist add gets the full deployed-versions panel \u2014 across prod, staging, and dev \u2014 visible from any env's deploy page. The wider point: it's easy to read \"Failed to fetch\" as a server problem; CSP is silent unless you're looking at the right console message.",
+    "version_bump": "0.02.0004 \u2192 0.02.0005"
   },
   {
     "queued_at": "2026-05-15T04:51:00Z",
@@ -557,7 +585,7 @@
     "feature": {
       "name": "Dev Deploys Post to #dev-updates Discord",
       "slug": "webhook-dev-notify",
-      "description": "Wired the missing DISCORD_WEBHOOK_DEV env var in carkedit-deploy so dev-tier deploy successes post a 'Dev deploy: <target> @ <ref>' embed to the #dev-updates Discord channel. The Notifier interface and buildDevEmbed branch already existed — only the createNotifier call in src/index.ts wasn't passing webhookDev through, so every dev deploy was silently dropping its embed.",
+      "description": "Wired the missing DISCORD_WEBHOOK_DEV env var in carkedit-deploy so dev-tier deploy successes post a 'Dev deploy: <target> @ <ref>' embed to the #dev-updates Discord channel. The Notifier interface and buildDevEmbed branch already existed \u2014 only the createNotifier call in src/index.ts wasn't passing webhookDev through, so every dev deploy was silently dropping its embed.",
       "pr_url": "https://github.com/bh679/carkedit-deploy/pull/10",
       "pr_number": 10,
       "merged_at": "2026-05-15T04:48:47Z",
@@ -568,8 +596,8 @@
       "feat: wire DISCORD_WEBHOOK_DEV so dev deploys post to #dev-updates",
       "version: bump to v0.03.0000 (post-merge MINOR)"
     ],
-    "framing": "Three repos already feed merge-event notifications into #dev-updates via a debounced batcher — you can see them in the channel as the daily 'X merges to main, across 3 repos' embed. But the actual dev deploys themselves were invisible: every time a branch pushed and dev redeployed, nothing showed up. Turned out the wiring was 95% in place — Notifier supported a webhookDev slot, discord.ts had a buildDevEmbed for the dev tier, the deploy router was calling notifier.notifyDeploySuccess({ tier: 'dev', ... }) after every successful run — the env var just wasn't being read at boot. Three lines of glue in src/index.ts and the channel now shows both 'merge to main' AND 'deployed to dev' events in one place, which is what the channel description ('Any updates to the dev server get automatically shared here') always promised. Also documented all five DISCORD_WEBHOOK_* env vars in the README — they'd been undocumented since the original webhook PR. The wider lesson: when a feature looks half-shipped, check whether 95% of the plumbing is already there before designing a new system.",
-    "version_bump": "0.02.0000 → 0.03.0000"
+    "framing": "Three repos already feed merge-event notifications into #dev-updates via a debounced batcher \u2014 you can see them in the channel as the daily 'X merges to main, across 3 repos' embed. But the actual dev deploys themselves were invisible: every time a branch pushed and dev redeployed, nothing showed up. Turned out the wiring was 95% in place \u2014 Notifier supported a webhookDev slot, discord.ts had a buildDevEmbed for the dev tier, the deploy router was calling notifier.notifyDeploySuccess({ tier: 'dev', ... }) after every successful run \u2014 the env var just wasn't being read at boot. Three lines of glue in src/index.ts and the channel now shows both 'merge to main' AND 'deployed to dev' events in one place, which is what the channel description ('Any updates to the dev server get automatically shared here') always promised. Also documented all five DISCORD_WEBHOOK_* env vars in the README \u2014 they'd been undocumented since the original webhook PR. The wider lesson: when a feature looks half-shipped, check whether 95% of the plumbing is already there before designing a new system.",
+    "version_bump": "0.02.0000 \u2192 0.03.0000"
   },
   {
     "queued_at": "2026-05-15T05:17:22Z",
@@ -586,11 +614,11 @@
     "screenshots": [
       {
         "path": "carkedit-deploy/test-results/gate2-commits-timeline-v2-2026-05.png",
-        "description": "Recent commits panel below the versions table — 10 commits chronologically, with two grouped rows (api+online chips on one row) and yellow tag chips on the rows that own a tag"
+        "description": "Recent commits panel below the versions table \u2014 10 commits chronologically, with two grouped rows (api+online chips on one row) and yellow tag chips on the rows that own a tag"
       },
       {
         "path": "carkedit-deploy/test-results/gate2-commits-timeline-v2-with-badges-2026-05.png",
-        "description": "Same panel with synthetic deployed SHAs — green LIVE / yellow STAGING / blue DEV badges visible on the top two rows where the env's deployed SHA matches"
+        "description": "Same panel with synthetic deployed SHAs \u2014 green LIVE / yellow STAGING / blue DEV badges visible on the top two rows where the env's deployed SHA matches"
       }
     ],
     "commits": [
@@ -598,7 +626,7 @@
       "feat: group coordinated commits + make repo name the commit link",
       "version: bump to v0.04.0000 (post-merge MINOR) (#14)"
     ],
-    "framing": "The deploy admin page already showed which versions were deployed per environment, but operators still had to leave the page and grep GitHub to answer the question they actually have: what's in each version? This panel surfaces that directly — the operator sees 'Live is on this commit, Staging is two commits ahead, Dev's on main HEAD' at a glance. The repo-name-as-link choice (rather than a separate SHA chip) was a direct response to a 'fewer elements per row' design instinct during Gate 2 review; coordinated-commit grouping was the other Gate 2 refinement — twin PRs in carkedit-api and carkedit-online for the same change shouldn't visually occupy two rows of a 10-row list. The endpoint reuses the existing repo-versions GitHub API client pattern (TTL cache, concurrent-fetch coalescing, GITHUB_TOKEN), so no new infrastructure or env-var configuration was needed."
+    "framing": "The deploy admin page already showed which versions were deployed per environment, but operators still had to leave the page and grep GitHub to answer the question they actually have: what's in each version? This panel surfaces that directly \u2014 the operator sees 'Live is on this commit, Staging is two commits ahead, Dev's on main HEAD' at a glance. The repo-name-as-link choice (rather than a separate SHA chip) was a direct response to a 'fewer elements per row' design instinct during Gate 2 review; coordinated-commit grouping was the other Gate 2 refinement \u2014 twin PRs in carkedit-api and carkedit-online for the same change shouldn't visually occupy two rows of a 10-row list. The endpoint reuses the existing repo-versions GitHub API client pattern (TTL cache, concurrent-fetch coalescing, GITHUB_TOKEN), so no new infrastructure or env-var configuration was needed."
   },
   {
     "queued_at": "2026-05-15T05:15:00Z",
@@ -606,7 +634,7 @@
     "feature": {
       "name": "Hard-Fail notify-merge + Document the Missing Apache Proxy",
       "slug": "notify-merge-hardfail",
-      "description": "Three-repo fix for a silent regression: every PR merge in carkedit-online / carkedit-api / carkedit-deploy was firing a notify-merge GitHub Action that POSTed to /api/admin/notify/merge — and every one was getting HTTP 404 because Apache on prod only proxied the sibling /api/admin/deploy/ prefix. The workflow's soft-fail logic (warning + exit 0) had been masking it as green runs for weeks. Three PRs: carkedit-deploy adds the missing ProxyPass to the README + flips the workflow's HTTP-error path to ::error:: + exit 1; carkedit-api and carkedit-online ship the identical one-line workflow change. Plus an operator-side Apache config update on prod.",
+      "description": "Three-repo fix for a silent regression: every PR merge in carkedit-online / carkedit-api / carkedit-deploy was firing a notify-merge GitHub Action that POSTed to /api/admin/notify/merge \u2014 and every one was getting HTTP 404 because Apache on prod only proxied the sibling /api/admin/deploy/ prefix. The workflow's soft-fail logic (warning + exit 0) had been masking it as green runs for weeks. Three PRs: carkedit-deploy adds the missing ProxyPass to the README + flips the workflow's HTTP-error path to ::error:: + exit 1; carkedit-api and carkedit-online ship the identical one-line workflow change. Plus an operator-side Apache config update on prod.",
       "pr_url": "https://github.com/bh679/carkedit-deploy/pull/16",
       "pr_number": 16,
       "merged_at": "2026-05-15T05:12:00Z",
@@ -619,8 +647,8 @@
       "ci: hard-fail notify-merge workflow on HTTP error (carkedit-online#235)",
       "version: bump to v0.05.0000 (post-merge MINOR) (carkedit-deploy#17)"
     ],
-    "framing": "This is the natural sequel to the previous post: I'd just wired DISCORD_WEBHOOK_DEV so dev deploys would announce in #dev-updates, and Brennan asked the obvious next question — 'okay, but why isn't the channel actually getting Dev Update posts for any of the recent merges?' One curl later we had the answer: the notify endpoint at /api/admin/notify/merge had been silently 404-ing on every PR merge across three repos, and would have continued doing so indefinitely. The combination of two design choices made it invisible: (1) putting the notify endpoint at a sibling prefix to /deploy/ (intentional — keeps deploy-token scope narrow) meant Apache needed its own ProxyPass for it, which was never documented and never added; (2) the workflow's soft-fail (echo a warning, exit 0) meant every '404, never reached service' incident shows as a green run on the GitHub Actions tab. Two bugs each silent on their own, together producing the perfectly invisible outage. The fix is mostly documentation (the README now explains BOTH prefixes are required and why) plus a one-line workflow change in three repos so the next regression of this kind goes red instead of green. The broader lesson: when you have a soft-fail in CI, ask 'is this workflow's only job the thing I'm soft-failing on?' — if yes, the soft-fail is a hide-the-bug switch, not a resilience feature.",
-    "version_bump": "0.04.0001 → 0.05.0000"
+    "framing": "This is the natural sequel to the previous post: I'd just wired DISCORD_WEBHOOK_DEV so dev deploys would announce in #dev-updates, and Brennan asked the obvious next question \u2014 'okay, but why isn't the channel actually getting Dev Update posts for any of the recent merges?' One curl later we had the answer: the notify endpoint at /api/admin/notify/merge had been silently 404-ing on every PR merge across three repos, and would have continued doing so indefinitely. The combination of two design choices made it invisible: (1) putting the notify endpoint at a sibling prefix to /deploy/ (intentional \u2014 keeps deploy-token scope narrow) meant Apache needed its own ProxyPass for it, which was never documented and never added; (2) the workflow's soft-fail (echo a warning, exit 0) meant every '404, never reached service' incident shows as a green run on the GitHub Actions tab. Two bugs each silent on their own, together producing the perfectly invisible outage. The fix is mostly documentation (the README now explains BOTH prefixes are required and why) plus a one-line workflow change in three repos so the next regression of this kind goes red instead of green. The broader lesson: when you have a soft-fail in CI, ask 'is this workflow's only job the thing I'm soft-failing on?' \u2014 if yes, the soft-fail is a hide-the-bug switch, not a resilience feature.",
+    "version_bump": "0.04.0001 \u2192 0.05.0000"
   },
   {
     "queued_at": "2026-05-15T05:37:56.869Z",
@@ -638,7 +666,7 @@
     "commits": [
       "feat: per-env PM2 health dot on deploy versions table"
     ],
-    "framing": "Until now the versions table told you whether the right code was deployed, but nothing about whether it was actually RUNNING. If carkedit-api crashed under load, the green ✓ next to its version was technically truthful and totally misleading. The new dot answers the question the table was supposed to answer all along: is this env healthy right now? It pulls straight from pm2 jlist on the box, caches for 3s, and degrades gracefully when something on the path is broken — unreachable servers and older deploy services both fall back to a grey \"unknown\" dot so the table keeps working during rolling deploys."
+    "framing": "Until now the versions table told you whether the right code was deployed, but nothing about whether it was actually RUNNING. If carkedit-api crashed under load, the green \u2713 next to its version was technically truthful and totally misleading. The new dot answers the question the table was supposed to answer all along: is this env healthy right now? It pulls straight from pm2 jlist on the box, caches for 3s, and degrades gracefully when something on the path is broken \u2014 unreachable servers and older deploy services both fall back to a grey \"unknown\" dot so the table keeps working during rolling deploys."
   },
   {
     "queued_at": "2026-05-15T06:25:26Z",
@@ -646,7 +674,7 @@
     "feature": {
       "name": "Self-Deploy Auth Token Fix",
       "slug": "add-deploy-token-to-auth",
-      "description": "Added .deploy-token-carkedit-deploy to the carkedit-deploy auth middleware so the self-deploy GitHub Actions workflow can authenticate. The third deploy target was introduced in PR #12 along with server-side token files and GH secrets, but the in-code allowlist (TOKEN_FILES_DEFAULT in src/auth.ts) was never widened — so every self-deploy run was hitting HTTP 401 invalid_token.",
+      "description": "Added .deploy-token-carkedit-deploy to the carkedit-deploy auth middleware so the self-deploy GitHub Actions workflow can authenticate. The third deploy target was introduced in PR #12 along with server-side token files and GH secrets, but the in-code allowlist (TOKEN_FILES_DEFAULT in src/auth.ts) was never widened \u2014 so every self-deploy run was hitting HTTP 401 invalid_token.",
       "pr_url": "https://github.com/bh679/carkedit-deploy/pull/19",
       "pr_number": 19,
       "merged_at": "2026-05-15T06:21:30Z",
@@ -656,7 +684,7 @@
     "commits": [
       "fix: add .deploy-token-carkedit-deploy to TOKEN_FILES_DEFAULT"
     ],
-    "framing": "Small patch (5 lines of real code), but a useful pattern reminder: a feature is not shipped until the auth layer knows about it. The self-deploy pipeline was end-to-end complete on paper — PR #12 added the deploy target and its routes, the servers had the token files, the GitHub secrets were set — but the in-code TOKEN_FILES_DEFAULT array still only listed the original two tokens. The final hop was silent until you saw 401s in every workflow run. Mostly worth blogging as a case study in cross-system rollout: when wiring up a new capability across infra + auth + code, the auth allowlist is the one that bites latest and quietest."
+    "framing": "Small patch (5 lines of real code), but a useful pattern reminder: a feature is not shipped until the auth layer knows about it. The self-deploy pipeline was end-to-end complete on paper \u2014 PR #12 added the deploy target and its routes, the servers had the token files, the GitHub secrets were set \u2014 but the in-code TOKEN_FILES_DEFAULT array still only listed the original two tokens. The final hop was silent until you saw 401s in every workflow run. Mostly worth blogging as a case study in cross-system rollout: when wiring up a new capability across infra + auth + code, the auth allowlist is the one that bites latest and quietest."
   },
   {
     "queued_at": "2026-05-15T07:00:03Z",
@@ -664,7 +692,7 @@
     "feature": {
       "name": "Stop Staging label wrapping in Deployed Versions table",
       "slug": "staging-label-fit",
-      "description": "Two-line CSS fix to the Deployed Versions card on the deploy dashboard. The leftmost column was fixed at 4.5rem, which couldn't fit the per-env pm2 status dot plus the 7-character \"Staging\" label — the dot kicked above the text on the staging row only. Bumped .cd-vt-corner to 6rem and added white-space: nowrap on tbody th as defence in depth.",
+      "description": "Two-line CSS fix to the Deployed Versions card on the deploy dashboard. The leftmost column was fixed at 4.5rem, which couldn't fit the per-env pm2 status dot plus the 7-character \"Staging\" label \u2014 the dot kicked above the text on the staging row only. Bumped .cd-vt-corner to 6rem and added white-space: nowrap on tbody th as defence in depth.",
       "pr_url": "https://github.com/bh679/carkedit-deploy/pull/20",
       "pr_number": 20,
       "merged_at": "2026-05-15T06:57:10Z",
@@ -678,7 +706,7 @@
     "commits": [
       "fix: stop \"Staging\" label wrapping in Deployed Versions table"
     ],
-    "framing": "Small visual polish on the internal deploy dashboard. The deploy page is where I (and Claude) check version state across Live/Staging/Dev before triggering rollouts, so a wrapped row label is a small but constant friction. Fixed in a single session with the full three-gate workflow even though the diff is essentially two CSS lines — discipline scales down."
+    "framing": "Small visual polish on the internal deploy dashboard. The deploy page is where I (and Claude) check version state across Live/Staging/Dev before triggering rollouts, so a wrapped row label is a small but constant friction. Fixed in a single session with the full three-gate workflow even though the diff is essentially two CSS lines \u2014 discipline scales down."
   },
   {
     "queued_at": "2026-05-15T07:25:09.418Z",
@@ -695,17 +723,17 @@
     "screenshots": [
       {
         "path": "test-results/gate2-commits-see-more-initial-2026-05.png",
-        "description": "Initial Recent commits panel — 10 commits rendered, See more button visible at the bottom of the panel."
+        "description": "Initial Recent commits panel \u2014 10 commits rendered, See more button visible at the bottom of the panel."
       },
       {
         "path": "test-results/gate2-commits-see-more-expanded-2026-05.png",
-        "description": "After one See more click — 20 commits now rendered (16 grouped rows), button still visible since the 60-commit buffer floor has not been hit."
+        "description": "After one See more click \u2014 20 commits now rendered (16 grouped rows), button still visible since the 60-commit buffer floor has not been hit."
       }
     ],
     "commits": [
       "feat: paginate Recent commits with a \"See more\" button"
     ],
-    "framing": "Lets you scroll back through deploy history without leaving the dashboard. Useful for \"what did we ship last sprint?\" and tracing which commit a tag pointed at when something broke. Internally, the cache was reshaped to store the full sorted merged list and slice per request, so wider re-fetches hit the cache instead of burning GitHub API budget — every See more click is essentially free."
+    "framing": "Lets you scroll back through deploy history without leaving the dashboard. Useful for \"what did we ship last sprint?\" and tracing which commit a tag pointed at when something broke. Internally, the cache was reshaped to store the full sorted merged list and slice per request, so wider re-fetches hit the cache instead of burning GitHub API budget \u2014 every See more click is essentially free."
   },
   {
     "queued_at": "2026-05-15T08:23:04Z",
@@ -713,7 +741,7 @@
     "feature": {
       "name": "Recent-commits filter buttons (Dev / Staging / Release + repos)",
       "slug": "commit-filter-buttons",
-      "description": "Six toggle buttons added above the Recent commits list on the deploy admin page: Dev / Staging / Release (envs) and api / online / deploy (repos). A commit or grouped row is visible if any of its facets (its repo plus any env badges it has earned) is in the enabled set — OR semantics, not AND. Defaults adjust to the page's own envTier: on dev all six are on; on staging the Dev button starts off; on the production (Release) page Dev, Staging, and the deploy-repo button all start off. Every button stays clickable at every tier — only the initial press state changes.",
+      "description": "Six toggle buttons added above the Recent commits list on the deploy admin page: Dev / Staging / Release (envs) and api / online / deploy (repos). A commit or grouped row is visible if any of its facets (its repo plus any env badges it has earned) is in the enabled set \u2014 OR semantics, not AND. Defaults adjust to the page's own envTier: on dev all six are on; on staging the Dev button starts off; on the production (Release) page Dev, Staging, and the deploy-repo button all start off. Every button stays clickable at every tier \u2014 only the initial press state changes.",
       "pr_url": "https://github.com/bh679/carkedit-deploy/pull/22",
       "pr_number": 22,
       "merged_at": "2026-05-15T07:24:43Z",
@@ -729,7 +757,7 @@
     "commits": [
       "feat: add env/repo filter buttons to Recent commits (#22)"
     ],
-    "framing": "The merged commit timeline already pulled commits from three repos × three envs into one chronological list. Useful, but noisy when you're triaging on production and just want to see what's actually shipped to Release. The filter row is a small UX nudge: the buttons exist on every env, but the page itself starts you in the right place — wide on dev, narrow on prod — without locking you out of the wider view. Pressing-state colours match the per-commit env badges, so the bar reads as a legend you can also tap."
+    "framing": "The merged commit timeline already pulled commits from three repos \u00d7 three envs into one chronological list. Useful, but noisy when you're triaging on production and just want to see what's actually shipped to Release. The filter row is a small UX nudge: the buttons exist on every env, but the page itself starts you in the right place \u2014 wide on dev, narrow on prod \u2014 without locking you out of the wider view. Pressing-state colours match the per-commit env badges, so the bar reads as a legend you can also tap."
   },
   {
     "queued_at": "2026-05-15T08:50:00Z",
@@ -747,7 +775,7 @@
     "commits": [
       "feat: clickable # link before each version in Deployed Versions table"
     ],
-    "framing": "Small QoL polish on the deploy dashboard. Previously the version numbers were plain text — you had to manually browse to the right repo and tag to see what code each environment was running. Now its one click from a version cell to the corresponding commit/tag on GitHub. The change is frontend-only and uses kind+version data the API already returns, so theres no backend cost. This kind of micro-friction removal is what makes a self-built dev tool feel like a product."
+    "framing": "Small QoL polish on the deploy dashboard. Previously the version numbers were plain text \u2014 you had to manually browse to the right repo and tag to see what code each environment was running. Now its one click from a version cell to the corresponding commit/tag on GitHub. The change is frontend-only and uses kind+version data the API already returns, so theres no backend cost. This kind of micro-friction removal is what makes a self-built dev tool feel like a product."
   },
   {
     "queued_at": "2026-05-15T09:11:00Z",
@@ -755,7 +783,7 @@
     "feature": {
       "name": "Live/Staging/Dev Badges on Deploy Repo Commits",
       "slug": "deploy-dev-badge",
-      "description": "The Recent Commits panel at dev.play.carkedit.com/deploy now attaches Live/Staging/Dev badges to carkedit-deploy commits — not just carkedit-online and carkedit-api. Each environment's badge appears on whichever deploy commit is actually running there.",
+      "description": "The Recent Commits panel at dev.play.carkedit.com/deploy now attaches Live/Staging/Dev badges to carkedit-deploy commits \u2014 not just carkedit-online and carkedit-api. Each environment's badge appears on whichever deploy commit is actually running there.",
       "pr_url": "https://github.com/bh679/carkedit-deploy/pull/24",
       "pr_number": 24,
       "merged_at": "2026-05-15T09:09:55Z",
@@ -765,7 +793,7 @@
     "commits": [
       "feat: badge currently-running deploy commit with Live/Staging/Dev"
     ],
-    "framing": "The deploy dashboard's commit timeline already badged online and api commits with the env they're live on, but deploy commits never got the badge — the data just wasn't there. The /versions endpoint only knew the deploy SHA after a self-deploy through the service had completed (and written it to branch-state.json). Now the server resolves the actual on-disk HEAD SHA via git rev-parse once at startup (it can't change without a restart anyway — a self-deploy SIGTERMs the process). With the SHA exposed, the existing badge mapper picks it up. If all 3 envs run the same deploy commit → 1 row gets all 3 badges; if they diverge → 3 separate rows each get the env badge that's running them. Small fix, but it closes the last visibility gap on the deploy dashboard — Brennan can now see at a glance which deploy code is live on each environment."
+    "framing": "The deploy dashboard's commit timeline already badged online and api commits with the env they're live on, but deploy commits never got the badge \u2014 the data just wasn't there. The /versions endpoint only knew the deploy SHA after a self-deploy through the service had completed (and written it to branch-state.json). Now the server resolves the actual on-disk HEAD SHA via git rev-parse once at startup (it can't change without a restart anyway \u2014 a self-deploy SIGTERMs the process). With the SHA exposed, the existing badge mapper picks it up. If all 3 envs run the same deploy commit \u2192 1 row gets all 3 badges; if they diverge \u2192 3 separate rows each get the env badge that's running them. Small fix, but it closes the last visibility gap on the deploy dashboard \u2014 Brennan can now see at a glance which deploy code is live on each environment."
   },
   {
     "queued_at": "2026-05-15T09:51:00Z",
@@ -807,13 +835,13 @@
       "feat: add \"See less\" button next to \"See more\" (70:30 split)",
       "fix: See more takes full width when See less is hidden"
     ],
-    "framing": "Direct follow-up to the See more pagination shipped earlier the same day. See more on its own was a one-way ratchet — once you'd loaded 50 commits there was no way to collapse the panel back without a full page reload. See less closes that loop. The interesting bits are the CSS, not the JS: rather than fixed flex-basis percentages (which would have left an empty 30% gap whenever See less was hidden), the row uses grow-based ratios (flex: 7 1 0 / flex: 3 1 0). The container distributes free space by grow factor, so the 70:30 split is preserved when both children are visible and the lone visible child fills the row when the other has display:none. No JS reflow needed when buttons toggle — the layout falls out of the cascade. Also worth noting: this PR went through three rounds of merge-from-main during a 90-minute session as other branches (#34 Branches panel toggle, #35 deploy-branch highlight, #36 merge Branches panel into commits timeline, #37 Open filter, #38 scoped grey-subject fix) all landed touching the same ui.js / ui.css / ui.html. Each round resolved conflicts so the new feature coexisted with the incoming changes; 219/219 tests passed after every merge. The wider lesson: a small UX iteration shipped through a real four-gate workflow against a fast-moving main is mostly merge-management, not implementation."
+    "framing": "Direct follow-up to the See more pagination shipped earlier the same day. See more on its own was a one-way ratchet \u2014 once you'd loaded 50 commits there was no way to collapse the panel back without a full page reload. See less closes that loop. The interesting bits are the CSS, not the JS: rather than fixed flex-basis percentages (which would have left an empty 30% gap whenever See less was hidden), the row uses grow-based ratios (flex: 7 1 0 / flex: 3 1 0). The container distributes free space by grow factor, so the 70:30 split is preserved when both children are visible and the lone visible child fills the row when the other has display:none. No JS reflow needed when buttons toggle \u2014 the layout falls out of the cascade. Also worth noting: this PR went through three rounds of merge-from-main during a 90-minute session as other branches (#34 Branches panel toggle, #35 deploy-branch highlight, #36 merge Branches panel into commits timeline, #37 Open filter, #38 scoped grey-subject fix) all landed touching the same ui.js / ui.css / ui.html. Each round resolved conflicts so the new feature coexisted with the incoming changes; 219/219 tests passed after every merge. The wider lesson: a small UX iteration shipped through a real four-gate workflow against a fast-moving main is mostly merge-management, not implementation."
   },
   {
     "queued_at": "2026-05-15T11:21:00Z",
     "project": "CarkedIt Online",
     "feature": {
-      "name": "Admin Nav: \"Branch\" → \"Deploy\"",
+      "name": "Admin Nav: \"Branch\" \u2192 \"Deploy\"",
       "slug": "admin-menu-deploy-link",
       "description": "Renamed the \"Branch\" entry in the shared admin header to \"Deploy\" and pointed it at deploy.html. The Branch Manager page is still reachable by direct URL but is no longer linked from the admin nav.",
       "pr_url": "https://github.com/bh679/carkedit-online/pull/236",
@@ -828,7 +856,7 @@
     "commits": [
       "feat: rename admin nav \"Branch\" link to \"Deploy\""
     ],
-    "framing": "The admin top-nav is the dashboard's quick-jump bar between Stats, Users, ImageAI, Costs, Dev and (now) Deploy. The Deploy page is what we actually reach for when shipping — it's where the deploy controls live — so it earned the slot. Branch Manager remains a power-user URL when you need it. Tiny rename, but it matches the muscle memory of the people who use this dashboard daily."
+    "framing": "The admin top-nav is the dashboard's quick-jump bar between Stats, Users, ImageAI, Costs, Dev and (now) Deploy. The Deploy page is what we actually reach for when shipping \u2014 it's where the deploy controls live \u2014 so it earned the slot. Branch Manager remains a power-user URL when you need it. Tiny rename, but it matches the muscle memory of the people who use this dashboard daily."
   },
   {
     "queued_at": "2026-05-20T02:48:20Z",
@@ -846,7 +874,7 @@
     "commits": [
       "fix: persist SHA before pm2-reload + reject concurrent deploys with 409"
     ],
-    "framing": "Two bugs in the deploy admin UI that masked each other. Bug A: the dashboard had been showing red 'failed' for every self-deploy since the feature shipped — the deploy actually worked, but boot-verify couldn't see the SHA because doRunDeploy only wrote it AFTER pm2-reload SIGTERMed the process. Every self-deploy was a false negative. Bug B: clicking Deploy twice quickly raced two deploys into PM2's reload lock and broke it. The fix for A made the dashboard tell the truth for the first time in 5 days; the fix for B made the dashboard's button rejection safe. The first self-deploy after merge was the first in history to correctly finalise as 'success' — caught live in production via SSH within 60 seconds of the PR merging."
+    "framing": "Two bugs in the deploy admin UI that masked each other. Bug A: the dashboard had been showing red 'failed' for every self-deploy since the feature shipped \u2014 the deploy actually worked, but boot-verify couldn't see the SHA because doRunDeploy only wrote it AFTER pm2-reload SIGTERMed the process. Every self-deploy was a false negative. Bug B: clicking Deploy twice quickly raced two deploys into PM2's reload lock and broke it. The fix for A made the dashboard tell the truth for the first time in 5 days; the fix for B made the dashboard's button rejection safe. The first self-deploy after merge was the first in history to correctly finalise as 'success' \u2014 caught live in production via SSH within 60 seconds of the PR merging."
   },
   {
     "queued_at": "2026-05-20T02:30:00Z",
@@ -854,7 +882,7 @@
     "feature": {
       "name": "Disable Deploy buttons during active deploy",
       "slug": "disable-deploy-during-run",
-      "description": "On the /deploy dashboard, every Deploy button (the main form button plus the inline branch-Deploy chips in the Recent activity timeline) is now greyed out while a deploy is actively running. Buttons re-enable the moment the polled /status reports a terminal phase (success, failed, or skipped). Behaviour is driven by the existing status-poll loop, so a page reload mid-deploy comes up with the buttons already disabled — no flicker.",
+      "description": "On the /deploy dashboard, every Deploy button (the main form button plus the inline branch-Deploy chips in the Recent activity timeline) is now greyed out while a deploy is actively running. Buttons re-enable the moment the polled /status reports a terminal phase (success, failed, or skipped). Behaviour is driven by the existing status-poll loop, so a page reload mid-deploy comes up with the buttons already disabled \u2014 no flicker.",
       "pr_url": "https://github.com/bh679/carkedit-deploy/pull/44",
       "pr_number": 44,
       "merged_at": "2026-05-20T02:24:08Z",
@@ -863,18 +891,18 @@
     "screenshots": [
       {
         "path": "test-results/gate2-disable-deploy-during-run-running-2026-05.png",
-        "description": "Deploy dashboard during a running deploy — main and inline Deploy buttons greyed out"
+        "description": "Deploy dashboard during a running deploy \u2014 main and inline Deploy buttons greyed out"
       },
       {
         "path": "test-results/gate2-disable-deploy-during-run-enabled-2026-05.png",
-        "description": "Deploy dashboard after the deploy succeeded — all buttons re-enabled"
+        "description": "Deploy dashboard after the deploy succeeded \u2014 all buttons re-enabled"
       }
     ],
     "commits": [
       "feat: disable all Deploy buttons while a deploy is running",
       "version: bump to v0.07.0000 (post-merge MINOR)"
     ],
-    "framing": "Before this change, the only thing protecting against double-firing a deploy was a few hundred milliseconds where the main Deploy button was disabled during the POST request — and the inline per-branch Deploy chips on the commit timeline were never disabled at all. So if you clicked Deploy from the form and then noticed a different branch you wanted to push, clicking that inline chip would silently queue a second deploy on top of the first one. Subtle, easy to do, and the kind of paper cut that erodes trust in the dashboard. The fix wires every Deploy button to a single deploy-in-progress signal sourced from the same /status poll that already drives the rest of the UI — single source of truth, no new endpoints, no flicker on reload, no way to double-fire."
+    "framing": "Before this change, the only thing protecting against double-firing a deploy was a few hundred milliseconds where the main Deploy button was disabled during the POST request \u2014 and the inline per-branch Deploy chips on the commit timeline were never disabled at all. So if you clicked Deploy from the form and then noticed a different branch you wanted to push, clicking that inline chip would silently queue a second deploy on top of the first one. Subtle, easy to do, and the kind of paper cut that erodes trust in the dashboard. The fix wires every Deploy button to a single deploy-in-progress signal sourced from the same /status poll that already drives the rest of the UI \u2014 single source of truth, no new endpoints, no flicker on reload, no way to double-fire."
   },
   {
     "queued_at": "2026-05-20T04:15:49Z",
@@ -891,7 +919,7 @@
     "screenshots": [
       {
         "path": "test-results/gate2-recent-activity-all-branches-2026-05.png",
-        "description": "Recent activity panel with 200+ rows, each open branch rendered as its own row with a branch-name chip — including the previously-invisible dev/recent-activity-branch-label whose HEAD wasn't on main."
+        "description": "Recent activity panel with 200+ rows, each open branch rendered as its own row with a branch-name chip \u2014 including the previously-invisible dev/recent-activity-branch-label whose HEAD wasn't on main."
       },
       {
         "path": "test-results/gate2-recent-activity-all-branches-full-2026-05.png",
@@ -903,7 +931,7 @@
       "fix: keep Recent activity rows on a single line with subject truncation",
       "version: bump to v0.08.0000 (post-merge MINOR)"
     ],
-    "framing": "This started with a literal user question — \"why can't I see the branches with open PRs in Recent activity?\" The honest answer was that the panel had never been able to: GitHub's `GET /repos/:owner/:repo/commits` only walks the default branch, so any feature-branch HEAD was invisible to the timeline, and the frontend chip-rendering logic was attaching branch chips to rows by SHA — no row, no chip. The fix turned the panel from \"recent main commits with some branch labels overlaid\" into \"every open branch is one row, always.\" The constant-time-per-orphan cost is bounded by an LRU per-SHA cache (SHAs are immutable; 24h TTL is conservative). Combined with the pagination fix (carkedit-online had already silently exceeded the 100/repo cap), the deploy admin is now a complete view of in-flight work across all three repos."
+    "framing": "This started with a literal user question \u2014 \"why can't I see the branches with open PRs in Recent activity?\" The honest answer was that the panel had never been able to: GitHub's `GET /repos/:owner/:repo/commits` only walks the default branch, so any feature-branch HEAD was invisible to the timeline, and the frontend chip-rendering logic was attaching branch chips to rows by SHA \u2014 no row, no chip. The fix turned the panel from \"recent main commits with some branch labels overlaid\" into \"every open branch is one row, always.\" The constant-time-per-orphan cost is bounded by an LRU per-SHA cache (SHAs are immutable; 24h TTL is conservative). Combined with the pagination fix (carkedit-online had already silently exceeded the 100/repo cap), the deploy admin is now a complete view of in-flight work across all three repos."
   },
   {
     "queued_at": "2026-05-20T06:05:00Z",
@@ -911,7 +939,7 @@
     "feature": {
       "name": "PR / MERGED tags + merge-commit row collapse",
       "slug": "recent-activity-pr-merged-tags",
-      "description": "Recent activity on the deploy page now tags branches with their PR state — green PR for open, purple MERGED for merged — and collapses the orphan branch row into its merge-commit row so each merged PR appears as one row instead of two.",
+      "description": "Recent activity on the deploy page now tags branches with their PR state \u2014 green PR for open, purple MERGED for merged \u2014 and collapses the orphan branch row into its merge-commit row so each merged PR appears as one row instead of two.",
       "pr_url": "https://github.com/bh679/carkedit-deploy/pull/49",
       "pr_number": 49,
       "merged_at": "2026-05-20T06:00:45Z",
@@ -927,15 +955,15 @@
       "feat: PR/MERGED tags + collapse merge-commit row in Recent activity",
       "version: bump to v0.10.0000 (post-merge MINOR)"
     ],
-    "framing": "Before: a merged PR whose branch wasnt yet deleted appeared as two unrelated rows in Recent activity. After: one row per PR with a clear state tag. The deploy console finally tells you at a glance which branches are still in progress vs. already on main — turning the timeline from a noisy commit log into a PR-state dashboard."
+    "framing": "Before: a merged PR whose branch wasnt yet deleted appeared as two unrelated rows in Recent activity. After: one row per PR with a clear state tag. The deploy console finally tells you at a glance which branches are still in progress vs. already on main \u2014 turning the timeline from a noisy commit log into a PR-state dashboard."
   },
   {
     "queued_at": "2026-05-20T06:30:00Z",
     "project": "CarkedIt Online",
     "feature": {
-      "name": "Drop /stats/* — derive merge-embed enrichment from /commits",
+      "name": "Drop /stats/* \u2014 derive merge-embed enrichment from /commits",
       "slug": "commits-stats-rewrite",
-      "description": "Rewrote carkedit-deploy's github-stats provider to compute the Discord merge-embed's chart + 3-month commits + PRs-merged fields from /repos/.../commits and /pulls instead of GitHub's /stats/commit_activity and /stats/code_frequency endpoints. The /stats/* endpoints had been stuck at HTTP 202 for 5+ days even after upgrading to GitHub Pro — a server-side bug where the async-compute pipeline for those specific endpoints stalls on certain private repos. Drops the Lines of code field (no cheap substitute) but lights up the chart + Commits (3mo) + PRs merged that had been blank since the webhook went live.",
+      "description": "Rewrote carkedit-deploy's github-stats provider to compute the Discord merge-embed's chart + 3-month commits + PRs-merged fields from /repos/.../commits and /pulls instead of GitHub's /stats/commit_activity and /stats/code_frequency endpoints. The /stats/* endpoints had been stuck at HTTP 202 for 5+ days even after upgrading to GitHub Pro \u2014 a server-side bug where the async-compute pipeline for those specific endpoints stalls on certain private repos. Drops the Lines of code field (no cheap substitute) but lights up the chart + Commits (3mo) + PRs merged that had been blank since the webhook went live.",
       "pr_url": "https://github.com/bh679/carkedit-deploy/pull/43",
       "pr_number": 43,
       "merged_at": "2026-05-20T06:00:00Z",
@@ -946,7 +974,7 @@
       "refactor: derive merge-embed stats from /commits instead of /stats/* (carkedit-deploy#43)",
       "version: bump to v0.11.0000 (post-merge MINOR) (carkedit-deploy#50)"
     ],
-    "framing": "A story about leaning on the wrong API. The Discord webhook feature had been firing for weeks, but the chart + Commits (3mo) + PRs merged + Lines of code fields had been quietly blank that entire time because they depended on GitHub's /stats/commit_activity and /stats/code_frequency endpoints. The first day of this session we burned hours assuming it was authentication: generated a fine-grained PAT, then a classic PAT, then upgraded to GitHub Pro. None of it moved the needle. The endpoints kept returning HTTP 202 indefinitely — for five days, even after the web UI's Insights pages rendered the equivalent charts fine. Turns out GitHub has a server-side bug where the async-compute pipeline for these specific endpoints permanently stalls on certain private repos. The fix wasn't more auth — it was a different data source. /commits?since=<53w> is synchronous, always returns 200, and gives us exactly what we needed once we bucket the commit dates into 52 weekly slots ourselves. ~30 minutes of code, plus 24 new tests covering pagination, week-edge behaviour, and malformed dates. The live smoke test against production returned commits3mo=889 and branchesMerged=387 — the data we'd been chasing all along. The wider lesson: GitHub's documented 'retry after a brief wait' is sometimes 'this will never resolve.' When you've waited days for a documented-async response, stop waiting and find a synchronous alternative.",
-    "version_bump": "0.10.0001 → 0.11.0000"
+    "framing": "A story about leaning on the wrong API. The Discord webhook feature had been firing for weeks, but the chart + Commits (3mo) + PRs merged + Lines of code fields had been quietly blank that entire time because they depended on GitHub's /stats/commit_activity and /stats/code_frequency endpoints. The first day of this session we burned hours assuming it was authentication: generated a fine-grained PAT, then a classic PAT, then upgraded to GitHub Pro. None of it moved the needle. The endpoints kept returning HTTP 202 indefinitely \u2014 for five days, even after the web UI's Insights pages rendered the equivalent charts fine. Turns out GitHub has a server-side bug where the async-compute pipeline for these specific endpoints permanently stalls on certain private repos. The fix wasn't more auth \u2014 it was a different data source. /commits?since=<53w> is synchronous, always returns 200, and gives us exactly what we needed once we bucket the commit dates into 52 weekly slots ourselves. ~30 minutes of code, plus 24 new tests covering pagination, week-edge behaviour, and malformed dates. The live smoke test against production returned commits3mo=889 and branchesMerged=387 \u2014 the data we'd been chasing all along. The wider lesson: GitHub's documented 'retry after a brief wait' is sometimes 'this will never resolve.' When you've waited days for a documented-async response, stop waiting and find a synchronous alternative.",
+    "version_bump": "0.10.0001 \u2192 0.11.0000"
   }
 ]
