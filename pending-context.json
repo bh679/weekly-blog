@@ -1178,5 +1178,49 @@
       "version: carkedit-api bump to v0.02.0006 / carkedit-online bump to v1.06.0186"
     ],
     "framing": "Operators couldn't see the shape of their data — they had to cycle the All Status button blindly to discover how many games were stuck in lobby vs in-progress vs abandoned mid-game. The new chip rows surface every dimension at once with live counts, so 'where are games dying?' becomes a glance rather than a guessing game. The 'exclude own dimension' count semantics matter: each button's count reflects what you'd see if you set this filter, given everything else active — so counts never drop to 0 just because you clicked them, which keeps the UI navigable when filters compound. Bundling raw GamePhase leakage (living_convince, eulogy_judge, etc) under coarse Lobby/Die/Living/Bye/Eulogy/Finished groups also rescues abandoned mid-game rows that previously rendered with cryptic phase labels and had no group to belong to."
+  },
+  {
+    "queued_at": "2026-05-21T10:53:02.926Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "Stats dashboard \"See all\" pages",
+      "slug": "stats-see-all",
+      "description": "Added a 'See all' button beside the existing Load more button on the stats dashboard's Games and Survey Responses sections (80:20 width split). It opens dedicated full-page views — stats-games.html and stats-surveys.html — that paginate 100 rows at a time and inherit the current dashboard filters via URL query parameters.",
+      "pr_url": "https://github.com/bh679/carkedit-online/pull/239",
+      "pr_number": 239,
+      "merged_at": "2026-05-21T10:38:11Z",
+      "wiki_url": "https://github.com/bh679/carkedit-online/wiki/Stats-Page-See-All-Pages"
+    },
+    "screenshots": [
+      {
+        "path": "test-results/gate2-stats-see-all-2026-05-overview.png",
+        "description": "Dashboard with the new layout: Games section shows 'Load more (5 of 543)' at 80% and a purple-bordered 'See all' button at 20% side-by-side; Survey Responses shows the same 80:20 pair below."
+      },
+      {
+        "path": "test-results/gate2-stats-see-all-2026-05-live-data.png",
+        "description": "Dashboard rendered against the real seeded database (239 games, 174 surveys) via a temporary admin bypass — confirms the new buttons coexist with all other dashboard sections (Key Stats, Cards, Expansion Packs, Graphs)."
+      },
+      {
+        "path": "test-results/gate2-stats-see-all-2026-05-post-rebase.png",
+        "description": "Post-rebase state showing both sections with Load more + See all paired (after PR #238 added Load more to Survey Responses and PR #239 added See all to both)."
+      },
+      {
+        "path": "test-results/gate2-stats-see-all-2026-05-games-page.png",
+        "description": "Dedicated stats-games.html page header with 'All Games' title and back link, showing the sign-in gate."
+      },
+      {
+        "path": "test-results/gate2-stats-see-all-2026-05-surveys-page.png",
+        "description": "Dedicated stats-surveys.html sign-in gate, mirroring the games page."
+      },
+      {
+        "path": "test-results/gate2-stats-see-all-2026-05-games-empty-fix.png",
+        "description": "Two-section comparison: Games empty-state (filter returns 0 rows) with the See all button — and the normal state with Load more + See all paired — captured during the empty-state consistency fix."
+      }
+    ],
+    "commits": [
+      "feat: add See All button and dedicated pages for stats Games + Surveys (#239)",
+      "feat: paginate survey responses list with Load more button (#238)"
+    ],
+    "framing": "With 543 games and 174 surveys in the database, drilling into history through the dashboard's 5-row-at-a-time Load more was tedious for admin review. The 'See all' button is the small lever: clicking it opens a focused full-page view that loads 100 rows at a time, with the current dashboard filters carried through via URL params (`?dev=nodev&dateRange=month&status=live`). Filter changes on the See All page update the URL via history.replaceState so the view is shareable / refresh-stable. Pure client-side change — no API or DB changes, both pages call the existing GET /api/carkedit/games and GET /api/carkedit/surveys endpoints with limit/offset. The session ran the four-gate workflow including a mid-stream rebase: PR #238 (Surveys Load more) landed during Gate 2 and PR #242 (filter chips) landed during Gate 3, both producing small mechanical conflicts in dashboard.js that resolved cleanly. Two sections were kept visually consistent — Load more + See all when there's data to paginate, See all alone when everything's loaded, no buttons in the empty-filter state."
   }
 ]
