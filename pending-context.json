@@ -1152,5 +1152,31 @@
       "docs: add Stats Page — Users Section feature page"
     ],
     "framing": "User asked for a demographic breakdown beyond just name matching — 'we should also match IP or birthdate.' The challenge: game_players.player_name is just a free-text string, no FK to users. Solution layered two phases in one ship: (Phase 1) ship the section now using what we have — LEFT JOIN users by display_name and surface birthday + avatar for verification; (Phase 2) start capturing real identity signals for future games — HMAC-hashed IP (GDPR-safe equality without storing raw IPs) and host_user_id from optionalAuth, with collision-indicator chips on the UI when the same name shows up across multiple IPs/accounts. Trust-proxy = 1 fixes the silent Apache footgun where req.ip would otherwise be 127.0.0.1. The blog story is the dual-phase approach: ship value today, instrument for better tomorrow — and the GDPR-aware choice to never store raw IPs even on an admin-only surface."
+  },
+  {
+    "queued_at": "2026-05-21T10:35:00Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "Stats Page — Filter Chips with Counts",
+      "slug": "stats-filter-chips",
+      "description": "Every filter button on the admin GAMES table now shows a live count, and three new chip rows (status groups / game length / player count) let operators slice the list with click-to-hide chips. A new Started option in the All Status cycle filters to games past the lobby.",
+      "pr_url": "https://github.com/bh679/carkedit-online/pull/242",
+      "pr_number": 242,
+      "merged_at": "2026-05-21T10:32:38Z",
+      "wiki_url": "https://github.com/bh679/carkedit-online/wiki/Stats-Page-Filter-Chips"
+    },
+    "screenshots": [
+      {
+        "path": "carkedit-online.wiki/images/stats-filter-chips-with-counts-2026-05.png",
+        "description": "Top: all four existing filter buttons (Today / Errors / No Dev / All Status) now show counts. Below them: status group chips with the Living group expanded to show raw sub-status chips (living_submit, living_convince, living_select). Then Length and Players rows. Bottom panel demonstrates the hidden state — greyed-out + strikethrough on Lobby, living_convince, <5m and player count 1, with All Status cycled to Started."
+      }
+    ],
+    "commits": [
+      "feat: add filter counts + per-status group filters to /games (carkedit-api #120)",
+      "feat: add per-status / duration / player chip filters with counts (carkedit-online #242)",
+      "docs: add Stats Page — Filter Chips wiki page",
+      "version: carkedit-api bump to v0.02.0006 / carkedit-online bump to v1.06.0186"
+    ],
+    "framing": "Operators couldn't see the shape of their data — they had to cycle the All Status button blindly to discover how many games were stuck in lobby vs in-progress vs abandoned mid-game. The new chip rows surface every dimension at once with live counts, so 'where are games dying?' becomes a glance rather than a guessing game. The 'exclude own dimension' count semantics matter: each button's count reflects what you'd see if you set this filter, given everything else active — so counts never drop to 0 just because you clicked them, which keeps the UI navigable when filters compound. Bundling raw GamePhase leakage (living_convince, eulogy_judge, etc) under coarse Lobby/Die/Living/Bye/Eulogy/Finished groups also rescues abandoned mid-game rows that previously rendered with cryptic phase labels and had no group to belong to."
   }
 ]
