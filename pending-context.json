@@ -1,5 +1,38 @@
 [
   {
+    "queued_at": "2026-05-21T09:45:46Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "Tags card: three columns + 5-row pager",
+      "slug": "tags-columns-pager",
+      "description": "Restructured the Tags card on /deploy from a single unified list into three side-by-side columns (api / online / deploy), each capped at 5 most recent rows by default with See more / See less controls mirroring the Recent activity panel below.",
+      "pr_url": "https://github.com/bh679/carkedit-deploy/pull/57",
+      "pr_number": 57,
+      "merged_at": "2026-05-21T09:44:02Z",
+      "wiki_url": null
+    },
+    "screenshots": [
+      {
+        "path": "test-results/gate2-tags-pager-default-2026-05.png",
+        "description": "Default state: each of the three columns (api / online / deploy) showing its 5 most recent tags, with a single shared 'See more' button at the bottom of the panel."
+      },
+      {
+        "path": "test-results/gate2-tags-pager-expanded-2026-05.png",
+        "description": "After one 'See more' click: columns expanded to 10 rows each. Both 'See more' (wide, left) and 'See less' (narrow, right) buttons visible \u2014 same proportions as the Recent activity pager."
+      },
+      {
+        "path": "test-results/gate2-tags-columns-mobile-2026-05.png",
+        "description": "Narrow viewport (500 px): grid stacks vertically with each repo's column header preserved. Pager remains beneath the stacked layout."
+      }
+    ],
+    "commits": [
+      "feat: split Tags card into three repo columns (#57)",
+      "feat: cap Tags card columns at 5 with See more/less pager (#57)",
+      "version: bump to v0.15.0000 (post-merge MINOR)"
+    ],
+    "framing": "Two render-side iterations on top of v1: first split the unified Tags list into per-repo columns (one repo = one column, dropping the redundant per-row repo chip in favour of a column header); then capped each column at 5 with the same shared See more / See less pattern Recent activity already uses. Backend untouched \u2014 /api/admin/deploy/tags still returns the full window, the limit is a client-side slice over the cached body. The PR had to rebase mid-flight because PR #58 (cross-repo dependency chips, the follow-up I spawned at the end of v1) landed on main while this work was in Gate 2; the auto-merge folded both refactors together cleanly so the Tags card now has columns + pager + requires-chip support all at once. 289 / 289 tests green throughout."
+  },
+  {
     "queued_at": "2026-05-21T09:38:41Z",
     "project": "CarkedIt Online",
     "feature": {
