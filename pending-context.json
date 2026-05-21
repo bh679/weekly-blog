@@ -1222,5 +1222,32 @@
       "feat: paginate survey responses list with Load more button (#238)"
     ],
     "framing": "With 543 games and 174 surveys in the database, drilling into history through the dashboard's 5-row-at-a-time Load more was tedious for admin review. The 'See all' button is the small lever: clicking it opens a focused full-page view that loads 100 rows at a time, with the current dashboard filters carried through via URL params (`?dev=nodev&dateRange=month&status=live`). Filter changes on the See All page update the URL via history.replaceState so the view is shareable / refresh-stable. Pure client-side change — no API or DB changes, both pages call the existing GET /api/carkedit/games and GET /api/carkedit/surveys endpoints with limit/offset. The session ran the four-gate workflow including a mid-stream rebase: PR #238 (Surveys Load more) landed during Gate 2 and PR #242 (filter chips) landed during Gate 3, both producing small mechanical conflicts in dashboard.js that resolved cleanly. Two sections were kept visually consistent — Load more + See all when there's data to paginate, See all alone when everything's loaded, no buttons in the empty-filter state."
+  },
+  {
+    "queued_at": "2026-05-21T11:11:35.106Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "Recent activity: dedupe branch chips on paired PRs",
+      "slug": "recent-activity-dedupe-branches",
+      "description": "On the /deploy Recent activity timeline, when a row pairs two commits across carkedit-api and carkedit-online whose branches share the same name (the paired-PR pattern), the branch chip and PR tag are now rendered once instead of once per repo. Tooltips list both repos and both PR numbers; both Deploy buttons still render (one per repo).",
+      "pr_url": "https://github.com/bh679/carkedit-deploy/pull/61",
+      "pr_number": 61,
+      "merged_at": "2026-05-21T11:00:58Z",
+      "wiki_url": null
+    },
+    "screenshots": [
+      {
+        "path": "test-results/gate2-recent-activity-dedupe-before-after-2026-05.png",
+        "description": "Before / after side-by-side: top row shows the OLD logic emitting two dev/stats-filter-counts chips and two PR tags; bottom row shows the NEW logic with a single chip + single PR tag (Dev badge, online + api repo links, then one chip+tag)."
+      },
+      {
+        "path": "test-results/gate2-recent-activity-dedupe-live-2026-05.png",
+        "description": "Live test harness pointed at real GitHub data after the fix — regression check showing existing single-repo rows render unchanged."
+      }
+    ],
+    "commits": [
+      "fix: collapse duplicate branch chip + PR tag for paired-PR rows"
+    ],
+    "framing": "Small visual polish, but it pays back the cognitive tax every time a paired PR is the latest activity. The duplicated chip+tag was technically correct (each repo really does have its own branch and PR) but the row already shows the repo names via the leading chips — repeating them in the branch slot was pure noise. Now the chip carries the name, the tooltip carries the per-repo detail, and the per-repo Deploy buttons keep their semantics. Same information density, half the visual weight."
   }
 ]
