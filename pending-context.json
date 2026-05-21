@@ -1012,5 +1012,28 @@
       "fix: cap stats packs dropdown max width"
     ],
     "framing": "Small but visible polish bug: the /stats page's Cards filter row hosts a native <select> for choosing a pack, and the browser sizes the open option list to the widest label. One published expansion deck has a very long title, which made the popup bleed off the right edge of the screen \u2014 disorienting on a page that's otherwise tidy. Fixed by capping the closed select at 220px (mobile already had 120px) and truncating the rendered option labels to 28 chars + ellipsis in the dashboard.js helper, so the popup can never overflow regardless of how creative pack authors get with titles. The <option value> (pack id) is unchanged, so the existing setPackFilter logic keeps working \u2014 no behavioural drift, just a CSS + label-rendering safety belt for a class of user-generated content that will only get more varied as the marketplace grows."
+  },
+  {
+    "queued_at": "2026-05-21T09:19:31Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "Survey Responses pagination",
+      "slug": "survey-pagination",
+      "description": "The Survey Responses section in the admin stats dashboard now loads 5 rows at a time and exposes a 'Load more (N of Total)' button, matching the Games section pattern pixel-for-pixel. The Dev filter resets the list to the first page when toggled.",
+      "pr_url": "https://github.com/bh679/carkedit-online/pull/238",
+      "pr_number": 238,
+      "merged_at": "2026-05-21T09:17:21Z",
+      "wiki_url": null
+    },
+    "screenshots": [
+      {
+        "path": "test-results/gate2-survey-pagination-2026-05.png",
+        "description": "Survey Responses showing 5 rows with NPS score chips, a 'Showing 5 of 17' summary, and a full-width 'Load more (5 of 17)' button \u2014 styled identically to the Games section's Load more."
+      }
+    ],
+    "commits": [
+      "feat: paginate survey responses list with Load more button"
+    ],
+    "framing": "Small consistency win on the admin stats dashboard. The Games section had pagination; the NPS Survey Responses section didn't \u2014 making it hard to scan once responses started accumulating. Because the API already returned a paginated shape ({responses, total} with limit/offset), this was a pure client-side mirror of an existing working pattern in the same file. The kind of low-risk consistency fix that compounds: every place the admin tools follow the same UX pattern is one less surprise."
   }
 ]
