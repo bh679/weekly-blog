@@ -1249,5 +1249,32 @@
       "fix: collapse duplicate branch chip + PR tag for paired-PR rows"
     ],
     "framing": "Small visual polish, but it pays back the cognitive tax every time a paired PR is the latest activity. The duplicated chip+tag was technically correct (each repo really does have its own branch and PR) but the row already shows the repo names via the leading chips — repeating them in the branch slot was pure noise. Now the chip carries the name, the tooltip carries the per-repo detail, and the per-repo Deploy buttons keep their semantics. Same information density, half the visual weight."
+  },
+  {
+    "queued_at": "2026-05-21T11:51:00Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "requiredApiVersion: auto-stamped client → api version coupling",
+      "slug": "required-api-version",
+      "description": "Adds the cross-repo gating contract from the versioning standard. Every carkedit-online commit auto-stamps a requiredApiVersion field in package.json (driven from the sibling carkedit-api checkout via a pre-commit hook). The carkedit-deploy service reads it on every client deploy — if the live api is older than required, it auto-deploys a matching api ref first (main on dev, v<version> tag on staging/prod), then proceeds with the client. Override via ?force=true.",
+      "pr_url": "https://github.com/bh679/carkedit-deploy/pull/62",
+      "pr_number": 62,
+      "merged_at": "2026-05-21T11:46:29Z",
+      "wiki_url": "https://github.com/bh679/carkedit-online/wiki/Deployment-Required-API-Version"
+    },
+    "screenshots": [
+      {
+        "path": "screenshot-required-api-version.png",
+        "description": "Deploy versions table with the new ⚠ indicator on the api cell of all three env rows. The api row shows \"Deployed: 0.02.0001\" while the client row declares \"requires API ≥ 0.02.0005\" — the deploy service would auto-deploy api first if a client deploy were requested."
+      }
+    ],
+    "commits": [
+      "feat: enforce client requiredApiVersion via chained api → client deploy (carkedit-deploy#62)",
+      "feat: auto-stamp requiredApiVersion in package.json on every commit (carkedit-online#243)",
+      "docs: add Deployment — Required API Version wiki page"
+    ],
+    "companion_pr_url": "https://github.com/bh679/carkedit-online/pull/243",
+    "companion_pr_number": 243,
+    "framing": "The versioning standard at ~/Projects/Claude Templates/rules/versioning.md has called out cross-repo version gating since v2.1.0 — but the contract was just a documented JSON field, with nothing enforcing it. This session implemented it end-to-end across two repos. The interesting design move was the deploy-side UX: rather than blocking a client deploy with an error when the api is too old, the deploy service silently chains the api deploy first. The chained api→client phases share an in-flight lock (chainedDeployInFlight) that bridges the brief gap where on-disk status reads as idle between legs, preventing racing POSTs from squeezing in. Backwards-compatible by design — historic client tags without the field deploy exactly as before. 311 / 311 carkedit-deploy tests green, 16 / 16 carkedit-online tests green, Playwright snapshot confirms the new ⚠ indicator across all three env rows. Two PRs landed in order: deploy-side consumer first (safe no-op when field missing), then client-side stamping. The pre-commit hook discovers the sibling carkedit-api via git rev-parse --git-common-dir, so it works correctly from worktrees too — same trick setup-worktree-assets.sh already used."
   }
 ]
