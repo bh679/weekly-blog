@@ -1548,5 +1548,38 @@
       "fix: escape \" and ' in escapeHtml so eulogy picker buttons work (#252)"
     ],
     "framing": "A six-week-old 'fix XSS in player names' commit traded one bug for another: the JSON.stringify(name) wrapping that was supposed to harden the onclick handlers depended on escapeHtml also escaping quotes — but the textContent/innerHTML round-trip used inside escapeHtml only escapes <, >, & (because those are the only chars that *need* escaping in text content). The result: every single player name closed its onclick attribute halfway through, producing 'SyntaxError: Unexpected end of input' and dead buttons in the wildcard eulogy round. A reminder that 'safe in context A' utilities silently fail in context B, and that the next time you reach for textContent.innerHTML, write the regex chain instead."
+  },
+  {
+    "queued_at": "2026-05-22T05:43:54.580Z",
+    "project": "CarkedIt Online (carkedit-deploy)",
+    "feature": {
+      "name": "Promote panel consolidation — VS tag gated on dev-at-main",
+      "slug": "promote-panel-consolidation",
+      "description": "Reset to main, Tag for staging (vs…), and Tag for production (v…) are now a single row in the Promote build panel on the deploy admin page. The staging tag button is additionally gated on the dev server being deployed at the main branch — preventing operators from tagging for staging while dev is still on an in-flight feature branch.",
+      "pr_url": "https://github.com/bh679/carkedit-deploy/pull/73",
+      "pr_number": 73,
+      "merged_at": "2026-05-22T05:36:55Z",
+      "wiki_url": "https://github.com/bh679/carkedit-online/wiki/Deploy-Promote-Build"
+    },
+    "screenshots": [
+      {
+        "path": "test-results/gate2-promote-panel-dev-not-at-main.png",
+        "description": "Dev tier, api on a feature branch — Reset to main is enabled, Tag for staging is dimmed with tooltip \"Reset dev to main first — api not at main\", all three buttons on one row."
+      },
+      {
+        "path": "test-results/gate2-promote-panel-dev-at-main.png",
+        "description": "Dev tier, all three repos at main — Reset reads \"Already at main\" (disabled), Tag for staging is bright/clickable, Tag for production is dim (env mismatch)."
+      },
+      {
+        "path": "test-results/gate2-promote-panel-staging.png",
+        "description": "Staging tier — Tag for production is bright/clickable, Tag for staging dim with \"Only available on the dev server\". The new rule does not extend to V on staging."
+      }
+    ],
+    "commits": [
+      "feat(deploy-ui): gate vs tag on dev-at-main, fold reset bar into Promote panel",
+      "fix(deploy-ui): place Reset to main on the same row as the vs/v tag buttons",
+      "version: bump MM to 0.19.0000 after merging #73"
+    ],
+    "framing": "Server-side, the VS tag always lands on main HEAD regardless of what dev is currently running. So before this change, an operator could tag for staging while dev was on a feature branch — meaning the env they had just verified was not the thing being shipped. The gate closes that gap by reusing the same readiness check that the existing Reset to main button already exposes; the panel consolidation puts the two halves of the workflow (reset to canonical → tag the canonical) side by side. UI-only change, ~60 lines net, no backend behaviour or trust-boundary changes."
   }
 ]
