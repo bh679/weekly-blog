@@ -1351,5 +1351,24 @@
       "fix: strip 'vs' staging-tag prefix in repo-versions"
     ],
     "framing": "Second of two coordinated fixes that promote vs* staging tags from second-class citizens to first-class deploy targets. PR #66 unblocked the validation; this PR unblocks the dashboard's truth-telling. Standalone the diff is tiny — change /^v/ to /^vs?/ — but in context it means the /deploy admin view can finally tell you whether staging is up to date without lying about every cell. The followthrough also exposed a broader infra story worth telling: each tier's carkedit-deploy server has to be redeployed for the new logic to take effect (it computes its own row's truth), which is why the dashboard's Live/Staging rows stayed red after merge until the staging carkedit-deploy was promoted to vs0.16.0001. A good chance to talk about why cross-tier dashboards have non-obvious propagation rules — the data flowing into a cell is owned by the tier the cell describes, not by whoever's viewing the page."
+  },
+  {
+    "queued_at": "2026-05-22T00:06:46.277Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "Combined Discord deploy notifications",
+      "slug": "combined-deploy-notifications",
+      "description": "When a CarkedIt release tags both carkedit-api and carkedit-online (a typical prod release), the Discord channel now receives ONE consolidated 'CarkedIt is live' embed with a row per target — instead of two separate 'CarkedIt v0.02.0006 is live' / 'CarkedIt v1.06.0187 is live' messages. The first deploy in a 15-min window POSTs the embed via the webhook ?wait=true endpoint to capture Discord's message id, and any subsequent deploys in the window PATCH that same message via the webhook /messages/{id} edit API with a combined embed listing every target seen so far.",
+      "pr_url": "https://github.com/bh679/carkedit-deploy/pull/71",
+      "pr_number": 71,
+      "merged_at": "2026-05-22T00:02:23Z",
+      "wiki_url": "https://github.com/bh679/carkedit-online/wiki/Deployment-Discord-Webhooks#combined-deploy-notifications"
+    },
+    "screenshots": [],
+    "commits": [
+      "feat: combine successive deploy notifications into one edited Discord message (#71)",
+      "version: bump MM to 0.17.0000 after merging #71 (combined deploy notifications)"
+    ],
+    "framing": "A 'this should already work this way' UX paper-cut. Every prod release tags carkedit-api and carkedit-online near-simultaneously, and our Discord #carkedit-online channel had been getting two separate 'is live' embeds — one when the API server finished its 10-minute npm-ci/build, another when the client deploy finished a minute later. From the user's perspective it's one release but the channel told two stories. Now it's one edited message that grows in place as each target completes. The implementation choice was deliberate: a pure debounce (delay every embed by N minutes) would have made the slow-API/fast-client gap impossible to bridge without delaying every notification by ~15 minutes. Instead, post immediately for instant feedback, then use Discord's webhook PATCH /messages/{id} API to grow the same message as the rest of the release lands — best of both worlds, no notification delay, and single-target releases still render the original embed because the renderer detects the count. Architecture validation came from the wiki Hosts table: production carkedit-deploy is ONE pm2 process serving both api.carkedit.com and play.carkedit.com vhosts, so in-memory state is sufficient — no cross-process coordination needed. Per-tier ReleaseSession instances handle dev/staging/prod consistently. Self-deploys (target='deploy') deliberately bypass the session so admin events don't roll into a public release message. 19 new unit tests + 3 mock-Discord-server smoketests verified the POST→PATCH protocol locally before merge."
   }
 ]
