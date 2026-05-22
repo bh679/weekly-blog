@@ -1389,5 +1389,32 @@
       "version: bump MM to 0.18.0000 after merging #72 (deploy queue)"
     ],
     "framing": "The Promote-Build panel's whole point is one-click promotion across three repos; the old 409 rejection meant 'one click, then chase two failed GitHub Actions runs with manual rerun.' This queue makes the Promote button do what it says it does. Architecturally interesting bits worth pulling out: persisted queue file (~/server/deploy-queue.json) that survives the self-deploy SIGTERM (the deploy of carkedit-deploy reloads itself via pm2, killing the running process); dedup on (target, ref) so bursty re-tagging is harmless; 16-slot cap and 15-min stale-job safety net that I haven't seen fire yet. This is PR 1 of 2 — server-side queue is in; PR 2 will convert the 9 GitHub workflows from fire-and-fail to fire-and-poll so the Actions UI shows real outcomes instead of 'request accepted'. The thing I most want readers to feel: it's worth investing in the post-merge feedback loop when the same paper cut bites twice. After the second incident I stopped working around it and shipped a real fix."
+  },
+  {
+    "queued_at": "2026-05-22T01:05:01.547Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "Shared game-filter UI + drop single-substate chevron",
+      "slug": "shared-game-filters",
+      "description": "Extracted the stats-dashboard filter UI (date/errors/dev/status row + status-group chips with expand + Length + Players rows) into js/components/game-filters.js as a single source of truth. Both stats.html and stats-games.html (See All page) now import and render the same module. Suppressed the > expand chevron on status chips with only one effective sub-status (Lobby, Other). The See All page gained the full four-row filter set it previously lacked.",
+      "pr_url": "https://github.com/bh679/carkedit-online/pull/245",
+      "pr_number": 245,
+      "merged_at": "2026-05-22T01:00:36Z",
+      "wiki_url": null
+    },
+    "screenshots": [
+      {
+        "path": "test-results/gate2-shared-game-filters-dashboard-2026-05.png",
+        "description": "Dashboard (stats.html) GAMES panel with the four filter rows. Lobby (506) and Other (0) chips have no > expand button. Die (11) is expanded showing its die / die_phase sub-status chips."
+      },
+      {
+        "path": "test-results/gate2-shared-game-filters-see-all-2026-05.png",
+        "description": "See All page (stats-games.html?dev=nodev) now renders the same four filter rows as the dashboard - previously had only the top row. Same chevron suppression on Lobby and Other."
+      }
+    ],
+    "commits": [
+      "feat: share game-filter UI between dashboard + See All, drop single-substate chevron (#245)"
+    ],
+    "framing": "Two paper-cuts at once. The stats dashboard had grown a rich filter UI (date/errors/dev/status buttons + status-group chips that expand to raw sub-statuses + Length and Players chip rows) but the dedicated See All page only had the top row — meaning if you clicked through to view the full list, you lost most of the filtering power you had on the dashboard. And one cosmetic bug: the expand chevron > on the Lobby and Other status chips revealed exactly one sub-status chip that just duplicated the parent toggle (Lobby only has lobby, Other only has abandoned), so the chevron was visual noise that suggested behaviour that did not exist. Fix: extract the render functions and constants into js/components/game-filters.js as the single source of truth. Both pages import the same module, pass their own state bag, and a namespace string so the onclick handlers route to window.dash.* or window.statsGames.* respectively. The chevron now only renders when STATUS_GROUP_MEMBERS[group].filter(m => m !== ).length > 1. Net: dashboard.js shrinks 155 lines, stats-games.js gains parity (and proper URL round-trip for the new hideGroups / hideRaw / hideDurationBuckets / hidePlayerCounts CSV params), and editing a filter button now updates both pages. No API change — the filter-counts endpoint and hide* query params already existed in carkedit-api commit 5365151."
   }
 ]
