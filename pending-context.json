@@ -1440,5 +1440,33 @@
       "feat: expandable player cards on dashboard Users panel (carkedit-online PR #248)"
     ],
     "framing": "Operators needed an easy drill-down from the player aggregation in the Users panel to the actual games each player was in, so junk sessions from known test accounts could be marked is_dev without scrolling the main Games panel hunting for them. The original idea was a bulk 'flag this player as test' button that would mark all their games \u2014 but the Users panel aggregates by lowercased display name and two real people can share a name (the existing \u26a0 IPs/accts chips already warn about this). Bulk flagging would have silently dev-marked real games belonging to someone who happened to share a name with a test account. So instead the feature surfaces the games inline and lets the operator make the call per game \u2014 same is_dev field, same PATCH endpoint, same confirm dialog, just reachable from one click in the right context. Zero schema changes, zero infrastructure changes, just a new optional query param on /api/carkedit/games and a UI that mirrors the existing expandable game-card pattern."
+  },
+  {
+    "queued_at": "2026-05-22T01:25:00Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "Stats summary panel on the All Games page",
+      "slug": "stats-games-summary",
+      "description": "The All Games stats page (stats-games.html) gained a header panel with 11 KPI tiles (Started, Finished, Completion %, Live Now, Abandoned, Total Players, Avg Players, Avg Duration, Longest, Errors, Issues) plus a per-state row showing avg/median time spent in each game phase (Lobby/Die/Live/Bye/Eulogy/Finished). The Longest tile is also a sort control \u2014 click it to cycle the list between longest-first, shortest-first, and recency order. All numbers respect the active filters, and sort/metric persist in the URL.",
+      "pr_url": "https://github.com/bh679/carkedit-online/pull/246",
+      "pr_number": 246,
+      "merged_at": "2026-05-22T01:21:26Z",
+      "wiki_url": "https://github.com/bh679/carkedit-online/wiki/Stats-Page-Games-Summary-Panel"
+    },
+    "related_prs": [
+      {
+        "repo": "carkedit-api",
+        "pr_url": "https://github.com/bh679/carkedit-api/pull/121",
+        "pr_number": 121,
+        "version": "0.02.0007",
+        "summary": "Filter-aware /games/stats, new /games/stats/by-state for per-phase durations, orderBy/orderDir on /games."
+      }
+    ],
+    "screenshots": [],
+    "commits": [
+      "feat: filter-aware /games/stats + new /stats/by-state + duration sort (#121)",
+      "feat: stats summary panel + per-state breakdown + sort cycle on stats-games (#246)"
+    ],
+    "framing": "The All Games page was a paginated list and nothing else \u2014 you couldn't tell at a glance whether 800 games had played this week or 80, and you couldn't see how completion rate was tracking against starts. The new panel makes the dataset legible: filter to 'This Week + No Dev' and the eleven tiles reframe instantly to show the funnel (Started \u2192 Finished \u2192 Completion %), the live activity (Live Now, Abandoned), the engagement signal (Avg Duration, Total/Avg Players), and the quality flags (Errors, Issues) for that exact slice. The 'longest game' tile pulls double duty as a sort control \u2014 one click and the list reorders by duration descending across the whole filtered dataset (server-side via new orderBy=duration params), not just the loaded pages. The piece I'm proudest of is the per-state row: every game already emits phase_changed events to game_events, so the API now walks those events to compute avg/median time spent in each of the 6 base phases (lobby/die/living/bye/eulogy/finished) with no schema changes. The walker is a pure function (walkPhaseDurations) extracted from the DB query so it's unit-tested independently \u2014 29 new tests cover the transition walking, finished_at finalisation for the last phase, sub-phase rollup, and edge cases like live games with no end timestamp. Stats reflect the active list filters via a shared buildGameFilterParams() that all four endpoints (games, filter-counts, stats, stats/by-state) consume \u2014 change the date range and all four queries refilter consistently. No new CSS \u2014 reused the existing .dashboard__stats / .dashboard__stat-breakdown classes."
   }
 ]
