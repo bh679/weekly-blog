@@ -1629,5 +1629,32 @@
       "fix: banner Switch-to-main resets api + client + deploy, not just client"
     ],
     "framing": "The real story is the rediscovery arc, not the code. Three sessions ago I shipped PR #241 to fix the same broken banner — by teaching branch-info.php to handle detached HEAD from carkedit-deploy's git-reset-hard pattern and the new branch-state.json schema. That fix worked. The bug came back anyway, because between then and now PHP execution itself was disabled on dev and prod (only staging still runs it). The banner's fetch(\"branch-info.php\").json() returned the raw .php source, silently threw, and the banner never rendered. So the actual fix this round was to stop depending on PHP at all — the carkedit-deploy service has been quietly exposing /api/admin/deploy/versions for weeks with everything the banner needs (envTier, deployed ref.kind/value/sha, version). That's also where the second arc kicked in. The naive fix made the banner's \"Switch to main\" do a single client-only deploy. The user clicked it, watched only the client come back to main, and surfaced a screenshot showing the api row still pinned to dev/discord-notifications with a red ✗. Rather than reinvent the chain logic in deploy.html, I noticed carkedit-deploy's fragment already has a Reset-to-main button that walks api → client → deploy via sessionStorage[\"cd-reset-chain\"], persists across the page reloads each deploy triggers, and picks the right ref per env tier (branch=main on dev, latest staging tag on staging, latest release tag on prod). So the host page now just seeds that sessionStorage key when it arrives at deploy.html?reset=main&auto=1 and lets the existing fragment do its thing. Two-line behavioural change, zero new sequencing code. Broader lesson: when a fix relies on a server-side dependency (PHP, in this case), assume the dependency can disappear under you, and prefer wiring through the service you're already running — even if the path is longer."
+  },
+  {
+    "queued_at": "2026-05-23T05:59:00Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "Truncate Long Survey Response Fields",
+      "slug": "truncate-survey-responses",
+      "description": "Survey response comment / improvement text now clamps to 5 lines with a trailing ellipsis on the dashboard preview (/stats.html) and the All Survey Responses page (/stats-surveys.html). Clicking a truncated field toggles between collapsed and expanded views. Short fields stay as plain non-clickable text so the pointer cursor and toggle affordance only appear where useful.",
+      "pr_url": "https://github.com/bh679/carkedit-online/pull/256",
+      "pr_number": 256,
+      "merged_at": "2026-05-23T05:58:44Z",
+      "wiki_url": null
+    },
+    "screenshots": [
+      {
+        "path": "test-results/gate2-truncate-survey-responses-collapsed-2026-05.png",
+        "description": "Three sample responses in collapsed state — a 4500-char XXX comment clamped to 5 lines with a trailing ellipsis, plus a short Comment+Improve pair and a one-line 'Loved it!' both rendered as plain non-clickable text."
+      },
+      {
+        "path": "test-results/gate2-truncate-survey-responses-expanded-2026-05.png",
+        "description": "Same long comment after clicking — clamp removed, full content flows down the page (~77k px tall). A second click restores the 5-line clamp."
+      }
+    ],
+    "commits": [
+      "feat: truncate long survey response fields to 5 lines, click to expand"
+    ],
+    "framing": "One outlier survey response with a 4500-character body was completely dominating the admin dashboard — pushing the other four visible responses, the 'Load more' button, and the next dashboard section off the screen. Fixing this is a tiny CSS / render-helper change but it unblocks actually scanning survey feedback at a glance. Worth a note on the deliberate choice to use a 280-char / 5-newline length heuristic instead of a runtime layout check: -webkit-box + line-clamp reports unclamped scrollHeight, so the obvious 'measure if it overflows' approach silently fails. A deterministic text-length heuristic is both simpler and reliable."
   }
 ]
