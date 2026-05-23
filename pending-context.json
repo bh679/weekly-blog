@@ -1706,5 +1706,27 @@
       "version: bump MM to 0.20.0000 after merging #75 (npm-ci lockfile-hash skip)"
     ],
     "framing": "Deploys were dominated by a single slow step — npm ci — that wiped and re-fetched a 344MB node_modules tree on every push, even when no dependency had actually changed. This is the kind of friction that compounds: every Gate 3 merge, every promote-build burst, every emergency hotfix paid the same 1-3 minute toll. The fix mirrors the existing SHA-unchanged short-circuit pattern, scoped one level finer (lockfile content vs. commit SHA), so the data path and skipped-step semantics felt familiar to anyone who already knew the deploy service. Future deploys for backend code-only changes will start to feel snappy."
+  },
+  {
+    "queued_at": "2026-05-23T12:48:00Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "Fix Google Sign-in on Staging (COOP popup bug)",
+      "slug": "fix-coop-popup-auth",
+      "description": "Google sign-in was failing on staging.play.carkedit.com with auth/popup-closed-by-user even when the user authenticated successfully — the classic Firebase + COOP failure mode. Switched helmet's Cross-Origin-Opener-Policy from same-origin (default) to same-origin-allow-popups (Firebase's officially-recommended value) so popups retain their window.opener reference and Firebase's postMessage handshake completes.",
+      "pr_url": "https://github.com/bh679/carkedit-api/pull/125",
+      "pr_number": 125,
+      "merged_at": "2026-05-23T03:47:36Z"
+    },
+    "screenshots": [
+      {
+        "path": "test-results/gate2-fix-coop-popup-auth-signin-modal-2026-05.png",
+        "description": "Sign-in modal rendered with the Google button. Footer shows Server: v0.02.0009 confirming the new build is live on the local test server."
+      }
+    ],
+    "commits": [
+      "fix: COOP allow-popups so Firebase signInWithPopup works"
+    ],
+    "framing": "Classic invisible-infra bug: helmet's safe default (Cross-Origin-Opener-Policy: same-origin) silently severed window.opener cross-origin, breaking Firebase's OAuth popup handshake. Firebase then reported popup-closed-by-user even though auth had succeeded on Google's side — so every error log looked like a user problem rather than a server config problem. The fix is one line, but the diagnostic value is in naming the failure mode: if signInWithPopup ever reports popup-closed-by-user when the user clearly did not close the popup, check COOP first. Same-origin-allow-popups is what every site using OAuth popups should be using."
   }
 ]
