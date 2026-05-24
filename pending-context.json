@@ -1728,5 +1728,45 @@
       "fix: COOP allow-popups so Firebase signInWithPopup works"
     ],
     "framing": "Classic invisible-infra bug: helmet's safe default (Cross-Origin-Opener-Policy: same-origin) silently severed window.opener cross-origin, breaking Firebase's OAuth popup handshake. Firebase then reported popup-closed-by-user even though auth had succeeded on Google's side — so every error log looked like a user problem rather than a server config problem. The fix is one line, but the diagnostic value is in naming the failure mode: if signInWithPopup ever reports popup-closed-by-user when the user clearly did not close the popup, check COOP first. Same-origin-allow-popups is what every site using OAuth popups should be using."
+  },
+  {
+    "queued_at": "2026-05-24T12:10:00Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "Pitch Order Rotation Fix",
+      "slug": "fix-pitch-rotation",
+      "description": "Pitching in Phase 2 (Live) and Phase 3 (Bye) now begins with the player immediately clockwise from The Living Dead and wraps past the LD, instead of always starting at turnOrder[0] and never wrapping. Affects both the multiplayer server (carkedit-api) and the offline-scaffold client (carkedit-online).",
+      "pr_url": "https://github.com/bh679/carkedit-online/pull/258",
+      "pr_number": 258,
+      "merged_at": "2026-05-24T12:03:58Z",
+      "wiki_url": "https://github.com/bh679/carkedit-online/wiki/Pitch-Order",
+      "related_prs": [
+        {
+          "repo": "carkedit-api",
+          "url": "https://github.com/bh679/carkedit-api/pull/128",
+          "number": 128
+        }
+      ]
+    },
+    "screenshots": [
+      {
+        "path": "test-results/gate2-pitch-rotation-ld-p1-pitcher-p2-2026-05.png",
+        "description": "LD = p1, first pitcher = p2. The trivial case that always worked by accident because turnOrder[0] happened to be the correct next player."
+      },
+      {
+        "path": "test-results/gate2-pitch-rotation-ld-p2-pitcher-p3-2026-05.png",
+        "description": "LD = p2, first pitcher = p3. This is the bug-trigger case — before the fix, p1 would have pitched first (because the server returned the first non-LD in turnOrder, not the next player after the LD)."
+      },
+      {
+        "path": "test-results/gate2-pitch-rotation-final-state-2026-05.png",
+        "description": "Final game state after all four LD rotations completed cleanly — confirming the wrap case (LD = p4 → p1, p2, p3) works."
+      }
+    ],
+    "commits": [
+      "fix: rotate pitch order to start with player after Living Dead (carkedit-api #128)",
+      "fix: rotate pitch order to start with player after Living Dead (carkedit-online #258)",
+      "docs: add Pitch Order page (v1.06.0202 / carkedit-api v0.02.0011)"
+    ],
+    "framing": "Real-game playtesting bug. Carked It rotates which player is The Living Dead each round, and the others 'pitch' their cards in seat order. The intended rule — and how the physical game plays — is that pitching starts with the player immediately clockwise from the LD, so each round the conversation flows naturally around the table. The digital version was instead starting pitching at turnOrder[0] every time, and never wrapping. Round 1 (LD = p1) worked by accident; rounds 2-4 felt off because the wrong player was always called on first. The fix is small but lives in two repos because the same bug was independently present in the multiplayer server (Colyseus-authoritative state in carkedit-api) and the offline-scaffold client (local state in carkedit-online's phase23-manager). Server-side: getFirstNonLivingDead and getNextConvincer in LivingPhase.ts both now walk turnOrder modulo n starting at (ldIndex + 1). Client-side: a new getPitchOrder(players, livingDeadIndex) helper in js/utils/turn-order.js returns the deterministic rotated sequence, consumed by donePitching's termination check and phase2-3.js's pitcher-name lookup (which previously read from Object.keys(submittedCards) — i.e. submission insertion order, which only worked when LD was p1). The Bye phase shares the same code path so it inherits the fix for free. Two interesting threads from the build. (1) The verification approach: 7 Jest tests covering all 4 LD positions including the wrap case were the primary safety net, but the satisfying confirmation was driving a real 4-player game through Playwright MCP in scaffold mode at localhost:4505, programmatically clicking through Phase 1 die-flips, Phase 2 card selection, reveal, and pitching for all 4 LD rotations. The Playwright loop captured the on-screen 'X is pitching' label after each Done Pitching click and matched it against getPitchOrder(state.players, state.livingDeadIndex). Every observed sequence matched expected. (2) The gamerules.md doc never specified pitch order — it said 'Player 1 is the first to choose' and 'Play continues with the next player', leaving the LD-vs-seat distinction implicit. The fix included updating gamerules.md so the rule is now documented, and the new Pitch-Order wiki page exists so the next person searching 'pitch order' lands somewhere authoritative instead of having to read code. A small bug, but the kind whose existence proves a feature is being played at the table."
   }
 ]
