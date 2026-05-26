@@ -1866,5 +1866,28 @@
       "Merge remote-tracking branch 'origin/main' into dev/swap-submitted-card (x2 — main moved twice mid-flight)"
     ],
     "framing": "Three story beats. (1) The fix-the-dead-button arc. After playing a card in online mode, your remaining hand stays visible while everyone else submits — tapping a card opened the inspect overlay with a Play This Card button that the server silently rejected (`if (player.hasSubmitted) return;`). The user reported this as a confusing dead-end. Rather than disabling the overlay, the fix gave it a second mode: once you've submitted, the same overlay's CTA flips to 'Swap', and the hint above the hand changes from 'Select your best card to play' to 'Tap a card to swap it in.' One render path, two intents, driven by `state.onlineSubmittedCards.some(c => c.submittedBy === state.mySessionId)`. (2) The Colyseus schema bug we surfaced. The first cut of handleSwapCard moved the same Card Schema instance between ArraySchema containers (player.hand ↔ state.submittedCards) via splice + push. It worked for the swapper's own reveal, but during Gate 2 a Mutation Observer trace on the Living Dead's tab caught a regression — the player who submitted AFTER a swap had their `data-pitch-reveal` attribute missing on reveal, so their card never flipped. Root cause: re-attaching a schema instance to another ArraySchema is sometimes tracked by Colyseus as a 'move' rather than a fresh add, which suppresses the client's `onAdd` callback and leaves the per-card `faceUp` listener unattached. Fix: build fresh `Card` instances via a `cloneCard()` helper and `splice(idx, 1, freshInstance)` to replace in place — guarantees onAdd fires, keeps array indices stable. The original symptom and the actual cause were two cards apart; the Mutation Observer was the diagnostic that connected them. (3) Mid-flight merges. Main moved on us twice (PR #128 in api, PRs #257/#258/#259/#261 in client) during the gates. Resolutions kept the higher of two version numbers and let the pre-commit stamp hook re-write `requiredApiVersion`; the Node 18 vs 22 mismatch on the stamp script (it uses ESM imports) needed a one-off PATH=...node@22... incantation to push the final merge commit. Worth a note in the post for anyone shipping coordinated client+api features."
+  },
+  {
+    "queued_at": "2026-05-26T03:30:00Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "Dev-tier Auto-Poll for Non-Main Branches",
+      "slug": "dev-tier-auto-poll",
+      "description": "Background poller in carkedit-deploy that, on ENV_TIER=dev, watches branch-state.json for the currently-deployed api and client branch refs and self-deploys whenever the upstream HEAD sha drifts from the locally-deployed sha. Closes the gap where the GitHub Actions webhook fails to fire on feature-branch pushes (workflow file missing on that branch, runner outage, etc.).",
+      "pr_url": "https://github.com/bh679/carkedit-deploy/pull/76",
+      "pr_number": 76,
+      "merged_at": "2026-05-26T02:40:39Z",
+      "wiki_url": "https://github.com/bh679/carkedit-online/wiki/Deploy-Auto-Poll"
+    },
+    "screenshots": [
+      {
+        "path": "test-results/gate2-auto-poll-2026-05-23.log",
+        "description": "Pino-JSON log capture from a local integration boot: poller starts with intervalMs=10000 and targets=[api,client], skips main and null slots, attempts a real GitHub fetch on dev/dev-tier-auto-poll (401 from invalid token caught), and shuts down cleanly with 'poller: stopped' on SIGTERM."
+      }
+    ],
+    "commits": [
+      "feat: dev-tier branch poller — auto-deploy non-main branches (#76)"
+    ],
+    "framing": "The dev box should follow the branch a developer is actively testing. Previously the GitHub Action webhook was the only thing keeping the dev environment current, and any time it misfired (workflow file missing on the feature branch, runner outage, branch protection quirks) the dev box silently fell behind without an obvious tell. This poller is a quiet safety net — it only watches whatever branch the dev box has already been deployed from, never switches branches on its own, and dedups race-free with the webhook flow. Operators get a clear actor.kind === 'system' tag on poll-triggered deploys, so the next time something weird happens to the webhook the box catches up within ~30 seconds and the operator log shows exactly why."
   }
 ]
