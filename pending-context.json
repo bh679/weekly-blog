@@ -1822,5 +1822,49 @@
       "fix: preserve hand card preview when other players submit (#261)"
     ],
     "framing": "Two beats worth landing. 1) The bug is a classic 'shared state field, two callers' story. selectedCard does double duty in this codebase — during the submit phase it points at a card in your hand you're previewing; during the select phase it points at a submitted card the judge is inspecting. The fix sat inside syncLivingPhaseState, the Colyseus state-sync function that runs on EVERY server state change. It was unconditionally setting selectedCard: null whenever the phase wasn't select/winner — almost certainly written to clear stale judging-card selections at round boundaries, but with no awareness that the same field was carrying a totally different concept (hand-card preview) during the submit phase. submittedCards.onAdd and players.onChange both call this sync, so any remote submission or hasSubmitted toggle nuked your local preview. With 4-8 players in a round the preview could flicker shut multiple times before you finished reading the card. 2) The fix is what happens when you stop and ask 'when do I ACTUALLY want this null?' instead of patching the symptom. Two narrow guards replace the unconditional reset: phaseChanged (clear on real phase transitions — winner → submit, submit → select, etc.) and selectedHandCardGone (clear if the previewed card is no longer in your hand, which happens after self-submit). Both flags compute from data the function already has. The diff is 27 insertions / 11 deletions in one function, zero new state fields, zero new listeners, server unchanged. Verified against 3 browser tabs (Alice/Bob/Carol) with Playwright MCP — Bob submitting no longer steals Alice's preview, but self-submit and round transitions still clean up correctly. The takeaway: when a state-sync function is wiping local UI state on every network tick, that's almost never what you want — locality of intent matters."
+  },
+  {
+    "queued_at": "2026-05-26T11:00:00Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "Swap Your Submitted Card (Phase 2/3 Online)",
+      "slug": "swap-submitted-card",
+      "description": "In phase 2/3 online mode, after playing a card you can now tap any other hand card and hit Swap to replace your submission before reveal. The inspect overlay's CTA flips from 'Play This Card' to 'Swap' once you've already submitted, and the swap is atomic on the server — old card returns to hand, new card slots in, submit count unchanged.",
+      "pr_url": "https://github.com/bh679/carkedit-online/pull/260",
+      "pr_number": 260,
+      "merged_at": "2026-05-26T01:37:09Z",
+      "api_pr_url": "https://github.com/bh679/carkedit-api/pull/129",
+      "api_pr_number": 129,
+      "api_merged_at": "2026-05-26T01:34:28Z"
+    },
+    "screenshots": [
+      {
+        "path": "test-results/gate2-phase23-swap-1-play-this-card.png",
+        "description": "Inspect overlay before submitting — button reads 'Play This Card' (current behaviour, kept for first play)"
+      },
+      {
+        "path": "test-results/gate2-phase23-swap-2-swap-button.png",
+        "description": "After submitting and tapping another hand card — same overlay, but the CTA now reads 'Swap'"
+      },
+      {
+        "path": "test-results/flip-bug-1-charlie-pitch-start.png",
+        "description": "Bug snapshot: pitching player's card stuck face-down on observer's screen (before the schema-clone fix)"
+      },
+      {
+        "path": "test-results/flip-bug-2-after-reveal.png",
+        "description": "Same observer screen ~1s after the pitcher clicked Reveal — card still face-down (the regression we caught in Gate 2)"
+      },
+      {
+        "path": "test-results/flip-fix-verified.png",
+        "description": "Post-fix: observer sees the revealed card content render correctly during pitching"
+      }
+    ],
+    "commits": [
+      "feat: allow players to swap their submitted card during submit phase",
+      "feat(phase23-online): swap played card instead of dead 'Play This Card' button",
+      "fix: clone Card schema instances in handleSwapCard so reveal animation fires",
+      "Merge remote-tracking branch 'origin/main' into dev/swap-submitted-card (x2 — main moved twice mid-flight)"
+    ],
+    "framing": "Three story beats. (1) The fix-the-dead-button arc. After playing a card in online mode, your remaining hand stays visible while everyone else submits — tapping a card opened the inspect overlay with a Play This Card button that the server silently rejected (`if (player.hasSubmitted) return;`). The user reported this as a confusing dead-end. Rather than disabling the overlay, the fix gave it a second mode: once you've submitted, the same overlay's CTA flips to 'Swap', and the hint above the hand changes from 'Select your best card to play' to 'Tap a card to swap it in.' One render path, two intents, driven by `state.onlineSubmittedCards.some(c => c.submittedBy === state.mySessionId)`. (2) The Colyseus schema bug we surfaced. The first cut of handleSwapCard moved the same Card Schema instance between ArraySchema containers (player.hand ↔ state.submittedCards) via splice + push. It worked for the swapper's own reveal, but during Gate 2 a Mutation Observer trace on the Living Dead's tab caught a regression — the player who submitted AFTER a swap had their `data-pitch-reveal` attribute missing on reveal, so their card never flipped. Root cause: re-attaching a schema instance to another ArraySchema is sometimes tracked by Colyseus as a 'move' rather than a fresh add, which suppresses the client's `onAdd` callback and leaves the per-card `faceUp` listener unattached. Fix: build fresh `Card` instances via a `cloneCard()` helper and `splice(idx, 1, freshInstance)` to replace in place — guarantees onAdd fires, keeps array indices stable. The original symptom and the actual cause were two cards apart; the Mutation Observer was the diagnostic that connected them. (3) Mid-flight merges. Main moved on us twice (PR #128 in api, PRs #257/#258/#259/#261 in client) during the gates. Resolutions kept the higher of two version numbers and let the pre-commit stamp hook re-write `requiredApiVersion`; the Node 18 vs 22 mismatch on the stamp script (it uses ESM imports) needed a one-off PATH=...node@22... incantation to push the final merge commit. Worth a note in the post for anyone shipping coordinated client+api features."
   }
 ]
