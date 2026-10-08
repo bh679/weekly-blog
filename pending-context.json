@@ -1970,5 +1970,33 @@
       "feat: show Single Player on the main menu to admins only"
     ],
     "framing": "CarkedIt has only ever been playable with other people. Single Player lets one person experience all three decks in under a minute with zero setup — a taster for visitors and a quick way to browse the cards. It is admin-only on the menu while being trialled. Debugging footnote: Chromium flattens 3D transforms inside <button>, so the card flip kept showing the back until the wrapper became a div."
+  },
+  {
+    "queued_at": "2026-10-08T08:26:42Z",
+    "project": "CarkedIt",
+    "feature": {
+      "name": "Single Player share link",
+      "slug": "solo-share-link",
+      "description": "A shareable /?solo=1 link that starts a Single Player game for anyone, signed in or not, plus a Share Single Player button on the summary screen that copies the link (or shows it as text when the clipboard is blocked).",
+      "pr_url": "https://github.com/bh679/carkedit-online/pull/313",
+      "pr_number": 313,
+      "merged_at": "2026-10-08T08:25:50Z",
+      "wiki_url": "https://github.com/bh679/carkedit-online/wiki/Single-Player"
+    },
+    "screenshots": [
+      {
+        "path": "test-results/gate2-solo-share-link-2026-10-deeplink.jpg",
+        "description": "Opening /?solo=1 lands straight on DIE round 1"
+      },
+      {
+        "path": "test-results/gate2-solo-share-link-2026-10-share-button.jpg",
+        "description": "Your Story summary with the Share Single Player button"
+      }
+    ],
+    "commits": [
+      "feat: shareable ?solo=1 link starts Single Player for anyone",
+      "feat: show the solo share link as text when the clipboard is unavailable"
+    ],
+    "framing": "Single Player shipped the same morning but was admin-only on the menu. Brennan immediately wanted to hand people a link, so the follow-up makes the mode shareable without exposing it on the public menu yet. Same-day follow-on to the Single Player post."
   }
 ]
