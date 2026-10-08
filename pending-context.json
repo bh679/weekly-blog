@@ -1937,5 +1937,38 @@
       "api_pr_number": 151,
       "api_merged_at": "2026-08-05T13:21:26Z"
     }
+  },
+  {
+    "queued_at": "2026-10-08T04:00:59Z",
+    "project": "CarkedIt",
+    "feature": {
+      "name": "Single Player mode",
+      "slug": "single-player",
+      "description": "A solo mode: for each deck (DIE, LIVE, BYE) you pick your favourite of two cards, twice, then your two favourites face off. After nine picks a Your Story screen shows your death, life and afterlife. Client-only, no points, no server.",
+      "pr_url": "https://github.com/bh679/carkedit-online/pull/311",
+      "pr_number": 311,
+      "merged_at": "2026-10-08T03:57:23Z",
+      "wiki_url": "https://github.com/bh679/carkedit-online/wiki/Single-Player"
+    },
+    "screenshots": [
+      {
+        "path": "carkedit-online.wiki/images/single-player-round-1-2026-10.jpg",
+        "description": "DIE round 1 of 3: two death cards side by side"
+      },
+      {
+        "path": "carkedit-online.wiki/images/single-player-final-2026-10.jpg",
+        "description": "DIE final: the two favourites face off"
+      },
+      {
+        "path": "carkedit-online.wiki/images/single-player-summary-2026-10.jpg",
+        "description": "Your Story summary with the three picks and Play Again / Menu"
+      }
+    ],
+    "commits": [
+      "feat: single player mode — pick your favourite of two cards, three rounds per deck",
+      "fix: solo card choices use a div wrapper so the 3D flip renders",
+      "feat: show Single Player on the main menu to admins only"
+    ],
+    "framing": "CarkedIt has only ever been playable with other people. Single Player lets one person experience all three decks in under a minute with zero setup — a taster for visitors and a quick way to browse the cards. It is admin-only on the menu while being trialled. Debugging footnote: Chromium flattens 3D transforms inside <button>, so the card flip kept showing the back until the wrapper became a div."
   }
 ]
