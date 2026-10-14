@@ -2109,5 +2109,32 @@
       "fix: illustrated card image fallback breaks on apostrophes (#318)"
     ],
     "framing": "A small fix, but it's a nice escaping lesson: HTML-escaping a value that ends up inside inline JavaScript does nothing, because the browser decodes &#39; back to ' before the JS runs. Instead of adding another escape layer, the fix moves the data out of the JS entirely (data-fallback + this.dataset.fallback), which removes the whole class of bug. The same bug also lived in a second, duplicated renderer that the game actually uses, and both now share one helper. Regression tests failed 4/4 on the old code before the fix went in."
+  },
+  {
+    "queued_at": "2026-10-14T08:42:14Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "Share Your Single Player Life Story",
+      "slug": "solo-share-story",
+      "description": "A Share button on the single-player Your Life Story screen draws your three cards and Claude's story into a 1080x1350 image you can send via the phone share sheet, download, or post to X, Facebook, WhatsApp or Reddit with a link back to /?solo=1.",
+      "pr_url": "https://github.com/bh679/carkedit-online/pull/319",
+      "pr_number": 319,
+      "merged_at": "2026-10-14T08:41:17Z",
+      "wiki_url": "https://github.com/bh679/carkedit-online/wiki/Single-Player"
+    },
+    "screenshots": [
+      {
+        "path": "test-results/gate2-solo-share-story-image-2026-10.jpg",
+        "description": "The generated share image: logo, How I carked it, three card tiles and the story"
+      },
+      {
+        "path": "test-results/gate2-solo-share-story-panel-2026-10.jpg",
+        "description": "Share panel on a phone: preview, Download image, social buttons"
+      }
+    ],
+    "commits": [
+      "feat: share your solo life story as an image or to socials (#319)"
+    ],
+    "framing": "Same-day follow-up to the life-story feature: turns every finished solo game into a shareable ad for single player. Beats: 1) Plain Canvas 2D instead of a DOM-screenshot library, because the cards use 3D flips that those libraries mangle and the client has no build step. 2) The layout maths is pure and unit-tested with a fake text-measure function, including shrink-to-fit and ellipsis truncation. 3) Web share intents can't carry images, so the panel pairs them with the native share sheet (files) and a download. 4) An iOS gotcha: navigator.share needs a fresh user gesture, so the image is built on the first tap and shared on the second. 5) Along the way we found the repo's main logo committed as a broken symlink."
   }
 ]
