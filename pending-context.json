@@ -2087,5 +2087,27 @@
       "feat: solo Done button writes a Claude life story (#317)"
     ],
     "framing": "First LLM feature in CarkedIt. Solo mode ended on a blank text box; now it ends on a payoff, a story built from your own choices. Beats: 1) No new dependency, just raw fetch to the Messages API. 2) A public endpoint means cost controls in code: 5 requests per 15 min per IP, input caps, max_tokens 600, 20s timeout, and a graceful 503 when no key is set. 3) Player text goes in delimited tags as data, so prompt injection can only produce a silly story. 4) Pure, immutable client state with request ids, so late replies never overwrite a retry. Next up: sharing the story as an image or to socials."
+  },
+  {
+    "queued_at": "2026-10-14T08:27:00Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "Card image fallback no longer breaks on apostrophes",
+      "slug": "card-onerror-apostrophe-fix",
+      "description": "When a card illustration failed to load, cards whose text contained an apostrophe (e.g. \"Don't hold back\") threw a JavaScript SyntaxError and showed a broken image instead of falling back to the text-only card. The fallback markup now lives in a data attribute and the onerror handler is a fixed string, so card text never enters JavaScript.",
+      "pr_url": "https://github.com/bh679/carkedit-online/pull/318",
+      "pr_number": 318,
+      "merged_at": "2026-10-14T08:22:37Z"
+    },
+    "screenshots": [
+      {
+        "path": "test-results/gate2-card-onerror-apostrophe-2026-10.png",
+        "description": "Cards with apostrophes and a backslash (\"Don't hold back\", \"Grandma's \\ secret recipe\", \"Died of Murphy's law\") falling back to text-only after their images 404"
+      }
+    ],
+    "commits": [
+      "fix: illustrated card image fallback breaks on apostrophes (#318)"
+    ],
+    "framing": "A small fix, but it's a nice escaping lesson: HTML-escaping a value that ends up inside inline JavaScript does nothing, because the browser decodes &#39; back to ' before the JS runs. Instead of adding another escape layer, the fix moves the data out of the JS entirely (data-fallback + this.dataset.fallback), which removes the whole class of bug. The same bug also lived in a second, duplicated renderer that the game actually uses, and both now share one helper. Regression tests failed 4/4 on the old code before the fix went in."
   }
 ]
