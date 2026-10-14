@@ -2063,5 +2063,29 @@
       "version: 1.16.0000"
     ],
     "framing": "The DIE deck is about 40% special cards (12 Would You Rather and 7 ? out of 48), so a pure shuffle put two or more of the same special in 35% of opening hands, which made hands feel clumped and repetitive. A light per-hand cap keeps the variety without losing randomness: 0 over-cap hands in 12,000 simulated deals."
+  },
+  {
+    "queued_at": "2026-10-14T08:22:51Z",
+    "project": "CarkedIt Online",
+    "feature": {
+      "name": "Single Player Life Story (Done → Claude Sonnet)",
+      "slug": "solo-life-story",
+      "description": "The single-player eulogy screen's Copy eulogy button became Done, which sends the player's life/death/afterlife picks and their eulogy to a new API endpoint where Claude Sonnet writes a short, cheeky second-person story of their life.",
+      "pr_url": "https://github.com/bh679/carkedit-online/pull/317",
+      "pr_number": 317,
+      "merged_at": "2026-10-14T08:09:13Z",
+      "wiki_url": "https://github.com/bh679/carkedit-online/wiki/Single-Player"
+    },
+    "screenshots": [
+      {
+        "path": "test-results/gate2-solo-life-story-2026-10.jpg",
+        "description": "Your Life Story screen: three picks on top, a three-paragraph story, Copy story / Play Again / Menu / Share"
+      }
+    ],
+    "commits": [
+      "feat: add solo life-story endpoint backed by Claude Sonnet (bh679/carkedit-api#154)",
+      "feat: solo Done button writes a Claude life story (#317)"
+    ],
+    "framing": "First LLM feature in CarkedIt. Solo mode ended on a blank text box; now it ends on a payoff, a story built from your own choices. Beats: 1) No new dependency, just raw fetch to the Messages API. 2) A public endpoint means cost controls in code: 5 requests per 15 min per IP, input caps, max_tokens 600, 20s timeout, and a graceful 503 when no key is set. 3) Player text goes in delimited tags as data, so prompt injection can only produce a silly story. 4) Pure, immutable client state with request ids, so late replies never overwrite a retry. Next up: sharing the story as an image or to socials."
   }
 ]
